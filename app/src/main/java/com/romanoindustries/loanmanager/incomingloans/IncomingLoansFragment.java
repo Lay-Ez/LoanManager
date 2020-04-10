@@ -12,11 +12,7 @@ import com.romanoindustries.loanmanager.R;
 
 public class IncomingLoansFragment extends Fragment {
 
-
-    public IncomingLoansFragment() {
-        // Required empty public constructor
-    }
-
+    public IncomingLoansFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
