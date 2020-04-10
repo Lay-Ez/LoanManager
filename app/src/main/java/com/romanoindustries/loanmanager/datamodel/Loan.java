@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,10 +30,10 @@ public class Loan {
     private String specialNote;
 
     @ColumnInfo (name = "start_amount")
-    private BigDecimal startAmount;
+    private int startAmount;
 
     @ColumnInfo (name = "current_amount")
-    private BigDecimal currentAmount;
+    private int currentAmount;
 
     @ColumnInfo (name = "phone_number")
     private int phoneNumber;
@@ -75,19 +74,19 @@ public class Loan {
         this.specialNote = specialNote;
     }
 
-    public BigDecimal getStartAmount() {
+    public int getStartAmount() {
         return startAmount;
     }
 
-    public void setStartAmount(BigDecimal startAmount) {
+    public void setStartAmount(int startAmount) {
         this.startAmount = startAmount;
     }
 
-    public BigDecimal getCurrentAmount() {
+    public int getCurrentAmount() {
         return currentAmount;
     }
 
-    public void setCurrentAmount(BigDecimal currentAmount) {
+    public void setCurrentAmount(int currentAmount) {
         this.currentAmount = currentAmount;
     }
 
@@ -153,5 +152,13 @@ public class Loan {
 
     public void setChargeEvents(List<InterestChargeEvent> chargeEvents) {
         this.chargeEvents = chargeEvents;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
