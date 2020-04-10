@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_loans_in"
+            android:title="@string/nav_loans_in"
+            android:icon="@drawable/ic_loan_in"/>
+
+    <item android:id="@+id/nav_loans_out"
+            android:title="@string/nav_loans_out"
+            android:icon="@drawable/ic_loan_out"/>
+
+    <item android:id="@+id/nav_loans_history"
+            android:title="@string/nav_loans_history"
+            android:icon="@drawable/ic_loan_history"/>
+
+</menu>

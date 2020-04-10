@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LoanManager</string>
+
+    <!-- main activity -->
+    <string name="nav_loans_in">In</string>
+    <string name="nav_loans_out">Out</string>
+    <string name="nav_loans_history">History</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
