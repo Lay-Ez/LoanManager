@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romanoindustries.loanmanager.R;
@@ -20,6 +21,7 @@ import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class IncomingLoansFragment extends Fragment {
     private static final String TAG = "IncomingLoansFragment";
@@ -42,7 +44,12 @@ public class IncomingLoansFragment extends Fragment {
         loansViewModel.getInLoans().observe(this, new Observer<List<Loan>>() {
             @Override
             public void onChanged(List<Loan> loans) {
+                loans.forEach(new Consumer<Loan>() {
+                    @Override
+                    public void accept(Loan loan) {
 
+                    }
+                });
             }
         });
 
@@ -52,7 +59,9 @@ public class IncomingLoansFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        fab = view.findViewById(R.id.add_in_loan_fab);
+        RecyclerView recyclerView = view.findViewById(R.id.in_loans_recycler_view);
+
+        fab = view.findViewById(R.id.in_loans_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,13 +73,13 @@ public class IncomingLoansFragment extends Fragment {
                 testLoan.setPhoneNumber("88005553535");
 
                 Calendar calendar = Calendar.getInstance();
-                testLoan.setStartDate(calendar);
+                testLoan.setStartDateInMs(calendar.getTimeInMillis());
 
                 calendar.add(Calendar.DAY_OF_YEAR, 10);
-                testLoan.setPaymentDate(calendar);
+                testLoan.setPaymentDateInMs(calendar.getTimeInMillis());
 
                 calendar.add(Calendar.WEEK_OF_YEAR, 10);
-                testLoan.setNextChargingDate(calendar);
+                testLoan.setNextChargingDateInMs(calendar.getTimeInMillis());
                 testLoan.setPeriodInDays(10);
                 testLoan.setInterestRate(1.5);
                 testLoan.setType(Loan.TYPE_IN);

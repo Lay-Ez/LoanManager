@@ -22,10 +22,10 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 app:titleEnabled="false"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/in_loans_toolbar">
 
             <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/in_loans_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"

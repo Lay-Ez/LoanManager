@@ -5,6 +5,7 @@
         android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/in_loans_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -22,10 +23,10 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 app:titleEnabled="false"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/in_loans_toolbar">
 
             <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/in_loans_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
@@ -34,7 +35,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_in_loan_fab"
+            android:id="@+id/in_loans_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

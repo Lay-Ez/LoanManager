@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Calendar;
 import java.util.List;
 
 @Entity (tableName = "loan_table")
@@ -39,13 +38,13 @@ public class Loan {
     private String phoneNumber;
 
     @ColumnInfo (name = "start_date")
-    private Calendar startDate;
+    private long startDateInMs;
 
     @ColumnInfo (name = "payment_date")
-    private Calendar paymentDate;
+    private long paymentDateInMs;
 
     @ColumnInfo (name = "next_charging_date")
-    private Calendar nextChargingDate;
+    private long nextChargingDateInMs;
 
     @ColumnInfo (name = "period_in_days")
     private int periodInDays;
@@ -98,28 +97,28 @@ public class Loan {
         this.phoneNumber = phoneNumber;
     }
 
-    public Calendar getStartDate() {
-        return startDate;
+    public long getStartDateInMs() {
+        return startDateInMs;
     }
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
+    public void setStartDateInMs(long startDateInMs) {
+        this.startDateInMs = startDateInMs;
     }
 
-    public Calendar getPaymentDate() {
-        return paymentDate;
+    public long getPaymentDateInMs() {
+        return paymentDateInMs;
     }
 
-    public void setPaymentDate(Calendar paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentDateInMs(long paymentDateInMs) {
+        this.paymentDateInMs = paymentDateInMs;
     }
 
-    public Calendar getNextChargingDate() {
-        return nextChargingDate;
+    public long getNextChargingDateInMs() {
+        return nextChargingDateInMs;
     }
 
-    public void setNextChargingDate(Calendar nextChargingDate) {
-        this.nextChargingDate = nextChargingDate;
+    public void setNextChargingDateInMs(long nextChargingDateInMs) {
+        this.nextChargingDateInMs = nextChargingDateInMs;
     }
 
     public int getPeriodInDays() {
