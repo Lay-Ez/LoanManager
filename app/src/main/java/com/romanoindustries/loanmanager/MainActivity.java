@@ -8,20 +8,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.romanoindustries.loanmanager.incomingloans.IncomingLoansFragment;
+import com.romanoindustries.loanmanager.fragments.ArchivedLoansFragment;
+import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
+import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private IncomingLoansFragment incomingLoansFragment;
+    private OutgoingLoansFragment outgoingLoansFragment;
+    private ArchivedLoansFragment archivedLoansFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        incomingLoansFragment = new IncomingLoansFragment();
+        outgoingLoansFragment = new OutgoingLoansFragment();
+        archivedLoansFragment = new ArchivedLoansFragment();
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new IncomingLoansFragment()).commit();
+                .replace(R.id.fragment_container, incomingLoansFragment).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -33,22 +42,21 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
 
                         case R.id.nav_loans_in:
-                            selectedFragment = new IncomingLoansFragment();
+                            selectedFragment = incomingLoansFragment;
                             break;
 
                         case R.id.nav_loans_out:
-                            //
+                            selectedFragment = outgoingLoansFragment;
                             break;
 
                         case R.id.nav_loans_history:
-                            //
+                            selectedFragment = archivedLoansFragment;
                             break;
 
 
                     }
-
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new IncomingLoansFragment()).commit();
+                            .replace(R.id.fragment_container, selectedFragment).commit();
 
                     return true;
                 }

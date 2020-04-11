@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.incomingloans;
+package com.romanoindustries.loanmanager.fragments;
 
 
 import android.os.Bundle;
@@ -10,14 +10,16 @@ import androidx.fragment.app.Fragment;
 
 import com.romanoindustries.loanmanager.R;
 
-public class IncomingLoansFragment extends Fragment {
+public class ArchivedLoansFragment extends Fragment {
 
-    public IncomingLoansFragment() {}
+
+    public ArchivedLoansFragment() {}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_incoming_loans, container, false);
+        return inflater.inflate(R.layout.fragment_archived_loans, container, false);
     }
 
 }
