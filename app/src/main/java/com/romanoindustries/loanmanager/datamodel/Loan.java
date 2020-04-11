@@ -36,7 +36,7 @@ public class Loan {
     private int currentAmount;
 
     @ColumnInfo (name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @ColumnInfo (name = "start_date")
     private Calendar startDate;
@@ -90,11 +90,11 @@ public class Loan {
         this.currentAmount = currentAmount;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
