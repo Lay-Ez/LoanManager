@@ -6,6 +6,11 @@
     <string name="nav_loans_out">Out</string>
     <string name="nav_loans_history">History</string>
 
+    <!-- new loan activity -->
+    <string name="new_loan_toolbar_title">Add New Loan</string>
+    <string name="new_loan_name_hint">Name</string>
+    <string name="new_loan_phone_number_hint">Phone</string>
+
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
 
