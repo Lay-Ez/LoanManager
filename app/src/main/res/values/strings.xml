@@ -10,6 +10,9 @@
     <string name="new_loan_toolbar_title">Add New Loan</string>
     <string name="new_loan_name_hint">Name</string>
     <string name="new_loan_phone_number_hint">Phone</string>
+    <string name="new_loan_amount_hint">Amount</string>
+    <string name="new_loan_date_btn_label">Choose End Date</string>
+    <string name="new_loan_enable_interest_label">Apply Interest Rate</string>
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
