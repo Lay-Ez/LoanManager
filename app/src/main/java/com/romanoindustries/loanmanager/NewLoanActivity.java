@@ -15,16 +15,20 @@ import android.widget.DatePicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.romanoindustries.loanmanager.fragments.DatePickerFragment;
+import com.romanoindustries.loanmanager.fragments.InterestFragment;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private static final String TAG = "NewLoanActivity";
+
+    private InterestFragment interestFragment = new InterestFragment();
 
     private TextInputLayout inputLayoutName;
     private TextInputLayout inputLayoutPhone;
@@ -71,7 +75,14 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         enableInterestCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                if (isChecked) {
+                    fragmentTransaction.add(R.id.new_loan_fragment_container, interestFragment);
+                    fragmentTransaction.commit();
+                } else {
+                    fragmentTransaction.remove(interestFragment);
+                    fragmentTransaction.commit();
+                }
             }
         });
     }
