@@ -18,7 +18,15 @@
     <string name="new_loan_percentage">Percentage</string>
     <string name="new_loan_percentage_format_error">Correct format: __.__</string>
     <string name="new_loan_percentage_suffix">%</string>
-    <string name="new_loan_period_label">Period</string>
+    <string name="new_loan_period_label">Period: </string>
+    <string-array name="periods">
+        <item>1 Day</item>
+        <item>3 Days</item>
+        <item>1 Week</item>
+        <item>2 Weeks</item>
+        <item>1 Month</item>
+        <item>1 Year</item>
+    </string-array>
 
 
     <!-- in fragment -->

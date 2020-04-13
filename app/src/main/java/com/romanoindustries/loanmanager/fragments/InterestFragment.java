@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +24,7 @@ public class InterestFragment extends Fragment {
 
     private TextInputLayout percentageInputLayout;
     private TextInputEditText percentageEditText;
+    private Spinner periodSpinner;
 
 
     public InterestFragment() {}
@@ -40,6 +43,13 @@ public class InterestFragment extends Fragment {
         percentageInputLayout = view.findViewById(R.id.interest_percentage_input_layout);
         percentageEditText = view.findViewById(R.id.interest_percentage_edit_text);
         percentageEditText.addTextChangedListener(new PercentTextWatcher());
+        periodSpinner = view.findViewById(R.id.interest_period_spinner);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.periods,
+                android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        periodSpinner.setAdapter(spinnerAdapter);
     }
 
     class PercentTextWatcher implements android.text.TextWatcher {

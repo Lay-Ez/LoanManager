@@ -6,10 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
@@ -38,8 +36,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private CheckBox enableInterestCb;
     private CheckBox noEndDateCb;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,46 +50,32 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         editTextName = findViewById(R.id.edit_text_name);
         editTextPhone = findViewById(R.id.edit_text_phone);
 
-        inputLayoutName.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-                startActivityForResult(intent, RESULT_FIRST_USER);
-            }
+        inputLayoutName.setEndIconOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         });
 
         endDateBtn = findViewById(R.id.end_date_btn);
-        endDateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date_picker");
-            }
+        endDateBtn.setOnClickListener(v -> {
+            DialogFragment datePicker = new DatePickerFragment();
+            datePicker.show(getSupportFragmentManager(), "date_picker");
         });
 
         enableInterestCb = findViewById(R.id.enable_interest_cb);
-        enableInterestCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if (isChecked) {
-                    fragmentTransaction.add(R.id.new_loan_fragment_container, interestFragment);
-                    fragmentTransaction.commit();
-                } else {
-                    fragmentTransaction.remove(interestFragment);
-                    fragmentTransaction.commit();
-                }
+        enableInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if (isChecked) {
+                fragmentTransaction.add(R.id.new_loan_fragment_container, interestFragment);
+                fragmentTransaction.commit();
+            } else {
+                fragmentTransaction.remove(interestFragment);
+                fragmentTransaction.commit();
             }
         });
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
-        noEndDateCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                endDateBtn.setEnabled(!isChecked);
-            }
-        });
+        noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> endDateBtn.setEnabled(!isChecked));
     }
 
     @Override
