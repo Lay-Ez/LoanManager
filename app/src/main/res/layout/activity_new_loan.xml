@@ -99,21 +99,21 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/new_loan_date_btn_label"
                     app:icon="@drawable/ic_event"
                     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-                    app:layout_constraintTop_toBottomOf="@+id/text_input_amount" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <CheckBox
                     android:id="@+id/enable_interest_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/new_loan_enable_interest_label"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-                    app:layout_constraintTop_toBottomOf="@+id/end_date_btn" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
             <FrameLayout
                     android:id="@+id/new_loan_fragment_container"
@@ -125,6 +125,37 @@
                     app:layout_constraintTop_toBottomOf="@+id/enable_interest_cb">
 
             </FrameLayout>
+
+            <CheckBox
+                    android:id="@+id/no_end_date_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/new_loan_without_end_date_checkbox"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/end_date_btn"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                    app:layout_constraintTop_toTopOf="@+id/end_date_btn" />
+
+            <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_amount" />
+
+            <View
+                    android:id="@+id/divider2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/end_date_btn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

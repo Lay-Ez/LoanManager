@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         tools:context=".fragments.InterestFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -26,10 +26,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:errorEnabled="true"
-            app:layout_constraintEnd_toStartOf="@+id/interest_frament_gd_right"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/interest_fragment_gd_left"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:suffixText="@string/new_loan_percentage_suffix">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/interest_percentage_edit_text"
@@ -38,5 +40,34 @@
                 android:hint="@string/new_loan_percentage"
                 android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    <Spinner
+            android:id="@+id/interest_period_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/interest_frament_gd_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@string/new_loan_period_label"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/interest_frament_gd_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/interest_percentage_input_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,6 +36,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private TextInputEditText editTextPhone;
     private Button endDateBtn;
     private CheckBox enableInterestCb;
+    private CheckBox noEndDateCb;
 
 
 
@@ -83,6 +84,14 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
                     fragmentTransaction.remove(interestFragment);
                     fragmentTransaction.commit();
                 }
+            }
+        });
+
+        noEndDateCb = findViewById(R.id.no_end_date_cb);
+        noEndDateCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                endDateBtn.setEnabled(!isChecked);
             }
         });
     }

@@ -44,7 +44,7 @@ public class InterestFragment extends Fragment {
 
     class PercentTextWatcher implements android.text.TextWatcher {
 
-        private static final int DIGITS_BEFORE_ZERO = 3;
+        private static final int DIGITS_BEFORE_ZERO = 2;
         private static final int DIGITS_AFTER_ZERO = 2;
         Pattern mPattern = Pattern.compile("([0-9]{0," + (DIGITS_BEFORE_ZERO) + "}+((\\.[0-9]{0," + (DIGITS_AFTER_ZERO) + "})?))||(\\.)?");
 
@@ -59,7 +59,7 @@ public class InterestFragment extends Fragment {
             Matcher matcher = mPattern.matcher(s);
             if (!matcher.matches()) {
                 Log.d(TAG, "afterTextChanged: incorrect format");
-                percentageInputLayout.setError("Incorrect format");
+                percentageInputLayout.setError(getString(R.string.new_loan_percentage_format_error));
             } else {
                 percentageInputLayout.setError(null);
             }
