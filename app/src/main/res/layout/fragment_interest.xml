@@ -3,17 +3,40 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="500dp"
         tools:context=".fragments.InterestFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/interest_frament_gd_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test Fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/interest_fragment_gd_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/interest_percentage_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toStartOf="@+id/interest_frament_gd_right"
+            app:layout_constraintStart_toStartOf="@+id/interest_fragment_gd_left"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/interest_percentage_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_loan_percentage"
+                android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

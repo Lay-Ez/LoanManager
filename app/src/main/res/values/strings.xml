@@ -14,6 +14,8 @@
     <string name="new_loan_date_btn_label">Choose End Date</string>
     <string name="new_loan_enable_interest_label">Apply Interest Rate</string>
 
+    <string name="new_loan_percentage">Percentage</string>
+
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
 
