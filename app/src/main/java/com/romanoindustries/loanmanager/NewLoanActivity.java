@@ -23,7 +23,7 @@ import com.romanoindustries.loanmanager.fragments.InterestFragment;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private static final String TAG = "NewLoanActivity";
 
     private InterestFragment interestFragment = new InterestFragment();

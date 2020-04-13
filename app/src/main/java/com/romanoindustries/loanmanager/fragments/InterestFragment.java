@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -19,12 +20,16 @@ import com.romanoindustries.loanmanager.R;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InterestFragment extends Fragment {
+public class InterestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "InterestFragment";
 
     private TextInputLayout percentageInputLayout;
     private TextInputEditText percentageEditText;
     private Spinner periodSpinner;
+
+    /* track current loan fields status*/
+    private double interestPercent = 0.0;
+    private int loanPeriodInDays;
 
 
     public InterestFragment() {}
@@ -50,6 +55,18 @@ public class InterestFragment extends Fragment {
                 android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(spinnerAdapter);
+        periodSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) getActivity());
+    }
+
+    /* used by activity to retrieve info */
+    public double getInterestPercent() {
+        String percentageString = percentageEditText.getText().toString();
+        return Double.valueOf(percentageString);
+    }
+
+    /* used by activity to retrieve info */
+    public int getLoanPeriodInDays() {
+        return loanPeriodInDays;
     }
 
     class PercentTextWatcher implements android.text.TextWatcher {
@@ -75,4 +92,32 @@ public class InterestFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+
+            case 0:
+                loanPeriodInDays = 1;
+                break;
+            case 1:
+                loanPeriodInDays = 3;
+                break;
+            case 2:
+                loanPeriodInDays = 7;
+                break;
+            case 3:
+                loanPeriodInDays = 14;
+                break;
+            case 4:
+                loanPeriodInDays = 30;
+                break;
+            case 5:
+                loanPeriodInDays = 365;
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 }
