@@ -88,6 +88,7 @@
                     app:startIconDrawable="@drawable/ic_money">
 
                 <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_amount_hint"
@@ -96,12 +97,14 @@
 
             <Button
                     android:id="@+id/end_date_btn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/new_loan_date_btn_label"
                     app:icon="@drawable/ic_event"
+                    app:layout_constraintEnd_toStartOf="@+id/no_end_date_cb"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -131,11 +134,12 @@
                     android:id="@+id/no_end_date_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:text="@string/new_loan_without_end_date_checkbox"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/end_date_btn"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/end_date_btn"
                     app:layout_constraintTop_toTopOf="@+id/end_date_btn" />
 
             <View

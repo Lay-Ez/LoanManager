@@ -22,7 +22,7 @@ public class NewLoanViewModel extends ViewModel {
     public NewLoanViewModel() {
         name = new MutableLiveData<>("");
         phone = new MutableLiveData<>("");
-        amount = new MutableLiveData<>(0);
+        amount = new MutableLiveData<>(null);
         paymentDateInMs = new MutableLiveData<>(Calendar.getInstance().getTimeInMillis());
         noEndDate = new MutableLiveData<>(false);
         applyInterestRate = new MutableLiveData<>(false);

@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,9 +35,11 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private TextInputEditText editTextName;
     private TextInputLayout inputLayoutPhone;
     private TextInputEditText editTextPhone;
+    private TextInputLayout inputLayoutAmount;
+    private TextInputEditText editTextAmount;
     private Button endDateBtn;
-    private CheckBox enableInterestCb;
     private CheckBox noEndDateCb;
+    private CheckBox applyInterestCb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +47,17 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         setContentView(R.layout.activity_new_loan);
         interestFragment = new InterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
-        handleViewModel(newLoanViewModel);
+        handleViewModelChanges(newLoanViewModel);
         initViews();
     }
 
     private void initViews() {
         inputLayoutName = findViewById(R.id.text_input_name);
-        inputLayoutPhone = findViewById(R.id.text_input_phone);
         editTextName = findViewById(R.id.edit_text_name);
+        inputLayoutPhone = findViewById(R.id.text_input_phone);
         editTextPhone = findViewById(R.id.edit_text_phone);
+        inputLayoutAmount = findViewById(R.id.text_input_amount);
+        editTextAmount = findViewById(R.id.edit_text_amount);
 
         inputLayoutName.setEndIconOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -68,8 +71,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             datePicker.show(getSupportFragmentManager(), "date_picker");
         });
 
-        enableInterestCb = findViewById(R.id.enable_interest_cb);
-        enableInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        applyInterestCb = findViewById(R.id.enable_interest_cb);
+        applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (isChecked) {
                 fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment);
@@ -123,15 +126,25 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         endDateBtn.setText(dateString);
     }
     
-    private void handleViewModel(NewLoanViewModel newLoanViewModel) {
+    private void handleViewModelChanges(NewLoanViewModel newLoanViewModel) {
         newLoanViewModel.getName().observe(this, s -> editTextName.setText(s));
         newLoanViewModel.getPhone().observe(this, s -> editTextPhone.setText(s));
-        newLoanViewModel.getAmount().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-
+        newLoanViewModel.getAmount().observe(this, integer -> {
+            if (integer != null) {
+                editTextAmount.setText(String.valueOf(integer));
             }
         });
+        newLoanViewModel.getPaymentDateInMs().observe(this, aLong -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(aLong);
+            String dateString = DateFormat.getDateInstance().format(calendar.getTime());
+            endDateBtn.setText(dateString);
+        });
+        newLoanViewModel.getNoEndDate().observe(this, aBoolean -> noEndDateCb.setChecked(aBoolean));
+        newLoanViewModel.getApplyInterestRate().observe(this, aBoolean -> applyInterestCb.setChecked(aBoolean));
+        newLoanViewModel.getWholeInterestPercent().observe(this, integer -> interestFragment.setWholePercent(integer));
+        newLoanViewModel.getDecimalInterestPercent().observe(this, integer -> interestFragment.setDecimalPercent(integer));
+        newLoanViewModel.getPeriodInDays().observe(this, integer -> interestFragment.setLoanPeriodInDays(integer));
     }
 }
 
