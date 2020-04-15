@@ -14,11 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.romanoindustries.loanmanager.fragments.DatePickerFragment;
 import com.romanoindustries.loanmanager.fragments.InterestFragment;
+import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -26,11 +29,12 @@ import java.util.Calendar;
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private static final String TAG = "NewLoanActivity";
 
-    private InterestFragment interestFragment = new InterestFragment();
+    private InterestFragment interestFragment;
+    private NewLoanViewModel newLoanViewModel;
 
     private TextInputLayout inputLayoutName;
-    private TextInputLayout inputLayoutPhone;
     private TextInputEditText editTextName;
+    private TextInputLayout inputLayoutPhone;
     private TextInputEditText editTextPhone;
     private Button endDateBtn;
     private CheckBox enableInterestCb;
@@ -40,7 +44,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_loan);
-
+        interestFragment = new InterestFragment();
+        newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
+        handleViewModel(newLoanViewModel);
         initViews();
     }
 
@@ -66,7 +72,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         enableInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (isChecked) {
-                fragmentTransaction.add(R.id.new_loan_fragment_container, interestFragment);
+                fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment);
                 fragmentTransaction.commit();
             } else {
                 fragmentTransaction.remove(interestFragment);
@@ -115,6 +121,17 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         calendar.set(Calendar.YEAR, year);
         String dateString = DateFormat.getDateInstance().format(calendar.getTime());
         endDateBtn.setText(dateString);
+    }
+    
+    private void handleViewModel(NewLoanViewModel newLoanViewModel) {
+        newLoanViewModel.getName().observe(this, s -> editTextName.setText(s));
+        newLoanViewModel.getPhone().observe(this, s -> editTextPhone.setText(s));
+        newLoanViewModel.getAmount().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+            }
+        });
     }
 }
 

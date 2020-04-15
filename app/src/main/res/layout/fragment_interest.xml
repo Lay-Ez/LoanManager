@@ -6,6 +6,14 @@
         android:layout_height="match_parent"
         tools:context=".fragments.InterestFragment">
 
+    <NumberPicker
+            android:id="@+id/decimal_np"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectionDividerHeight="1dp"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/interest_frament_gd_right"
             android:layout_width="wrap_content"
@@ -20,28 +28,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="16dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/interest_percentage_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/interest_fragment_gd_left"
-            app:layout_constraintTop_toBottomOf="@+id/divider4"
-            app:suffixText="@string/new_loan_percentage_suffix">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/interest_percentage_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/new_loan_percentage"
-                android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
@@ -54,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/interest_frament_gd_right"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -64,22 +50,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:paddingEnd="4dp"
             android:text="@string/new_loan_period_label"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/interest_percentage_input_layout" />
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <View
             android:id="@+id/divider3"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/interest_percentage_input_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/whole_np" />
 
     <View
             android:id="@+id/divider4"
@@ -89,5 +74,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+            android:id="@+id/whole_np"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:selectionDividerHeight="1dp"
+            app:layout_constraintStart_toStartOf="@+id/interest_fragment_gd_left"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/whole_np"
+            app:layout_constraintStart_toEndOf="@+id/whole_np"
+            app:layout_constraintTop_toTopOf="@+id/whole_np" />
+
+    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="%"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/decimal_np" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

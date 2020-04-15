@@ -2,38 +2,33 @@ package com.romanoindustries.loanmanager.fragments;
 
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.romanoindustries.loanmanager.R;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Locale;
 
 public class InterestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "InterestFragment";
 
-    private TextInputLayout percentageInputLayout;
-    private TextInputEditText percentageEditText;
     private Spinner periodSpinner;
+    private NumberPicker wholePercentNp;
+    private NumberPicker decimalPercentNp;
 
     /* track current loan fields status*/
-    private double interestPercent = 0.0;
-    private int loanPeriodInDays;
-
+    private int wholeInterestPercent = 0;
+    private int decimalInterestPercent = 0;
+    private int loanPeriodInDays = 1;
 
     public InterestFragment() {}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,9 +40,6 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void initViews(View view) {
-        percentageInputLayout = view.findViewById(R.id.interest_percentage_input_layout);
-        percentageEditText = view.findViewById(R.id.interest_percentage_edit_text);
-        percentageEditText.addTextChangedListener(new PercentTextWatcher());
         periodSpinner = view.findViewById(R.id.interest_period_spinner);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
                 getContext(),
@@ -56,40 +48,25 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(spinnerAdapter);
         periodSpinner.setOnItemSelectedListener(this);
+
+        wholePercentNp = view.findViewById(R.id.whole_np);
+        wholePercentNp.setMinValue(0);
+        wholePercentNp.setMaxValue(99);
+        wholePercentNp.setValue(wholeInterestPercent); /* to restore previous values */
+        wholePercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            wholeInterestPercent = newVal;
+        });
+
+        decimalPercentNp = view.findViewById(R.id.decimal_np);
+        decimalPercentNp.setMinValue(0);
+        decimalPercentNp.setMaxValue(99);
+        decimalPercentNp.setValue(decimalInterestPercent); /* to restore previous values */
+        decimalPercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            decimalInterestPercent = newVal;});
+        decimalPercentNp.setFormatter(value -> String.format(Locale.US ,"%02d", value));
     }
 
-    public double getInterestPercent() {
-        String percentageString = percentageEditText.getText().toString();
-        return Double.valueOf(percentageString);
-    }
 
-    public int getLoanPeriodInDays() {
-        return loanPeriodInDays;
-    }
-
-    class PercentTextWatcher implements android.text.TextWatcher {
-
-        private static final int DIGITS_BEFORE_ZERO = 2;
-        private static final int DIGITS_AFTER_ZERO = 2;
-        Pattern mPattern = Pattern.compile("([0-9]{0," + (DIGITS_BEFORE_ZERO) + "}+((\\.[0-9]{0," + (DIGITS_AFTER_ZERO) + "})?))||(\\.)?");
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Matcher matcher = mPattern.matcher(s);
-            if (!matcher.matches()) {
-                Log.d(TAG, "afterTextChanged: incorrect format");
-                percentageInputLayout.setError(getString(R.string.new_loan_percentage_format_error));
-            } else {
-                percentageInputLayout.setError(null);
-            }
-        }
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
