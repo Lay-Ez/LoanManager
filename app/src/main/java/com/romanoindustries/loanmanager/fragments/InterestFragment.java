@@ -55,16 +55,14 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
                 android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(spinnerAdapter);
-        periodSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) getActivity());
+        periodSpinner.setOnItemSelectedListener(this);
     }
 
-    /* used by activity to retrieve info */
     public double getInterestPercent() {
         String percentageString = percentageEditText.getText().toString();
         return Double.valueOf(percentageString);
     }
 
-    /* used by activity to retrieve info */
     public int getLoanPeriodInDays() {
         return loanPeriodInDays;
     }

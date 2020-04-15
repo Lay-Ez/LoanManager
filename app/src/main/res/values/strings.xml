@@ -15,7 +15,7 @@
     <string name="new_loan_without_end_date_checkbox">No End Date</string>
     <string name="new_loan_enable_interest_label">Apply Interest Rate</string>
 
-    <string name="new_loan_percentage">Percentage</string>
+    <string name="new_loan_percentage">Interest rate</string>
     <string name="new_loan_percentage_format_error">Correct format: __.__</string>
     <string name="new_loan_percentage_suffix">%</string>
     <string name="new_loan_period_label">Period: </string>
