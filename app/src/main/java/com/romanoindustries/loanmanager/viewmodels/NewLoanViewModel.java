@@ -23,7 +23,10 @@ public class NewLoanViewModel extends ViewModel {
         name = new MutableLiveData<>("");
         phone = new MutableLiveData<>("");
         amount = new MutableLiveData<>(null);
-        paymentDateInMs = new MutableLiveData<>(Calendar.getInstance().getTimeInMillis());
+
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.add(Calendar.DAY_OF_YEAR, 1);
+        paymentDateInMs = new MutableLiveData<>(currentCalendar.getTimeInMillis());
         noEndDate = new MutableLiveData<>(false);
         applyInterestRate = new MutableLiveData<>(false);
         wholeInterestPercent = new MutableLiveData<>(0);

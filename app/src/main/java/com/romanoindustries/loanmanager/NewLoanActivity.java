@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -64,10 +66,31 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private void initViews() {
         inputLayoutName = findViewById(R.id.text_input_name);
         editTextName = findViewById(R.id.edit_text_name);
+        editTextName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { inputLayoutName.setError(null);}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         inputLayoutPhone = findViewById(R.id.text_input_phone);
         editTextPhone = findViewById(R.id.edit_text_phone);
         inputLayoutAmount = findViewById(R.id.text_input_amount);
         editTextAmount = findViewById(R.id.edit_text_amount);
+        editTextAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { inputLayoutAmount.setError(null);}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         inputLayoutName.setEndIconOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -91,10 +114,13 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
                 fragmentTransaction.remove(interestFragment);
                 fragmentTransaction.commit();
             }
+            newLoanViewModel.setApplyInterestRate(isChecked);
         });
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
-        noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> endDateBtn.setEnabled(!isChecked));
+        noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                endDateBtn.setEnabled(!isChecked);
+                newLoanViewModel.setNoEndDate(isChecked);});
     }
 
     @Override
@@ -132,6 +158,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
+        newLoanViewModel.setPaymentDateInMs(calendar.getTimeInMillis());
         String dateString = DateFormat.getDateInstance().format(calendar.getTime());
         endDateBtn.setText(dateString);
     }
@@ -152,18 +179,48 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         });
         newLoanViewModel.getNoEndDate().observe(this, aBoolean -> noEndDateCb.setChecked(aBoolean));
         newLoanViewModel.getApplyInterestRate().observe(this, aBoolean -> applyInterestCb.setChecked(aBoolean));
-        newLoanViewModel.getWholeInterestPercent().observe(this, integer -> interestFragment.setWholePercent(integer));
-        newLoanViewModel.getDecimalInterestPercent().observe(this, integer -> interestFragment.setDecimalPercent(integer));
-        newLoanViewModel.getPeriodInDays().observe(this, integer -> interestFragment.setLoanPeriodInDays(integer));
+
     }
 
     private void saveLoan() {
-
+        saveInputToVm();
     }
 
     private void cancelLoan() {
 
     }
+
+    private boolean saveInputToVm() {
+        boolean isInputOk = true;
+        String name = editTextName.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
+        String amountAsString = editTextAmount.getText().toString();
+
+
+        if (name.isEmpty()) {
+            inputLayoutName.setError(getString(R.string.name_cannot_be_empty_error_msg));
+            isInputOk = false;
+        } else {
+            newLoanViewModel.setName(name);
+        }
+
+        if (amountAsString.isEmpty()) {
+            inputLayoutAmount.setError(getString(R.string.amount_should_be_specified_error_msg));
+            isInputOk = false;
+        } else {
+            int amount = Integer.parseInt(amountAsString);
+            if (amount == 0) {
+                inputLayoutAmount.setError(getString(R.string.amount_cannot_be_zero_error_msg));
+                isInputOk = false;
+            } else {
+                newLoanViewModel.setAmount(amount);
+            }
+        }
+
+        newLoanViewModel.setPhone(phone);
+        return isInputOk;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -11,8 +11,10 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.romanoindustries.loanmanager.R;
+import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.util.Locale;
 
@@ -30,10 +32,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
     private NumberPicker wholePercentNp;
     private NumberPicker decimalPercentNp;
 
-    /* track current loan fields status*/
-    private int wholeInterestPercent = 0;
-    private int decimalInterestPercent = 0;
-    private int loanPeriodInDays = 1;
+    private NewLoanViewModel newLoanViewModel;
 
     public InterestFragment() {}
 
@@ -42,7 +41,8 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interest, container, false);
         initViews(view);
-
+        newLoanViewModel = new ViewModelProvider(requireActivity()).get(NewLoanViewModel.class);
+        observeViewModel(newLoanViewModel);
         return view;
     }
 
@@ -55,26 +55,29 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(spinnerAdapter);
         periodSpinner.setOnItemSelectedListener(this);
-        restoreSpinnerPosition();
 
         wholePercentNp = view.findViewById(R.id.whole_np);
         wholePercentNp.setMinValue(0);
         wholePercentNp.setMaxValue(99);
-        wholePercentNp.setValue(wholeInterestPercent); /* to restore previous values */
         wholePercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            wholeInterestPercent = newVal;
+            newLoanViewModel.setWholeInterestPercent(newVal);
         });
 
         decimalPercentNp = view.findViewById(R.id.decimal_np);
         decimalPercentNp.setMinValue(0);
         decimalPercentNp.setMaxValue(99);
-        decimalPercentNp.setValue(decimalInterestPercent); /* to restore previous values */
         decimalPercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            decimalInterestPercent = newVal;});
+            newLoanViewModel.setDecimalInterestPercent(newVal);});
         decimalPercentNp.setFormatter(value -> String.format(Locale.US ,"%02d", value));
     }
 
-    private void restoreSpinnerPosition() {
+    private void observeViewModel(NewLoanViewModel newLoanViewModel) {
+        newLoanViewModel.getWholeInterestPercent().observe(this, integer -> wholePercentNp.setValue(integer));
+        newLoanViewModel.getDecimalInterestPercent().observe(this, integer -> decimalPercentNp.setValue(integer));
+        newLoanViewModel.getPeriodInDays().observe(this, this::restoreSpinnerPosition);
+    }
+
+    private void restoreSpinnerPosition(int loanPeriodInDays) {
         switch (loanPeriodInDays) {
 
             case LOAN_PERIOD_ONE_DAY:
@@ -103,20 +106,9 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
         }
     }
 
-    public void setWholePercent(int wholePercent) {
-        this.wholeInterestPercent = wholePercent;
-    }
-
-    public void setDecimalPercent(int decimalPercent) {
-        this.decimalInterestPercent = decimalPercent;
-    }
-
-    public void setLoanPeriodInDays(int loanPeriodInDays) {
-        this.loanPeriodInDays = loanPeriodInDays;
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        int loanPeriodInDays = 1;
         switch (position) {
 
             case 0:
@@ -138,6 +130,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
                 loanPeriodInDays = LOAN_PERIOD_ONE_YEAR;
                 break;
         }
+        newLoanViewModel.setPeriodInDays(loanPeriodInDays);
     }
 
     @Override
