@@ -7,10 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -50,6 +52,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
         Toolbar toolbar = findViewById(R.id.new_loan_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         interestFragment = new InterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
@@ -153,9 +157,41 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         newLoanViewModel.getPeriodInDays().observe(this, integer -> interestFragment.setLoanPeriodInDays(integer));
     }
 
+    private void saveLoan() {
+
+    }
+
+    private void cancelLoan() {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.new_loan_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.mnu_item_save:
+                saveLoan();
+                return true;
+
+            case R.id.mnu_item_cancel:
+                cancelLoan();
+                return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
 }
