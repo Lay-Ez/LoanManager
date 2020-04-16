@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,6 +47,10 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_loan);
+
+        Toolbar toolbar = findViewById(R.id.new_loan_toolbar);
+        setSupportActionBar(toolbar);
+
         interestFragment = new InterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
         handleViewModelChanges(newLoanViewModel);
@@ -145,6 +151,12 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         newLoanViewModel.getWholeInterestPercent().observe(this, integer -> interestFragment.setWholePercent(integer));
         newLoanViewModel.getDecimalInterestPercent().observe(this, integer -> interestFragment.setDecimalPercent(integer));
         newLoanViewModel.getPeriodInDays().observe(this, integer -> interestFragment.setLoanPeriodInDays(integer));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.new_loan_activity_menu, menu);
+        return true;
     }
 }
 

@@ -28,6 +28,9 @@
         <item>1 Year</item>
     </string-array>
 
+    <string name="new_loan_menu_save">Save</string>
+    <string name="new_loan_menu_cancel">Cancel</string>
+
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
