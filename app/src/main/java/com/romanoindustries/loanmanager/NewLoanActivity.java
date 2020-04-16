@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -183,25 +184,23 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void saveLoan() {
-        saveInputToVm();
+        boolean isInputOk = checkNameAmountFields();
+        Log.d(TAG, "saveLoan: isInputOk=" + isInputOk);
     }
 
     private void cancelLoan() {
 
     }
 
-    private boolean saveInputToVm() {
+    private boolean checkNameAmountFields() {
         boolean isInputOk = true;
         String name = editTextName.getText().toString().trim();
-        String phone = editTextPhone.getText().toString().trim();
         String amountAsString = editTextAmount.getText().toString();
 
 
         if (name.isEmpty()) {
             inputLayoutName.setError(getString(R.string.name_cannot_be_empty_error_msg));
             isInputOk = false;
-        } else {
-            newLoanViewModel.setName(name);
         }
 
         if (amountAsString.isEmpty()) {
@@ -212,12 +211,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             if (amount == 0) {
                 inputLayoutAmount.setError(getString(R.string.amount_cannot_be_zero_error_msg));
                 isInputOk = false;
-            } else {
-                newLoanViewModel.setAmount(amount);
             }
         }
 
-        newLoanViewModel.setPhone(phone);
         return isInputOk;
     }
 
