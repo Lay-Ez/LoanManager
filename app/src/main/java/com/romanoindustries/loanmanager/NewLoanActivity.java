@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -196,12 +197,29 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
     private void saveLoan() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
-
+            saveTextFieldsToViewModel();
         }
     }
 
     private void cancelLoan() {
 
+    }
+
+    private void saveTextFieldsToViewModel() {
+        String name = editTextName.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
+        String amountStr = editTextAmount.getText().toString().trim();
+        int amount = Integer.parseInt(amountStr);
+        String note = editTextNote.getText().toString().trim();
+        Log.d(TAG, "saveTextFieldsToViewModel: saving fields name=" + name +
+                " phone=" + phone +
+                " amount=" + amount +
+                " note=" + note);
+
+        newLoanViewModel.setName(name);
+        newLoanViewModel.setPhone(phone);
+        newLoanViewModel.setAmount(amount);
+        newLoanViewModel.setNote(note);
     }
 
     private boolean checkInterestRate() {

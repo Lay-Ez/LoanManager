@@ -41,6 +41,8 @@
     <string name="interest_rate_zero_title">Incorrect interest rate</string>
     <string name="interest_rate_zero_msg">Interest rate cannot be zero</string>
 
+    <string name="optional_helper_text">Optional</string>
+
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
