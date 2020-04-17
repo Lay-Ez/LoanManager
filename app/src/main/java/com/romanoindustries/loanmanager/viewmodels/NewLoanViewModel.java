@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.Calendar;
 
 public class NewLoanViewModel extends ViewModel {
+
     private MutableLiveData<String> name;
     private MutableLiveData<String> phone;
     private MutableLiveData<Integer> amount;
@@ -17,7 +18,6 @@ public class NewLoanViewModel extends ViewModel {
     private MutableLiveData<Integer> wholeInterestPercent;
     private MutableLiveData<Integer> decimalInterestPercent;
     private MutableLiveData<Integer> periodInDays;
-
     private MutableLiveData<Integer> loanType; /* for later use*/
 
     public NewLoanViewModel() {
@@ -25,6 +25,7 @@ public class NewLoanViewModel extends ViewModel {
         phone = new MutableLiveData<>("");
         amount = new MutableLiveData<>(null);
         note = new MutableLiveData<>("");
+        loanType = new MutableLiveData<>();
 
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -34,6 +35,7 @@ public class NewLoanViewModel extends ViewModel {
         wholeInterestPercent = new MutableLiveData<>(0);
         decimalInterestPercent = new MutableLiveData<>(0);
         periodInDays = new MutableLiveData<>(1);
+
     }
 
     public LiveData<String> getName() {
@@ -66,6 +68,14 @@ public class NewLoanViewModel extends ViewModel {
 
     public void setNote(String note) {
         this.note.setValue(note);
+    }
+
+    public LiveData<Integer> getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(int loanType) {
+        this.loanType.setValue(loanType);
     }
 
     public LiveData<Long> getPaymentDateInMs() {

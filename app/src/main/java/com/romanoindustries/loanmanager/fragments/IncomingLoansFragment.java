@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +16,6 @@ import com.romanoindustries.loanmanager.NewLoanActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 public class IncomingLoansFragment extends Fragment {
     private static final String TAG = "IncomingLoansFragment";
@@ -39,17 +35,9 @@ public class IncomingLoansFragment extends Fragment {
                 .AndroidViewModelFactory(getActivity().getApplication())
                 .create(LoansViewModel.class);
 
-        loansViewModel.getInLoans().observe(this, new Observer<List<Loan>>() {
-            @Override
-            public void onChanged(List<Loan> loans) {
-                loans.forEach(new Consumer<Loan>() {
-                    @Override
-                    public void accept(Loan loan) {
+        loansViewModel.getInLoans().observe(this, loans -> loans.forEach(loan -> {
 
-                    }
-                });
-            }
-        });
+        }));
 
         initViews(view);
         return view;
@@ -59,12 +47,10 @@ public class IncomingLoansFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.in_loans_recycler_view);
 
         fab = view.findViewById(R.id.in_loans_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NewLoanActivity.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), NewLoanActivity.class);
+            intent.putExtra(NewLoanActivity.LOAN_TYPE_KEY, Loan.TYPE_IN);
+            startActivity(intent);
         });
     }
 }
