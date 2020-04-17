@@ -1,5 +1,6 @@
 package com.romanoindustries.loanmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -159,9 +160,13 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
-        newLoanViewModel.setPaymentDateInMs(calendar.getTimeInMillis());
-        String dateString = DateFormat.getDateInstance().format(calendar.getTime());
-        endDateBtn.setText(dateString);
+        if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
+            newLoanViewModel.setPaymentDateInMs(calendar.getTimeInMillis());
+            String dateString = DateFormat.getDateInstance().format(calendar.getTime());
+            endDateBtn.setText(dateString);
+        } else {
+            showWrongDateDialog();
+        }
     }
     
     private void handleViewModelChanges(NewLoanViewModel newLoanViewModel) {
@@ -184,12 +189,39 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void saveLoan() {
-        boolean isInputOk = checkNameAmountFields();
-        Log.d(TAG, "saveLoan: isInputOk=" + isInputOk);
+        if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
+            Log.d(TAG, "saveLoan: all good");
+        }
     }
 
     private void cancelLoan() {
 
+    }
+
+    private boolean checkInterestRate() {
+        boolean isInterestOk = true;
+        if (newLoanViewModel.getApplyInterestRate().getValue()) {
+            int wholeInterestPercent = newLoanViewModel.getWholeInterestPercent().getValue();
+            int decimalInterestPercent = newLoanViewModel.getDecimalInterestPercent().getValue();
+            if (wholeInterestPercent == 0 && decimalInterestPercent == 0) {
+                showInterestRateError();
+                isInterestOk = false;
+            }
+        }
+        return isInterestOk;
+    }
+
+    private boolean checkDateField() {
+        boolean isDateOk = true;
+        if (!newLoanViewModel.getNoEndDate().getValue()) {
+            long setDate = newLoanViewModel.getPaymentDateInMs().getValue();
+            long currentTimeInMs = System.currentTimeMillis();
+            if (setDate < currentTimeInMs) {
+                showWrongDateDialog();
+                isDateOk = false;
+            }
+        }
+        return isDateOk;
     }
 
     private boolean checkNameAmountFields() {
@@ -215,6 +247,22 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         }
 
         return isInputOk;
+    }
+
+    private void showWrongDateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.date_error_dialog_msg)
+                .setPositiveButton("OK", (dialog, which) -> {});
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showInterestRateError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.interest_rate_zero_msg)
+                .setPositiveButton("OK", (dialog, which) -> {});
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

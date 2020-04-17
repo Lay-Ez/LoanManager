@@ -35,6 +35,12 @@
     <string name="amount_cannot_be_zero_error_msg">amount can\'t be 0</string>
     <string name="amount_should_be_specified_error_msg">amount should be specified</string>
 
+    <string name="date_error_dialog_title">Incorrect date</string>
+    <string name="date_error_dialog_msg">End date should be greater than today</string>
+
+    <string name="interest_rate_zero_title">Incorrect interest rate</string>
+    <string name="interest_rate_zero_msg">Interest rate cannot be zero percent</string>
+
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
