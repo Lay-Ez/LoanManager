@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_name_hint"
-                        android:inputType="text" />
+                        android:inputType="text|textCapSentences" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,8 +149,9 @@
                     android:layout_marginTop="16dp"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_input_amount" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_note" />
 
             <View
                     android:id="@+id/divider2"
@@ -161,6 +162,27 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/end_date_btn" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_note"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="140"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_amount"
+                    app:startIconDrawable="@drawable/ic_description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/new_loan_note_hint"
+                        android:inputType="text|textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ public class NewLoanViewModel extends ViewModel {
     private MutableLiveData<String> name;
     private MutableLiveData<String> phone;
     private MutableLiveData<Integer> amount;
+    private MutableLiveData<String> note;
     private MutableLiveData<Long> paymentDateInMs;
     private MutableLiveData<Boolean> noEndDate;
     private MutableLiveData<Boolean> applyInterestRate;
@@ -23,6 +24,7 @@ public class NewLoanViewModel extends ViewModel {
         name = new MutableLiveData<>("");
         phone = new MutableLiveData<>("");
         amount = new MutableLiveData<>(null);
+        note = new MutableLiveData<>("");
 
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -56,6 +58,14 @@ public class NewLoanViewModel extends ViewModel {
 
     public void setAmount(int amount) {
         this.amount.setValue(amount);
+    }
+
+    public LiveData<String> getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note.setValue(note);
     }
 
     public LiveData<Long> getPaymentDateInMs() {

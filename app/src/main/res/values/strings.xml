@@ -14,9 +14,9 @@
     <string name="new_loan_date_btn_label">Choose End Date</string>
     <string name="new_loan_without_end_date_checkbox">No End Date</string>
     <string name="new_loan_enable_interest_label">Apply Interest Rate</string>
+    <string name="new_loan_note_hint">Note</string>
 
     <string name="new_loan_percentage">Interest rate</string>
-    <string name="new_loan_percentage_format_error">Correct format: __.__</string>
     <string name="new_loan_percentage_suffix">%</string>
     <string name="new_loan_period_label">Period: </string>
     <string-array name="periods">
@@ -39,7 +39,7 @@
     <string name="date_error_dialog_msg">End date should be greater than today</string>
 
     <string name="interest_rate_zero_title">Incorrect interest rate</string>
-    <string name="interest_rate_zero_msg">Interest rate cannot be zero percent</string>
+    <string name="interest_rate_zero_msg">Interest rate cannot be zero</string>
 
 
     <!-- in fragment -->

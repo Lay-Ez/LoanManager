@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -45,6 +44,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private TextInputEditText editTextPhone;
     private TextInputLayout inputLayoutAmount;
     private TextInputEditText editTextAmount;
+    private TextInputLayout inputLayoutNote;
+    private TextInputEditText editTextNote;
     private Button endDateBtn;
     private CheckBox noEndDateCb;
     private CheckBox applyInterestCb;
@@ -99,6 +100,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
             startActivityForResult(intent, RESULT_FIRST_USER);
         });
+
+        inputLayoutNote = findViewById(R.id.text_input_note);
+        editTextNote = findViewById(R.id.edit_text_note);
 
         endDateBtn = findViewById(R.id.end_date_btn);
         endDateBtn.setOnClickListener(v -> {
@@ -177,6 +181,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
                 editTextAmount.setText(String.valueOf(integer));
             }
         });
+        newLoanViewModel.getNote().observe(this, s -> editTextNote.setText(s));
+
         newLoanViewModel.getPaymentDateInMs().observe(this, aLong -> {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(aLong);
@@ -190,7 +196,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
     private void saveLoan() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
-            Log.d(TAG, "saveLoan: all good");
+
         }
     }
 
