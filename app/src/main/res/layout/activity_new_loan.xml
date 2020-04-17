@@ -51,7 +51,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_name_hint"
-                        android:inputType="text|textCapSentences" />
+                        android:inputType="text|textCapSentences"
+                        android:maxLength="40" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,7 +182,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_note_hint"
-                        android:inputType="text|textCapSentences" />
+                        android:inputType="textMultiLine|text|textCapSentences"
+                        android:maxLength="140" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
