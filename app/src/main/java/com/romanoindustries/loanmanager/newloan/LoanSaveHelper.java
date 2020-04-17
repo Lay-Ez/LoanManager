@@ -53,6 +53,13 @@ public class LoanSaveHelper {
         loan.setPhoneNumber(phone);
         loan.setStartDateInMs(addedTime);
         loan.setPaymentDateInMs(noEndDate ? 0 : paymentDateInMs);
+
+        if (applyInterestRate) {
+            double finalPercent = (double) wholePercent + ((double) decimalPercent / 100);
+            loan.setInterestRate(finalPercent);
+        } else {
+            loan.setInterestRate(0);
+        }
     }
 
     public long calculateNextChargingTime(long startTime , int periodDays) {
