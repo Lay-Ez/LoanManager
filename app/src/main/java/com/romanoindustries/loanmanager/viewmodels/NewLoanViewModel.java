@@ -12,13 +12,13 @@ public class NewLoanViewModel extends ViewModel {
     private MutableLiveData<String> phone;
     private MutableLiveData<Integer> amount;
     private MutableLiveData<String> note;
+    private MutableLiveData<Integer> loanType;
     private MutableLiveData<Long> paymentDateInMs;
     private MutableLiveData<Boolean> noEndDate;
     private MutableLiveData<Boolean> applyInterestRate;
     private MutableLiveData<Integer> wholeInterestPercent;
     private MutableLiveData<Integer> decimalInterestPercent;
     private MutableLiveData<Integer> periodInDays;
-    private MutableLiveData<Integer> loanType; /* for later use*/
 
     public NewLoanViewModel() {
         name = new MutableLiveData<>("");

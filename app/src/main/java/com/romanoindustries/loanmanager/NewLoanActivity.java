@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.romanoindustries.loanmanager.fragments.DatePickerFragment;
 import com.romanoindustries.loanmanager.fragments.InterestFragment;
+import com.romanoindustries.loanmanager.newloan.LoanSaveHelper;
 import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.text.DateFormat;
@@ -200,6 +201,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private void saveLoan() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
             saveTextFieldsToViewModel();
+            LoanSaveHelper helper = new LoanSaveHelper(newLoanViewModel);
         }
     }
 
@@ -222,7 +224,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         newLoanViewModel.setPhone(phone);
         newLoanViewModel.setAmount(amount);
         newLoanViewModel.setNote(note);
-
     }
 
     private boolean checkInterestRate() {
