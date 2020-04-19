@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.fragments;
+package com.romanoindustries.loanmanager.newloan;
 
 
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.romanoindustries.loanmanager.R;
-import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.util.Locale;
 

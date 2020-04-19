@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager;
+package com.romanoindustries.loanmanager.newloan;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -25,12 +25,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
-import com.romanoindustries.loanmanager.fragments.DatePickerFragment;
-import com.romanoindustries.loanmanager.fragments.InterestFragment;
-import com.romanoindustries.loanmanager.newloan.LoanSaveHelper;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
-import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.text.DateFormat;
 import java.util.Calendar;

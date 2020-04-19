@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.fragments;
+package com.romanoindustries.loanmanager.newloan;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

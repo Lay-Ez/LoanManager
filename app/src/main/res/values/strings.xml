@@ -31,8 +31,8 @@
     <string name="new_loan_menu_save">Save</string>
     <string name="new_loan_menu_cancel">Cancel</string>
 
-    <string name="name_cannot_be_empty_error_msg">name can\'t be empty</string>
-    <string name="amount_cannot_be_zero_error_msg">amount can\'t be 0</string>
+    <string name="name_cannot_be_empty_error_msg">name cannot be empty</string>
+    <string name="amount_cannot_be_zero_error_msg">amount cannot be 0</string>
     <string name="amount_should_be_specified_error_msg">amount should be specified</string>
 
     <string name="date_error_dialog_title">Incorrect date</string>

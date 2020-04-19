@@ -3,7 +3,6 @@ package com.romanoindustries.loanmanager.newloan;
 import android.util.Log;
 
 import com.romanoindustries.loanmanager.datamodel.Loan;
-import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;

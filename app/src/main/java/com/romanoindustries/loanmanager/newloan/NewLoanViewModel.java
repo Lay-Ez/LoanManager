@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.viewmodels;
+package com.romanoindustries.loanmanager.newloan;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
