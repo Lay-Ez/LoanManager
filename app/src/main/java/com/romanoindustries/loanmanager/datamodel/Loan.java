@@ -19,6 +19,8 @@ public class Loan {
 
     public Loan() {}
 
+    private int type;
+
     @PrimaryKey (autoGenerate = true)
     private int id;
 
@@ -52,7 +54,7 @@ public class Loan {
     @ColumnInfo (name = "interest_rate")
     private double interestRate;
 
-    private int type;
+
 
     @ColumnInfo (name = "charge_events")
     private List<InterestChargeEvent> chargeEvents;
@@ -160,4 +162,23 @@ public class Loan {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "type=" + type +
+                ", id=" + id +
+                ", debtorName='" + debtorName + '\'' +
+                ", specialNote='" + specialNote + '\'' +
+                ", startAmount=" + startAmount +
+                ", currentAmount=" + currentAmount +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", startDateInMs=" + startDateInMs +
+                ", paymentDateInMs=" + paymentDateInMs +
+                ", nextChargingDateInMs=" + nextChargingDateInMs +
+                ", periodInDays=" + periodInDays +
+                ", interestRate=" + interestRate +
+                '}';
+    }
+
 }

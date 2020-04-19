@@ -5,18 +5,16 @@ import android.util.Log;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class LoanSaveHelper {
     private static final String TAG = "LoanSaveHelper";
 
-    private Loan loan;
-
-    public LoanSaveHelper(NewLoanViewModel viewModel) {
-        composeLoanFromVm(viewModel);
+    public LoanSaveHelper() {
     }
 
-    public void composeLoanFromVm(NewLoanViewModel viewModel) {
+    public Loan composeLoanFromVm(NewLoanViewModel viewModel) {
 
         String name = viewModel.getName().getValue();
         String phone = viewModel.getPhone().getValue();
@@ -45,21 +43,30 @@ public class LoanSaveHelper {
 
 
         Loan loan = new Loan();
+        loan.setType(loanType);
         loan.setDebtorName(name);
         loan.setSpecialNote(note);
-        loan.setType(loanType);
         loan.setStartAmount(amount);
         loan.setCurrentAmount(amount);
         loan.setPhoneNumber(phone);
         loan.setStartDateInMs(addedTime);
         loan.setPaymentDateInMs(noEndDate ? 0 : paymentDateInMs);
 
+
         if (applyInterestRate) {
             double finalPercent = (double) wholePercent + ((double) decimalPercent / 100);
             loan.setInterestRate(finalPercent);
+            loan.setPeriodInDays(periodInDays);
+            loan.setNextChargingDateInMs(nextChargeDateInMs);
         } else {
             loan.setInterestRate(0);
+            loan.setPeriodInDays(0);
+            loan.setNextChargingDateInMs(0);
         }
+
+        loan.setChargeEvents(new ArrayList<>()); /* implement later */
+
+        return loan;
     }
 
     public long calculateNextChargingTime(long startTime , int periodDays) {

@@ -26,9 +26,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.fragments.DatePickerFragment;
 import com.romanoindustries.loanmanager.fragments.InterestFragment;
 import com.romanoindustries.loanmanager.newloan.LoanSaveHelper;
+import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.text.DateFormat;
@@ -201,7 +203,13 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private void saveLoan() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
             saveTextFieldsToViewModel();
-            LoanSaveHelper helper = new LoanSaveHelper(newLoanViewModel);
+            LoanSaveHelper helper = new LoanSaveHelper();
+            Loan loanToSave = helper.composeLoanFromVm(newLoanViewModel);
+            LoansViewModel loansViewModel = new ViewModelProvider
+                    .AndroidViewModelFactory(getApplication())
+                    .create(LoansViewModel.class);
+            loansViewModel.insert(loanToSave);
+            onBackPressed();
         }
     }
 

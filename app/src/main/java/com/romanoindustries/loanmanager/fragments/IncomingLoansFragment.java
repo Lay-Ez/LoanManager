@@ -3,6 +3,7 @@ package com.romanoindustries.loanmanager.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class IncomingLoansFragment extends Fragment {
                 .create(LoansViewModel.class);
 
         loansViewModel.getInLoans().observe(this, loans -> loans.forEach(loan -> {
-
+            Log.d(TAG, "onCreateView: " + loan);
         }));
 
         initViews(view);
