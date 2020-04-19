@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -35,9 +34,9 @@ import com.romanoindustries.loanmanager.viewmodels.NewLoanViewModel;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-    private static final String TAG = "NewLoanActivity";
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
 
     private InterestFragment interestFragment;
@@ -45,11 +44,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
     private TextInputLayout inputLayoutName;
     private TextInputEditText editTextName;
-    private TextInputLayout inputLayoutPhone;
     private TextInputEditText editTextPhone;
     private TextInputLayout inputLayoutAmount;
     private TextInputEditText editTextAmount;
-    private TextInputLayout inputLayoutNote;
     private TextInputEditText editTextNote;
     private Button endDateBtn;
     private CheckBox noEndDateCb;
@@ -62,7 +59,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
         Toolbar toolbar = findViewById(R.id.new_loan_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         interestFragment = new InterestFragment();
@@ -86,7 +83,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             public void afterTextChanged(Editable s) {}
         });
 
-        inputLayoutPhone = findViewById(R.id.text_input_phone);
         editTextPhone = findViewById(R.id.edit_text_phone);
         inputLayoutAmount = findViewById(R.id.text_input_amount);
         editTextAmount = findViewById(R.id.edit_text_amount);
@@ -107,7 +103,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             startActivityForResult(intent, RESULT_FIRST_USER);
         });
 
-        inputLayoutNote = findViewById(R.id.text_input_note);
         editTextNote = findViewById(R.id.edit_text_note);
 
         endDateBtn = findViewById(R.id.end_date_btn);
@@ -139,15 +134,23 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_FIRST_USER && resultCode == RESULT_OK) {
-            Uri contactUri = data.getData();
-            String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER,
-                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-            Cursor cursor = getContentResolver().query(contactUri,
-                    projection,
-                    null,
-                    null,
-                    null);
-            parseContactInfo(cursor);
+            Uri contactUri;
+            if (data != null) {
+                contactUri = data.getData();
+                String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+                Cursor cursor = null;
+                if (contactUri != null) {
+                    cursor = getContentResolver().query(contactUri,
+                            projection,
+                            null,
+                            null,
+                            null);
+                }
+                if (cursor != null) {
+                    parseContactInfo(cursor);
+                }
+            }
         }
     }
 
@@ -200,7 +203,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
     }
 
-    private void saveLoan() {
+    private void onLoanSavePressed() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
             saveTextFieldsToViewModel();
             LoanSaveHelper helper = new LoanSaveHelper();
@@ -213,8 +216,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         }
     }
 
-    private void cancelLoan() {
-
+    private void onCancelLoanPressed() {
+        showConfirmCancelDialog();
     }
 
     private void saveTextFieldsToViewModel() {
@@ -223,11 +226,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         String amountStr = editTextAmount.getText().toString().trim();
         int amount = Integer.parseInt(amountStr);
         String note = editTextNote.getText().toString().trim();
-        Log.d(TAG, "saveTextFieldsToViewModel: saving fields name=" + name +
-                " phone=" + phone +
-                " amount=" + amount +
-                " note=" + note);
-
         newLoanViewModel.setName(name);
         newLoanViewModel.setPhone(phone);
         newLoanViewModel.setAmount(amount);
@@ -285,6 +283,14 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         return isInputOk;
     }
 
+    private void showConfirmCancelDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.confirm_cancel_dialog_msg)
+                .setPositiveButton(R.string.confirm_cancel_dialog_positive, (dialog, which) -> onBackPressed())
+                .setNegativeButton(R.string.confirm_cancel_dialog_negative, ((dialog, which) -> {}));
+        builder.create().show();
+    }
+
     private void showWrongDateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.date_error_dialog_msg)
@@ -318,11 +324,11 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         switch (item.getItemId()) {
 
             case R.id.mnu_item_save:
-                saveLoan();
+                onLoanSavePressed();
                 return true;
 
             case R.id.mnu_item_cancel:
-                cancelLoan();
+                onCancelLoanPressed();
                 return true;
 
                 default:
