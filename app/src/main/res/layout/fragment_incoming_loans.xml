@@ -23,7 +23,7 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 app:titleEnabled="false"
-                app:toolbarId="@+id/in_loans_toolbar">
+                app:toolbarId="@+id/out_loans_toolbar">
 
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/in_loans_toolbar"
