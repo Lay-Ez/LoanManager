@@ -47,16 +47,33 @@ public class IncomingLoansFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.in_loans_recycler_view);
-        loansAdapter = new LoansAdapter(new ArrayList<>());
-        recyclerView.setAdapter(loansAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-
         fab = view.findViewById(R.id.in_loans_fab);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), NewLoanActivity.class);
             intent.putExtra(NewLoanActivity.LOAN_TYPE_KEY, Loan.TYPE_IN);
             startActivity(intent);
+        });
+
+        RecyclerView recyclerView = view.findViewById(R.id.in_loans_recycler_view);
+        loansAdapter = new LoansAdapter(new ArrayList<>());
+        recyclerView.setAdapter(loansAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy >0) {
+                    if (fab.isShown()) {
+                        fab.hide();
+                    }
+                }
+                else if (dy <0) {
+                    if (!fab.isShown()) {
+                        fab.show();
+                    }
+                }
+            }
         });
     }
 }

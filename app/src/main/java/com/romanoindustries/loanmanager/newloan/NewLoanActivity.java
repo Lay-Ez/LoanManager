@@ -62,8 +62,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         interestFragment = new InterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
         setLoanType(getIntent());
-        handleViewModelChanges(newLoanViewModel);
         initViews();
+        handleViewModelChanges(newLoanViewModel);
     }
 
     private void initViews() {
@@ -111,6 +111,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             if (isChecked) {
                 fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment);
                 fragmentTransaction.commit();
