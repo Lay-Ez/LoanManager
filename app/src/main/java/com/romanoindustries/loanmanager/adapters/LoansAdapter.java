@@ -11,12 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
 import java.util.List;
 
-public class LoansAdapter extends RecyclerView.Adapter<LoansAdapter.LoanViewHolder> {
+public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
 
     private List<Loan>loans;
     private SwipeLayout lastOpenedLayout;
@@ -32,6 +33,11 @@ public class LoansAdapter extends RecyclerView.Adapter<LoansAdapter.LoanViewHold
     public void updateLoans(List<Loan> loans) {
         this.loans = loans;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe_layout;
     }
 
     @NonNull
@@ -51,6 +57,28 @@ public class LoansAdapter extends RecyclerView.Adapter<LoansAdapter.LoanViewHold
     public void onBindViewHolder(@NonNull LoanViewHolder holder, int position) {
         Loan loanToBind = loans.get(position);
         holder.bind(loanToBind);
+        mItemManger.bindView(holder.itemView, position);
+        holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+                mItemManger.closeAllExcept(layout);
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) { }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) { }
+
+            @Override
+            public void onClose(SwipeLayout layout) { }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) { }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) { }
+        });
     }
 
     @Override
@@ -69,7 +97,6 @@ public class LoansAdapter extends RecyclerView.Adapter<LoansAdapter.LoanViewHold
 
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-            swipeLayout.addSwipeListener(onlyOneOpenListener);
             nameTv = itemView.findViewById(R.id.loan_name_text_view);
             btn = itemView.findViewById(R.id.button);
         }
@@ -77,30 +104,5 @@ public class LoansAdapter extends RecyclerView.Adapter<LoansAdapter.LoanViewHold
         public void bind(Loan loan) {
             nameTv.setText(loan.getDebtorName());
         }
-
-        private SwipeLayout.SwipeListener onlyOneOpenListener = new SwipeLayout.SwipeListener() {
-            @Override
-            public void onStartOpen(SwipeLayout layout) {
-                if (lastOpenedLayout != null && lastOpenedLayout != layout) {
-                    lastOpenedLayout.close();
-                }
-                lastOpenedLayout = layout;
-            }
-
-            @Override
-            public void onOpen(SwipeLayout layout) {}
-
-            @Override
-            public void onStartClose(SwipeLayout layout) {}
-
-            @Override
-            public void onClose(SwipeLayout layout) {}
-
-            @Override
-            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {}
-
-            @Override
-            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {}
-        };
     }
 }
