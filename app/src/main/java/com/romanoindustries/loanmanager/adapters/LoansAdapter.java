@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.daimajia.swipe.util.Attributes;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
@@ -20,10 +21,10 @@ import java.util.List;
 public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
 
     private List<Loan>loans;
-    private SwipeLayout lastOpenedLayout;
 
     public LoansAdapter(List<Loan> loans) {
         this.loans = loans;
+        mItemManger.setMode(Attributes.Mode.Single);
     }
 
     public List<Loan> getLoans() {
@@ -58,27 +59,6 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
         Loan loanToBind = loans.get(position);
         holder.bind(loanToBind);
         mItemManger.bindView(holder.itemView, position);
-        holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
-            @Override
-            public void onStartOpen(SwipeLayout layout) {
-                mItemManger.closeAllExcept(layout);
-            }
-
-            @Override
-            public void onOpen(SwipeLayout layout) { }
-
-            @Override
-            public void onStartClose(SwipeLayout layout) { }
-
-            @Override
-            public void onClose(SwipeLayout layout) { }
-
-            @Override
-            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) { }
-
-            @Override
-            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) { }
-        });
     }
 
     @Override
