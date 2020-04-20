@@ -13,12 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
+import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_DAY;
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_MONTH;
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_WEEK;
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_YEAR;
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_THREE_DAYS;
+import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_TWO_WEEKS;
 
 public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
 
@@ -106,6 +114,40 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 String percentRateStr = loan.getInterestRate() + "%";
                 percentTv.setText(percentRateStr);
 
+                String periodStr = "-";
+                Context context = MyApp.getContext();
+
+                switch (loan.getPeriodInDays()) {
+
+                    case LOAN_PERIOD_ONE_DAY:
+                        periodStr = context.getString(R.string.one_day);
+                        break;
+
+                    case LOAN_PERIOD_THREE_DAYS:
+                        periodStr = context.getString(R.string.three_days);
+                        break;
+
+                    case LOAN_PERIOD_ONE_WEEK:
+                        periodStr = context.getString(R.string.one_week);
+                        break;
+
+                    case LOAN_PERIOD_TWO_WEEKS:
+                        periodStr = context.getString(R.string.two_weeks);
+                        break;
+
+                    case LOAN_PERIOD_ONE_MONTH:
+                        periodStr = context.getString(R.string.one_month);
+                        break;
+
+                    case LOAN_PERIOD_ONE_YEAR:
+                        periodStr = context.getString(R.string.one_year);
+                        break;
+
+                        default:
+                            //
+                }
+
+                periodTv.setText(periodStr);
             }
 
 
