@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,7 +70,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
         private SwipeLayout swipeLayout;
         private TextView nameTv;
-        private Button btn;
+        private ImageButton btn;
 
         public LoanViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,7 +78,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             nameTv = itemView.findViewById(R.id.loan_name_text_view);
-            btn = itemView.findViewById(R.id.button);
+            btn = itemView.findViewById(R.id.imageButton);
         }
 
         public void bind(Loan loan) {

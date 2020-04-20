@@ -2,28 +2,31 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content">
     <!-- Bottom View Start-->
     <LinearLayout
             android:id="@+id/bottom_wrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="1">
         <!--What you want to show-->
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center">
 
-            <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:text="Button"
-                    app:iconPadding="0dp"
+            <ImageButton
+                    android:id="@+id/imageButton"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/btn_delete_ripple"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <!-- Bottom View End-->
@@ -33,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -41,7 +44,7 @@
             <TextView
                     android:id="@+id/loan_name_text_view"
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:background="#FF6E40"
                     android:gravity="center"
                     android:text="TextView"
