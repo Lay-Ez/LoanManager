@@ -1,8 +1,10 @@
 package com.romanoindustries.loanmanager.fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 import java.util.ArrayList;
 
 
-public class OutgoingLoansFragment extends Fragment {
+public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener{
     private static final String TAG = "OutgoingLoansFragment";
 
     private FloatingActionButton fab;
@@ -56,7 +58,7 @@ public class OutgoingLoansFragment extends Fragment {
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.out_loans_recycler_view);
-        loansAdapter = new LoansAdapter(new ArrayList<>());
+        loansAdapter = new LoansAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(loansAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -76,5 +78,37 @@ public class OutgoingLoansFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onLoanCLicked(int position) {
+        Log.d(TAG, "onLoanCLicked: " + position);
+    }
+
+    @Override
+    public void onLoanDeleteClicked(int position) {
+        showDeleteDialog(position);
+    }
+
+    private void archiveLoan(int position) {
+        Loan loanToArchive = loansAdapter.getLoans().get(position);
+        loanToArchive.setType(Loan.TYPE_ARCHIVED_IN);
+        loansViewModel.update(loanToArchive);
+    }
+
+    private void showDeleteDialog(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.in_dialog_delete_title)
+                .setMessage(R.string.in_dialog_delete_msg)
+                .setPositiveButton(getString(R.string.in_dialog_delete_positive),
+                        (dialog, which) -> archiveLoan(position))
+                .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onLoadEditClicked(int position) {
+
     }
 }

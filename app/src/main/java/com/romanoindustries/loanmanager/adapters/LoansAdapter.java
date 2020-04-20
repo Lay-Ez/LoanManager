@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -31,9 +32,11 @@ import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PER
 public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
 
     private List<Loan>loans;
+    private OnLoanListener onLoanListener;
 
-    public LoansAdapter(List<Loan> loans) {
+    public LoansAdapter(List<Loan> loans, OnLoanListener onLoanListener) {
         this.loans = loans;
+        this.onLoanListener = onLoanListener;
         mItemManger.setMode(Attributes.Mode.Single);
     }
 
@@ -61,7 +64,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
         View view = inflater.inflate(listItemResourceId, parent, false);
 
-        return new LoanViewHolder(view);
+        return new LoanViewHolder(view, onLoanListener);
     }
 
     @Override
@@ -78,25 +81,42 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
     class LoanViewHolder extends RecyclerView.ViewHolder{
 
+        private OnLoanListener onLoanListener;
+        private ConstraintLayout mainLayout;
+
         private SwipeLayout swipeLayout;
         private TextView nameTv;
         private TextView currentAmountTv;
         private TextView endDateTv;
         private TextView percentTv;
         private TextView periodTv;
-        private ImageButton btn;
+        private ImageButton btnDelete;
+        private ImageButton btnEdit;
 
-        public LoanViewHolder(@NonNull View itemView) {
+        public LoanViewHolder(@NonNull View itemView, OnLoanListener onLoanListener) {
             super(itemView);
+            this.onLoanListener = onLoanListener;
 
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+            mainLayout = itemView.findViewById(R.id.list_item_main_body);
             nameTv = itemView.findViewById(R.id.name_tv);
             currentAmountTv = itemView.findViewById(R.id.current_amount_tv);
             endDateTv = itemView.findViewById(R.id.end_date_tv);
             percentTv = itemView.findViewById(R.id.percent_tv);
             periodTv = itemView.findViewById(R.id.period_tv);
-            btn = itemView.findViewById(R.id.delete_ib);
+            btnDelete = itemView.findViewById(R.id.delete_ib);
+            btnEdit = itemView.findViewById(R.id.edit_ib);
+
+            mainLayout.setOnClickListener(v -> {
+                onLoanListener.onLoanCLicked(getAdapterPosition());
+                swipeLayout.close();});
+            btnDelete.setOnClickListener(v -> {
+                onLoanListener.onLoanDeleteClicked(getAdapterPosition());
+                swipeLayout.close();});
+            btnEdit.setOnClickListener(v -> {
+                onLoanListener.onLoadEditClicked(getAdapterPosition());
+                swipeLayout.close();});
         }
 
         public void bind(Loan loan) {
@@ -153,5 +173,11 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
 
         }
+    }
+
+    public interface OnLoanListener{
+        void onLoanCLicked(int position);
+        void onLoanDeleteClicked(int position);
+        void onLoadEditClicked(int position);
     }
 }
