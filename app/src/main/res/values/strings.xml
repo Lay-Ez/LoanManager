@@ -24,13 +24,21 @@
     <string name="new_loan_percentage">Interest rate</string>
     <string name="new_loan_percentage_suffix">%</string>
     <string name="new_loan_period_label">Period: </string>
+
+    <string name="one_day">1 Day</string>
+    <string name="three_days">3 Days</string>
+    <string name="one_week">1 Week</string>
+    <string name="two_weeks">2 weeks</string>
+    <string name="one_month">1 Month</string>
+    <string name="one_year">1 Year</string>
+
     <string-array name="periods">
-        <item>1 Day</item>
-        <item>3 Days</item>
-        <item>1 Week</item>
-        <item>2 Weeks</item>
-        <item>1 Month</item>
-        <item>1 Year</item>
+        <item>@string/one_day</item>
+        <item>@string/three_days</item>
+        <item>@string/one_week</item>
+        <item>@string/two_weeks</item>
+        <item>@string/one_month</item>
+        <item>@string/one_year</item>
     </string-array>
 
     <string name="new_loan_menu_save">Save</string>

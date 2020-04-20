@@ -16,6 +16,8 @@ import com.daimajia.swipe.util.Attributes;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
@@ -70,6 +72,10 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
         private SwipeLayout swipeLayout;
         private TextView nameTv;
+        private TextView currentAmountTv;
+        private TextView endDateTv;
+        private TextView percentTv;
+        private TextView periodTv;
         private ImageButton btn;
 
         public LoanViewHolder(@NonNull View itemView) {
@@ -78,11 +84,32 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             nameTv = itemView.findViewById(R.id.name_tv);
+            currentAmountTv = itemView.findViewById(R.id.current_amount_tv);
+            endDateTv = itemView.findViewById(R.id.end_date_tv);
+            percentTv = itemView.findViewById(R.id.percent_tv);
+            periodTv = itemView.findViewById(R.id.period_tv);
             btn = itemView.findViewById(R.id.delete_ib);
         }
 
         public void bind(Loan loan) {
             nameTv.setText(loan.getDebtorName());
+            currentAmountTv.setText(String.valueOf(loan.getCurrentAmount()));
+
+            if (loan.getPaymentDateInMs() != 0) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(loan.getPaymentDateInMs());
+                String endDateString = DateFormat.getDateInstance().format(calendar.getTime());
+                endDateTv.setText(endDateString);
+            }
+
+            if (loan.getInterestRate() != 0) {
+                String percentRateStr = loan.getInterestRate() + "%";
+                percentTv.setText(percentRateStr);
+
+            }
+
+
+
         }
     }
 }
