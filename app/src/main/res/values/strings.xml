@@ -10,6 +10,8 @@
     <string name="list_item_currency_label">RUB</string>
     <string name="list_item_end_date_label">End Date:</string>
     <string name="list_item_rate_label">Rate:</string>
+    <string name="list_item_empty_placeholder">-</string>
+    <string name="list_item_rate_divider">/</string>
 
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">Add New Loan</string>

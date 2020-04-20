@@ -114,8 +114,8 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 String percentRateStr = loan.getInterestRate() + "%";
                 percentTv.setText(percentRateStr);
 
-                String periodStr = "-";
                 Context context = MyApp.getContext();
+                String periodStr = context.getString(R.string.list_item_empty_placeholder);
 
                 switch (loan.getPeriodInDays()) {
 
