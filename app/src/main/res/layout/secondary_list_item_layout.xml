@@ -6,14 +6,21 @@
         android:layout_height="match_parent">
 
     <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/delete_ib"
             style="@android:style/Widget.Material.ImageButton"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/btn_delete_selector"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete" />
+
+    <ImageButton
+            android:id="@+id/edit_ib"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_edit_ripple"
+            app:layout_constraintStart_toEndOf="@+id/delete_ib"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

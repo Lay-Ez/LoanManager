@@ -5,11 +5,11 @@
     <color name="colorAccent">#D81B60</color>
     
     <!--  button colors  -->
-    <color name="delete_button_default_color">#FFD600</color>
-    <color name="delete_button_pressed_color">#FFAB00</color>
+    <color name="delete_button_default_color">#D50000</color>
+    <color name="delete_button_pressed_color">#BAF70000</color>
     <color name="delete_button_disabled_color">#919191</color>
 
-    <color name="edit_button_default_color">#FFD600</color>
-    <color name="edit_button_pressed_color">#FFAB00</color>
+    <color name="edit_button_default_color">#FFAB00</color>
+    <color name="edit_button_pressed_color">#FFD600</color>
     <color name="edit_button_disabled_color">#919191</color>
 </resources>
