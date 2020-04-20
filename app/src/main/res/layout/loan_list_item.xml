@@ -1,4 +1,5 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
@@ -20,8 +21,9 @@
                     android:id="@+id/delete_ib"
                     style="@android:style/Widget.Material.ImageButton"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/btn_delete_selector"
+                    android:layout_height="0dp"
+                    android:background="@drawable/btn_delete_ripple"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_delete" />
@@ -29,8 +31,9 @@
             <ImageButton
                     android:id="@+id/edit_ib"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="0dp"
                     android:background="@drawable/btn_edit_ripple"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/delete_ib"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_edit" />
@@ -45,20 +48,154 @@
         <!--What you want to show in SurfaceView-->
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="16dp" />
+
             <TextView
-                    android:id="@+id/loan_name_text_view"
+                    android:id="@+id/name_tv"
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:background="#FF6E40"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/guideline4"
+                    tools:text="Arthur The King" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.45" />
+
+            <TextView
+                    android:id="@+id/current_amount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="-"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/name_tv"
+                    tools:text="1500" />
+
+            <TextView
+                    android:id="@+id/textView7"
+                    tools:text="RUB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
                     android:gravity="center"
-                    android:text="TextView"
-                    android:textSize="30sp"
+                    android:text="@string/list_item_currency_label"
+                    android:textSize="18sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/current_amount_tv"
+                    app:layout_constraintStart_toEndOf="@+id/current_amount_tv" />
+
+            <TextView
+                    android:id="@+id/end_date_tv"
+                    tools:text="Apr 21, 2020"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+            <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/list_item_end_date_label"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/end_date_tv"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
+            <TextView
+                    android:id="@+id/period_tv"
+                    tools:text="2 Weeks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="-"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/end_date_tv" />
+
+            <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/list_item_rate_label"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/textView9" />
+
+            <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="/"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
+                    app:layout_constraintEnd_toStartOf="@+id/period_tv" />
+
+            <TextView
+                    android:id="@+id/percent_tv"
+                    tools:text="14.88%"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="-"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
+                    app:layout_constraintEnd_toStartOf="@+id/textView13" />
+
+            <View
+                    android:id="@+id/divider6"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/current_amount_tv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

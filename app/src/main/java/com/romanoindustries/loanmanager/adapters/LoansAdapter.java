@@ -77,7 +77,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-            nameTv = itemView.findViewById(R.id.loan_name_text_view);
+            nameTv = itemView.findViewById(R.id.name_tv);
             btn = itemView.findViewById(R.id.delete_ib);
         }
 
