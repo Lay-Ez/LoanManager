@@ -15,7 +15,9 @@ public class Loan {
     @Ignore
     public static final int TYPE_OUT = 2;
     @Ignore
-    public static final int TYPE_ARCHIVED = 3;
+    public static final int TYPE_ARCHIVED_IN = 3;
+    @Ignore
+    public static final int TYPE_ARCHIVED_OUT = 4;
 
     public Loan() {}
 

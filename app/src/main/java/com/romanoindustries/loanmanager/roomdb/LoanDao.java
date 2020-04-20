@@ -35,6 +35,6 @@ public interface LoanDao {
     @Query("SELECT * FROM loan_table WHERE type=" + Loan.TYPE_OUT)
     LiveData<List<Loan>> getOutLoans();
 
-    @Query("SELECT * FROM loan_table WHERE type=" + Loan.TYPE_ARCHIVED)
+    @Query("SELECT * FROM loan_table WHERE type=" + Loan.TYPE_ARCHIVED_IN + " OR type=" + Loan.TYPE_ARCHIVED_OUT)
     LiveData<List<Loan>> getArchivedLoans();
 }
