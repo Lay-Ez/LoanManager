@@ -6,6 +6,11 @@
     <string name="nav_loans_out">Out</string>
     <string name="nav_loans_history">History</string>
 
+    <!--  list item -->
+    <string name="list_item_currency_label">RUB</string>
+    <string name="list_item_end_date_label">End Date:</string>
+    <string name="list_item_rate_label">Rate:</string>
+
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">Add New Loan</string>
     <string name="new_loan_name_hint">Name</string>
