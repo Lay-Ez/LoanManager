@@ -13,9 +13,7 @@
 
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -227,7 +225,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/info_end_date_label" />
 
             <TextView
-                    android:id="@+id/info_next_charging_date_label"
+                    android:id="@+id/info_next_accrual_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -280,7 +278,7 @@
                     android:layout_marginTop="24dp"
                     android:text="@string/info_activity_loan_id_label"
                     app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toBottomOf="@+id/info_interest_rate_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/info_period_label" />
 
             <TextView
                     android:id="@+id/info_id_tv"
@@ -307,11 +305,33 @@
                     android:id="@+id/info_note_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
                     android:inputType="textMultiLine"
                     android:text="@string/list_item_empty_placeholder"
+                    android:textColor="@android:color/black"
                     app:layout_constraintBaseline_toBaselineOf="@+id/info_note_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
                     app:layout_constraintStart_toStartOf="@+id/info_id_tv" />
+
+            <TextView
+                    android:id="@+id/info_period_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/info_activity_loan_interest_period_label"
+                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintTop_toBottomOf="@+id/info_interest_rate_label" />
+
+            <TextView
+                    android:id="@+id/info_period_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/list_item_empty_placeholder"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/info_period_label"
+                    app:layout_constraintStart_toStartOf="@+id/info_interest_rate_tv"
+                    tools:text="2 Weeks" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
