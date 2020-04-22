@@ -2,6 +2,7 @@ package com.romanoindustries.loanmanager.viewloaninfo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,6 @@ public class LoanInfoActivity extends AppCompatActivity {
     }
 
     private void displayLoan(Loan loan) {
-
+        Log.d(TAG, "displayLoan: loan name=" + loan.getDebtorName());
     }
 }

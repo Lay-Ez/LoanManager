@@ -76,6 +76,7 @@
     <string name="info_activity_loan_end_amount_label">Current Amount</string>
     <string name="info_activity_loan_interest_rate_label">Interest Rate</string>
     <string name="info_activity_loan_id_label">Loan ID</string>
+    <string name="info_activity_loan_note_label">Note</string>
 
 
     <!-- in fragment -->
