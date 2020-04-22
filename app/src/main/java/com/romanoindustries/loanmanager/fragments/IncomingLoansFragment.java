@@ -90,15 +90,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     @Override
     public void onLoadEditClicked(int position) {
-        Loan loanToEdit = loansAdapter.getLoans().get(position);
-        startNewLoanActivityWithLoanId(loanToEdit.getId());
-    }
 
-    private void startNewLoanActivityWithLoanId(int id) {
-        Intent intent = new Intent(getContext(), NewLoanActivity.class);
-        intent.putExtra(NewLoanActivity.LOAN_TYPE_KEY, Loan.TYPE_IN);
-        intent.putExtra(NewLoanActivity.LOAN_ID_KEY, id);
-        startActivity(intent);
     }
 
     private void archiveLoan(int position) {

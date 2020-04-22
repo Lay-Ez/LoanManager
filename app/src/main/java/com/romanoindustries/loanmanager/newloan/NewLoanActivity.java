@@ -34,9 +34,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-    private static final String TAG = "NewLoanActivity";
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
-    public static final String LOAN_ID_KEY = "loan_id_key";
 
     private InterestFragment interestFragment;
     private NewLoanViewModel newLoanViewModel;
@@ -310,20 +308,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private void parseIntent(Intent intent) {
         int loanType = intent.getIntExtra(LOAN_TYPE_KEY, 0);
         newLoanViewModel.setLoanType(loanType);
-
-        int passedId = intent.getIntExtra(LOAN_ID_KEY, -1);
-        if (passedId != -1) {
-            newLoanViewModel.getAllLoans().observe(this, loans -> {
-                if (loans!=null) {
-                    for (Loan loan : loans) {
-                        if (loan.getId() == passedId) {
-                            NewLoanVmHelper helper = new NewLoanVmHelper();
-                            helper.loadLoanIntoVm(loan, newLoanViewModel);
-                        }
-                    }
-                }
-            });
-        }
     }
 
 

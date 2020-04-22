@@ -83,10 +83,6 @@ public class NewLoanVmHelper {
         calendarEndDate.set(Calendar.SECOND, 0);
         return  calendarEndDate.getTimeInMillis();
     }
-
-    public void loadLoanIntoVm(Loan loan, NewLoanViewModel viewModel) {
-        Log.d(TAG, "loadLoanIntoVm: loan name=" + loan.getDebtorName());
-    }
 }
 
 

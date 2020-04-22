@@ -7,16 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.romanoindustries.loanmanager.datamodel.Loan;
-import com.romanoindustries.loanmanager.loanrepo.LoanRepo;
-
 import java.util.Calendar;
-import java.util.List;
 
 public class NewLoanViewModel extends AndroidViewModel {
-
-    private LoanRepo loanRepo;
-    private LiveData<List<Loan>> allLoans;
 
     private MutableLiveData<String> name;
     private MutableLiveData<String> phone;
@@ -32,8 +25,6 @@ public class NewLoanViewModel extends AndroidViewModel {
 
     public NewLoanViewModel(@NonNull Application application) {
         super(application);
-        loanRepo = new LoanRepo(application);
-        allLoans = loanRepo.getAllLoans();
 
         name = new MutableLiveData<>("");
         phone = new MutableLiveData<>("");
@@ -49,10 +40,6 @@ public class NewLoanViewModel extends AndroidViewModel {
         wholeInterestPercent = new MutableLiveData<>(0);
         decimalInterestPercent = new MutableLiveData<>(0);
         periodInDays = new MutableLiveData<>(1);
-    }
-
-    public LiveData<List<Loan>> getAllLoans() {
-        return allLoans;
     }
 
     public LiveData<String> getName() {

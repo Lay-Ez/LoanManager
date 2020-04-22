@@ -66,7 +66,7 @@
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
     <string name="in_dialog_delete_title">Confirm action</string>
-    <string name="in_dialog_delete_msg">Put this loan to archived list?</string>
+    <string name="in_dialog_delete_msg">Put this loan to archived?</string>
     <string name="in_dialog_delete_positive">Archive</string>
     <string name="in_dialog_delete_negative">Cancel</string>
 
