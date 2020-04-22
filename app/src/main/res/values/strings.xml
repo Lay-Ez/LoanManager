@@ -63,6 +63,8 @@
     <string name="optional_helper_text">Optional</string>
 
     <!-- loan info activity -->
+    <string name="info_activity_error_message">Cannot display loan info</string>
+
     <string name="info_activity_toolbar_title">Loan Information</string>
     <string name="info_activity_loan_type_label">Loan type</string>
     <string name="info_activity_loan_name_label">Name</string>
