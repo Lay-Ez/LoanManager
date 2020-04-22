@@ -168,7 +168,6 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                         default:
                             //
                 }
-
                 periodTv.setText(periodStr);
             }
         }

@@ -50,13 +50,14 @@ public class Loan {
     @ColumnInfo (name = "next_charging_date")
     private long nextChargingDateInMs;
 
+    @ColumnInfo (name = "archived_date", defaultValue = "1")
+    private long archivedDateInMs;
+
     @ColumnInfo (name = "period_in_days")
     private int periodInDays;
 
     @ColumnInfo (name = "interest_rate")
     private double interestRate;
-
-
 
     @ColumnInfo (name = "charge_events")
     private List<InterestChargeEvent> chargeEvents;
@@ -123,6 +124,14 @@ public class Loan {
 
     public void setNextChargingDateInMs(long nextChargingDateInMs) {
         this.nextChargingDateInMs = nextChargingDateInMs;
+    }
+
+    public long getArchivedDateInMs() {
+        return archivedDateInMs;
+    }
+
+    public void setArchivedDateInMs(long archivedDateInMs) {
+        this.archivedDateInMs = archivedDateInMs;
     }
 
     public int getPeriodInDays() {
