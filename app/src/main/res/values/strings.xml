@@ -62,6 +62,19 @@
 
     <string name="optional_helper_text">Optional</string>
 
+    <!-- loan info activity -->
+    <string name="info_activity_toolbar_title">Loan Information</string>
+    <string name="info_activity_loan_type_label">Loan type</string>
+    <string name="info_activity_loan_name_label">Name</string>
+    <string name="info_activity_loan_phone_label">Phone</string>
+    <string name="info_activity_loan_date_start_label">Start Date</string>
+    <string name="info_activity_loan_date_end_label">End Date</string>
+    <string name="info_activity_loan_next_date_label">Next Accrual Date</string>
+    <string name="info_activity_loan_start_amount_label">Start Amount</string>
+    <string name="info_activity_loan_end_amount_label">Current Amount</string>
+    <string name="info_activity_loan_interest_rate_label">Interest Rate</string>
+    <string name="info_activity_loan_id_label">Loan ID</string>
+
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
@@ -77,3 +90,11 @@
     <string name="arch_toolbar_title">Archived</string>
 
 </resources>
+
+
+
+
+
+
+
+

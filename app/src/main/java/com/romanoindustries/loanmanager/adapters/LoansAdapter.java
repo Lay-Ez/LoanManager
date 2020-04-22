@@ -117,7 +117,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 onLoanListener.onLoanDeleteClicked(getAdapterPosition());
                 swipeLayout.close();});
             btnEdit.setOnClickListener(v -> {
-                onLoanListener.onLoadEditClicked(getAdapterPosition());
+                onLoanListener.onLoanEditClicked(getAdapterPosition());
                 swipeLayout.close();});
         }
 
@@ -176,6 +176,6 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
     public interface OnLoanListener{
         void onLoanCLicked(int position);
         void onLoanDeleteClicked(int position);
-        void onLoadEditClicked(int position);
+        void onLoanEditClicked(int position);
     }
 }

@@ -60,7 +60,7 @@ public class Loan {
     private double interestRate;
 
     @ColumnInfo (name = "charge_events")
-    private List<InterestChargeEvent> chargeEvents;
+    private List<InterestAccrualEvent> chargeEvents;
 
     public String getDebtorName() {
         return debtorName;
@@ -158,11 +158,11 @@ public class Loan {
         this.type = type;
     }
 
-    public List<InterestChargeEvent> getChargeEvents() {
+    public List<InterestAccrualEvent> getChargeEvents() {
         return chargeEvents;
     }
 
-    public void setChargeEvents(List<InterestChargeEvent> chargeEvents) {
+    public void setChargeEvents(List<InterestAccrualEvent> chargeEvents) {
         this.chargeEvents = chargeEvents;
     }
 

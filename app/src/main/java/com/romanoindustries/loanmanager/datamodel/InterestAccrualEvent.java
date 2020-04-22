@@ -2,12 +2,12 @@ package com.romanoindustries.loanmanager.datamodel;
 
 import java.util.Calendar;
 
-public class InterestChargeEvent {
+public class InterestAccrualEvent {
     private Calendar chargeEventDate;
     private int startAmount;
     private int endAmount;
 
-    public InterestChargeEvent(Calendar chargeEventDate, int startAmount, int endAmount) {
+    public InterestAccrualEvent(Calendar chargeEventDate, int startAmount, int endAmount) {
         this.chargeEventDate = chargeEventDate;
         this.startAmount = startAmount;
         this.endAmount = endAmount;

@@ -108,7 +108,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     @Override
-    public void onLoadEditClicked(int position) {
+    public void onLoanEditClicked(int position) {
 
     }
 }

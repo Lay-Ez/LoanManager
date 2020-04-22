@@ -18,6 +18,7 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
 import java.util.ArrayList;
@@ -89,8 +90,11 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     @Override
-    public void onLoadEditClicked(int position) {
-
+    public void onLoanEditClicked(int position) {
+        Loan loanToView = loansAdapter.getLoans().get(position);
+        Intent intent = new Intent(getContext(), LoanInfoActivity.class);
+        intent.putExtra(LoanInfoActivity.LOAN_ID_KEY, loanToView.getId());
+        startActivity(intent);
     }
 
     private void archiveLoan(int position) {
