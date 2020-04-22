@@ -34,7 +34,9 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+    private static final String TAG = "NewLoanActivity";
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
+    public static final String LOAN_ID_KEY = "loan_id_key";
 
     private InterestFragment interestFragment;
     private NewLoanViewModel newLoanViewModel;
@@ -60,8 +62,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         interestFragment = new InterestFragment();
-        newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
-        setLoanType(getIntent());
+        newLoanViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(NewLoanViewModel.class);
+        parseIntent(getIntent());
         initViews();
         handleViewModelChanges(newLoanViewModel);
     }
@@ -204,7 +206,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private void onLoanSavePressed() {
         if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
             saveTextFieldsToViewModel();
-            LoanSaveHelper helper = new LoanSaveHelper();
+            NewLoanVmHelper helper = new NewLoanVmHelper();
             Loan loanToSave = helper.composeLoanFromVm(newLoanViewModel);
             LoansViewModel loansViewModel = new ViewModelProvider
                     .AndroidViewModelFactory(getApplication())
@@ -305,9 +307,23 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         dialog.show();
     }
 
-    private void setLoanType(Intent intent) {
+    private void parseIntent(Intent intent) {
         int loanType = intent.getIntExtra(LOAN_TYPE_KEY, 0);
         newLoanViewModel.setLoanType(loanType);
+
+        int passedId = intent.getIntExtra(LOAN_ID_KEY, -1);
+        if (passedId != -1) {
+            newLoanViewModel.getAllLoans().observe(this, loans -> {
+                if (loans!=null) {
+                    for (Loan loan : loans) {
+                        if (loan.getId() == passedId) {
+                            NewLoanVmHelper helper = new NewLoanVmHelper();
+                            helper.loadLoanIntoVm(loan, newLoanViewModel);
+                        }
+                    }
+                }
+            });
+        }
     }
 
 

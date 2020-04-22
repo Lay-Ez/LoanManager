@@ -7,10 +7,10 @@ import com.romanoindustries.loanmanager.datamodel.Loan;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class LoanSaveHelper {
-    private static final String TAG = "LoanSaveHelper";
+public class NewLoanVmHelper {
+    private static final String TAG = "NewLoanVmHelper";
 
-    public LoanSaveHelper() {
+    public NewLoanVmHelper() {
     }
 
     public Loan composeLoanFromVm(NewLoanViewModel viewModel) {
@@ -83,4 +83,39 @@ public class LoanSaveHelper {
         calendarEndDate.set(Calendar.SECOND, 0);
         return  calendarEndDate.getTimeInMillis();
     }
+
+    public void loadLoanIntoVm(Loan loan, NewLoanViewModel viewModel) {
+        Log.d(TAG, "loadLoanIntoVm: loan name=" + loan.getDebtorName());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

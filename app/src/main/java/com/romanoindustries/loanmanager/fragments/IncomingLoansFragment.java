@@ -88,6 +88,19 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         showDeleteDialog(position);
     }
 
+    @Override
+    public void onLoadEditClicked(int position) {
+        Loan loanToEdit = loansAdapter.getLoans().get(position);
+        startNewLoanActivityWithLoanId(loanToEdit.getId());
+    }
+
+    private void startNewLoanActivityWithLoanId(int id) {
+        Intent intent = new Intent(getContext(), NewLoanActivity.class);
+        intent.putExtra(NewLoanActivity.LOAN_TYPE_KEY, Loan.TYPE_IN);
+        intent.putExtra(NewLoanActivity.LOAN_ID_KEY, id);
+        startActivity(intent);
+    }
+
     private void archiveLoan(int position) {
         Loan loanToArchive = loansAdapter.getLoans().get(position);
         loanToArchive.setType(Loan.TYPE_ARCHIVED_IN);
@@ -103,10 +116,5 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    @Override
-    public void onLoadEditClicked(int position) {
-
     }
 }

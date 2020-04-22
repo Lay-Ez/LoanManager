@@ -15,6 +15,7 @@ import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.*;
 public class LoanRepo {
 
     private LoanDao loanDao;
+    private LiveData<List<Loan>> allLoans;
     private LiveData<List<Loan>> inLoans;
     private LiveData<List<Loan>> outLoans;
     private LiveData<List<Loan>> archivedLoans;
@@ -22,6 +23,7 @@ public class LoanRepo {
     public LoanRepo(Application application) {
         LoanDatabase loanDatabase = LoanDatabase.getInstance(application);
         loanDao = loanDatabase.loanDao();
+        allLoans = loanDao.getAllLoans();
         inLoans = loanDao.getInLoans();
         outLoans = loanDao.getOutLoans();
         archivedLoans = loanDao.getArchivedLoans();
@@ -53,6 +55,10 @@ public class LoanRepo {
 
     public LiveData<List<Loan>> getArchivedLoans() {
         return archivedLoans;
+    }
+
+    public LiveData<List<Loan>> getAllLoans() {
+        return allLoans;
     }
 }
 
