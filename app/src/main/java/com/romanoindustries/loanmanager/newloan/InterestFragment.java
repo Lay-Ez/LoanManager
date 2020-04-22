@@ -40,8 +40,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interest, container, false);
         initViews(view);
-        newLoanViewModel = new ViewModelProvider
-                .AndroidViewModelFactory(getActivity().getApplication()).create(NewLoanViewModel.class);
+        newLoanViewModel = new ViewModelProvider(getActivity()).get(NewLoanViewModel.class);
         observeViewModel(newLoanViewModel);
         return view;
     }

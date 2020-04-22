@@ -60,7 +60,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         interestFragment = new InterestFragment();
-        newLoanViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(NewLoanViewModel.class);
+        newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
         parseIntent(getIntent());
         initViews();
         handleViewModelChanges(newLoanViewModel);

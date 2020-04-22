@@ -1,15 +1,12 @@
 package com.romanoindustries.loanmanager.newloan;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.Calendar;
 
-public class NewLoanViewModel extends AndroidViewModel {
+public class NewLoanViewModel extends ViewModel {
 
     private MutableLiveData<String> name;
     private MutableLiveData<String> phone;
@@ -23,9 +20,7 @@ public class NewLoanViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> decimalInterestPercent;
     private MutableLiveData<Integer> periodInDays;
 
-    public NewLoanViewModel(@NonNull Application application) {
-        super(application);
-
+    public NewLoanViewModel() {
         name = new MutableLiveData<>("");
         phone = new MutableLiveData<>("");
         amount = new MutableLiveData<>(null);
