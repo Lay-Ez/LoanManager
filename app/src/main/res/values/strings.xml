@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">LoanManager</string>
 
+    <!-- used in multiple places -->
+    <string name="not_specified_string">Not Specified</string>
+    <string name="loan_type_incoming">Incoming</string>
+    <string name="loan_type_outgoing">Outgoing</string>
+    <string name="loan_type_archived_in">Archived (incoming)</string>
+    <string name="loan_type_archived_out">Archived (outgoing)</string>
+
     <!-- main activity -->
     <string name="nav_loans_in">In</string>
     <string name="nav_loans_out">Out</string>
@@ -75,7 +82,7 @@
     <string name="info_activity_loan_start_amount_label">Start Amount</string>
     <string name="info_activity_loan_end_amount_label">Current Amount</string>
     <string name="info_activity_loan_interest_rate_label">Interest Rate</string>
-    <string name="info_activity_loan_interest_period_label">Interest Period</string>
+    <string name="info_activity_loan_interest_period_label">Interest Period (days)</string>
     <string name="info_activity_loan_id_label">Loan ID</string>
     <string name="info_activity_loan_note_label">Note</string>
 

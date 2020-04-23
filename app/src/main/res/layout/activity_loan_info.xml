@@ -107,7 +107,7 @@
                     android:id="@+id/info_loan_type_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto"
                     android:maxLines="1"
@@ -120,7 +120,7 @@
 
             <TextView
                     android:id="@+id/info_phone_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto"
@@ -204,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:barrierDirection="end"
-                    app:constraint_referenced_ids="info_debtor_name,info_loan_type_label,info_start_date_label,info_end_date_label,info_start_amount_label,info_current_amount_label,info_next_charge_date_label,info_interest_rate_label,info_loan_id_label"
+                    app:constraint_referenced_ids="info_debtor_name,info_loan_type_label,info_start_date_label,info_end_date_label,info_start_amount_label,info_current_amount_label,info_next_charge_date_label,info_interest_rate_label,info_loan_id_label,info_period_label"
                     tools:layout_editor_absoluteX="411dp" />
 
             <TextView
@@ -220,6 +220,15 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
                     app:layout_constraintStart_toStartOf="@+id/info_end_date_tv"
                     tools:text="5,600" />
+
+            <TextView
+                    android:id="@+id/info_period_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/info_activity_loan_interest_period_label"
+                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintTop_toBottomOf="@+id/info_interest_rate_label" />
 
             <TextView
                     android:id="@+id/info_current_amount_tv"
@@ -333,15 +342,6 @@
                     app:layout_constraintBaseline_toBaselineOf="@+id/info_note_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
                     app:layout_constraintStart_toStartOf="@+id/info_id_tv" />
-
-            <TextView
-                    android:id="@+id/info_period_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/info_activity_loan_interest_period_label"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toBottomOf="@+id/info_interest_rate_label" />
 
             <TextView
                     android:id="@+id/info_period_tv"
