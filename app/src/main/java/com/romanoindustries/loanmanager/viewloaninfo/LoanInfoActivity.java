@@ -27,6 +27,12 @@ public class LoanInfoActivity extends AppCompatActivity {
         binding = ActivityLoanInfoBinding.inflate(getLayoutInflater());
         View rootView = binding.getRoot();
         setContentView(rootView);
+
+        setSupportActionBar(binding.loansInfoToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         Intent intent = getIntent();
         int loanId = intent.getIntExtra(LOAN_ID_KEY, -1);
         if (loanId == -1) {
@@ -132,6 +138,12 @@ public class LoanInfoActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dateMs);
         return DateFormat.getDateInstance().format(calendar.getTime());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
 
