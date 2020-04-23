@@ -16,9 +16,6 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.databinding.ActivityLoanInfoBinding;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-
 public class LoanInfoActivity extends AppCompatActivity {
     private static final String TAG = "LoanInfoActivity";
     public static final String LOAN_ID_KEY = "loan_id_key";
@@ -72,16 +69,16 @@ public class LoanInfoActivity extends AppCompatActivity {
             binding.infoPhoneTv.setText(R.string.not_specified_string);
         }
 
-        binding.infoStartDateTv.setText(formatDate(loan.getStartDateInMs()));
+        binding.infoStartDateTv.setText(LoanInfoHelper.formatDate(loan.getStartDateInMs()));
 
         if (loan.getPaymentDateInMs() != 0) {
-            binding.infoEndDateTv.setText(formatDate(loan.getPaymentDateInMs()));
+            binding.infoEndDateTv.setText(LoanInfoHelper.formatDate(loan.getPaymentDateInMs()));
         } else {
             binding.infoEndDateTv.setText(R.string.not_specified_string);
         }
 
         if (loan.getNextChargingDateInMs() != 0) {
-            binding.infoNextAccrualTv.setText(formatDate(loan.getNextChargingDateInMs()));
+            binding.infoNextAccrualTv.setText(LoanInfoHelper.formatDate(loan.getNextChargingDateInMs()));
         } else {
             binding.infoNextAccrualTv.setText(R.string.not_specified_string);
         }
@@ -138,16 +135,12 @@ public class LoanInfoActivity extends AppCompatActivity {
         binding.infoLoanTypeTv.setText(loanType);
     }
 
-    private String formatDate(long dateMs) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(dateMs);
-        return DateFormat.getDateInstance().format(calendar.getTime());
-    }
-
-    private void archiveViewedLoan() {
-        viewedLoan.setType(Loan.TYPE_ARCHIVED_IN);
-        viewModel.update(viewedLoan);
-        onBackPressed();
+    private void shareLoan() {
+        String msgToShare = LoanInfoHelper.composeShareText(viewedLoan);
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, msgToShare);
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_using)));
     }
 
     private void showDeleteDialog() {
@@ -155,10 +148,16 @@ public class LoanInfoActivity extends AppCompatActivity {
         builder.setTitle(R.string.in_dialog_delete_title)
                 .setMessage(R.string.in_dialog_delete_msg)
                 .setPositiveButton(getString(R.string.in_dialog_delete_positive),
-                        (dialog, which) -> archiveViewedLoan())
+                        (dialog, which) -> archiveLoan())
                 .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void archiveLoan() {
+        viewedLoan.setType(Loan.TYPE_ARCHIVED_IN);
+        viewModel.update(viewedLoan);
+        onBackPressed();
     }
 
     @Override
@@ -176,7 +175,7 @@ public class LoanInfoActivity extends AppCompatActivity {
                 break;
 
             case R.id.info_mnu_share:
-                //share
+                shareLoan();
                 break;
 
             default:
