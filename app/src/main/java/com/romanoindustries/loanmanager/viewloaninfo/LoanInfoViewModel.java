@@ -14,14 +14,19 @@ import java.util.List;
 public class LoanInfoViewModel extends AndroidViewModel {
 
     private LiveData<List<Loan>> allLoans;
+    private LoanRepo loanRepo;
 
     public LoanInfoViewModel(@NonNull Application application) {
         super(application);
-        LoanRepo loanRepo = new LoanRepo(application);
+        loanRepo = new LoanRepo(application);
         allLoans = loanRepo.getAllLoans();
     }
 
     public LiveData<List<Loan>> getAllLoans() {
         return allLoans;
+    }
+
+    public void update(Loan loan) {
+        loanRepo.update(loan);
     }
 }

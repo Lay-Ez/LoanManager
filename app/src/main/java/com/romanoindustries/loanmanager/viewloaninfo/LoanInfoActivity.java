@@ -1,12 +1,14 @@
 package com.romanoindustries.loanmanager.viewloaninfo;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,6 +23,8 @@ public class LoanInfoActivity extends AppCompatActivity {
     private static final String TAG = "LoanInfoActivity";
     public static final String LOAN_ID_KEY = "loan_id_key";
     private ActivityLoanInfoBinding binding;
+    private LoanInfoViewModel viewModel;
+    private Loan viewedLoan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +44,14 @@ public class LoanInfoActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.info_activity_error_message, Toast.LENGTH_LONG).show();
             onBackPressed();
         }
-        LoanInfoViewModel viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
+        viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
                 .create(LoanInfoViewModel.class);
         viewModel.getAllLoans().observe(this, loans -> {
             if (loans != null) {
                 for (Loan loan : loans) {
                     if (loan.getId() == loanId) {
                         displayLoan(loan);
+                        viewedLoan = loan;
                         break;
                     }
                 }
@@ -61,8 +66,6 @@ public class LoanInfoActivity extends AppCompatActivity {
         }
 
         String phone = loan.getPhoneNumber();
-        Log.d(TAG, "displayLoan: phone=" + phone);
-
         if (!phone.equals("")) {
             binding.infoPhoneTv.setText(phone);
         } else {
@@ -141,9 +144,45 @@ public class LoanInfoActivity extends AppCompatActivity {
         return DateFormat.getDateInstance().format(calendar.getTime());
     }
 
+    private void archiveViewedLoan() {
+        viewedLoan.setType(Loan.TYPE_ARCHIVED_IN);
+        viewModel.update(viewedLoan);
+        onBackPressed();
+    }
+
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.in_dialog_delete_title)
+                .setMessage(R.string.in_dialog_delete_msg)
+                .setPositiveButton(getString(R.string.in_dialog_delete_positive),
+                        (dialog, which) -> archiveViewedLoan())
+                .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.info_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.info_mnu_delete:
+                showDeleteDialog();
+                break;
+
+            case R.id.info_mnu_share:
+                //share
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
         return true;
     }
 
