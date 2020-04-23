@@ -4,7 +4,6 @@ package com.romanoindustries.loanmanager.fragments;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
 import java.util.ArrayList;
@@ -82,7 +82,10 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     @Override
     public void onLoanCLicked(int position) {
-        Log.d(TAG, "onLoanCLicked: " + position);
+        Loan loanToView = loansAdapter.getLoans().get(position);
+        Intent intent = new Intent(getContext(), LoanInfoActivity.class);
+        intent.putExtra(LoanInfoActivity.LOAN_ID_KEY, loanToView.getId());
+        startActivity(intent);
     }
 
     @Override

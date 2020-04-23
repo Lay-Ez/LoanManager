@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
-@Database(entities = Loan.class, version = 5)
+@Database(entities = Loan.class, version = 6)
 @TypeConverters(RoomConverters.class)
 public abstract class LoanDatabase extends RoomDatabase {
 

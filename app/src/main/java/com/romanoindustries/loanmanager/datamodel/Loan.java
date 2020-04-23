@@ -59,6 +59,9 @@ public class Loan {
     @ColumnInfo (name = "interest_rate")
     private double interestRate;
 
+    @ColumnInfo (defaultValue = "false")
+    private boolean highlighted;
+
     @ColumnInfo (name = "charge_events")
     private List<InterestAccrualEvent> chargeEvents;
 
@@ -172,6 +175,14 @@ public class Loan {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isHighlighted() {
+        return highlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
     }
 
     @Override

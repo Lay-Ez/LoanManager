@@ -70,6 +70,8 @@
     <string name="optional_helper_text">Optional</string>
 
     <!-- loan info activity -->
+    <string name="info_activity_delete_mnu">Delete</string>
+    <string name="info_activity_share_mnu">Share</string>
     <string name="info_activity_error_message">Cannot display loan info</string>
 
     <string name="info_activity_toolbar_title">Loan Information</string>

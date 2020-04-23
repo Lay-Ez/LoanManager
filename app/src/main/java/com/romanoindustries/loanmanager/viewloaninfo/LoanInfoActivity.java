@@ -3,6 +3,7 @@ package com.romanoindustries.loanmanager.viewloaninfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -138,6 +139,12 @@ public class LoanInfoActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dateMs);
         return DateFormat.getDateInstance().format(calendar.getTime());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_activity_menu, menu);
+        return true;
     }
 
     @Override
