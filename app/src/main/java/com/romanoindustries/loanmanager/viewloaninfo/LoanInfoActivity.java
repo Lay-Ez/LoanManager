@@ -69,8 +69,6 @@ public class LoanInfoActivity extends AppCompatActivity {
     }
 
     private void displayLoan(Loan loan) {
-
-        // TODO: 22.04.2020 implement fully
         String name = loan.getDebtorName();
         if (!name.isEmpty()) {
             nameTv.setText(name);
