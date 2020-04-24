@@ -122,6 +122,8 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
         }
 
         public void bind(Loan loan) {
+            Context context = MyApp.getContext();
+
             nameTv.setText(loan.getDebtorName());
             currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()));
 
@@ -134,16 +136,16 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
             if (loan.isHighlighted()) {
                 btnEdit.setImageResource(R.drawable.ic_star_filled);
+                mainLayout.setBackgroundResource(R.drawable.background_highlighted_ripple);
             } else {
                 btnEdit.setImageResource(R.drawable.ic_star_border);
+                mainLayout.setBackgroundResource(R.color.design_default_color_background);
             }
 
             if (loan.getInterestRate() != 0) {
                 String percentRateStr = loan.getInterestRate() + "%";
                 percentTv.setText(percentRateStr);
 
-
-                Context context = MyApp.getContext();
                 String periodStr = context.getString(R.string.list_item_empty_placeholder);
 
                 switch (loan.getPeriodInDays()) {

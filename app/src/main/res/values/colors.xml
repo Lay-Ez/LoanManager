@@ -12,4 +12,7 @@
     <color name="edit_button_default_color">#FFAB00</color>
     <color name="edit_button_pressed_color">#FFD600</color>
     <color name="edit_button_disabled_color">#919191</color>
+
+    <!-- highlighted loan color -->
+    <color name="highlighted_loan_color">#7FFFD600</color>
 </resources>
