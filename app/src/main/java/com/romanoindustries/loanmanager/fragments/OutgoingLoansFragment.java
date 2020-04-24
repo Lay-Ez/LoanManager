@@ -111,7 +111,10 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     @Override
-    public void onLoanEditClicked(int position) {
-
+    public void onLoanHighlightClicked(int position) {
+        Loan loanToHighlight = loansAdapter.getLoans().get(position);
+        boolean loanHighlighted = loanToHighlight.isHighlighted();
+        loanToHighlight.setHighlighted(!loanHighlighted);
+        loansViewModel.update(loanToHighlight);
     }
 }

@@ -117,7 +117,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 onLoanListener.onLoanDeleteClicked(getAdapterPosition());
                 swipeLayout.close();});
             btnEdit.setOnClickListener(v -> {
-                onLoanListener.onLoanEditClicked(getAdapterPosition());
+                onLoanListener.onLoanHighlightClicked(getAdapterPosition());
                 swipeLayout.close();});
         }
 
@@ -132,9 +132,16 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 endDateTv.setText(endDateString);
             }
 
+            if (loan.isHighlighted()) {
+                btnEdit.setImageResource(R.drawable.ic_star_filled);
+            } else {
+                btnEdit.setImageResource(R.drawable.ic_star_border);
+            }
+
             if (loan.getInterestRate() != 0) {
                 String percentRateStr = loan.getInterestRate() + "%";
                 percentTv.setText(percentRateStr);
+
 
                 Context context = MyApp.getContext();
                 String periodStr = context.getString(R.string.list_item_empty_placeholder);
@@ -176,6 +183,6 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
     public interface OnLoanListener{
         void onLoanCLicked(int position);
         void onLoanDeleteClicked(int position);
-        void onLoanEditClicked(int position);
+        void onLoanHighlightClicked(int position);
     }
 }
