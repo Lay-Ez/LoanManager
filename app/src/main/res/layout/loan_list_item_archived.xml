@@ -39,11 +39,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
+
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/list_item_main_body"
+                tools:viewBindingIgnore="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?selectableItemBackground"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
             <androidx.constraintlayout.widget.Guideline
@@ -51,21 +51,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="20dp" />
+                    app:layout_constraintGuide_begin="16dp" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_end="20dp" />
+                    app:layout_constraintGuide_end="16dp" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="12dp" />
+                    app:layout_constraintGuide_begin="16dp" />
 
             <TextView
                     android:id="@+id/name_tv"
@@ -75,9 +75,10 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto"
                     android:maxLines="1"
-                    android:text="@string/list_item_empty_placeholder"
+                    android:text="-"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="@+id/guideline4"
@@ -88,17 +89,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
+                    app:layout_constraintGuide_percent="0.4" />
 
             <TextView
                     android:id="@+id/current_amount_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="@string/list_item_empty_placeholder"
+                    android:text="-"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/name_tv"
                     tools:text="1500" />
@@ -108,10 +110,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/roboto"
                     android:gravity="center"
                     android:text="@string/list_item_currency_label"
-                    android:textSize="12sp"
+                    android:textSize="18sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/current_amount_tv"
                     app:layout_constraintStart_toEndOf="@+id/current_amount_tv"
                     tools:text="RUB" />
@@ -120,35 +121,33 @@
                     android:id="@+id/end_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/list_item_empty_placeholder"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:text="-"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                    app:layout_constraintTop_toTopOf="@+id/guideline4"
+                    app:layout_constraintTop_toBottomOf="@+id/start_date_tv"
                     tools:text="Apr 21, 2020" />
 
             <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/list_item_end_date_label"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/end_date_tv"
-                    app:layout_constraintEnd_toStartOf="@+id/end_date_tv" />
+                    app:layout_constraintEnd_toEndOf="@+id/textView6"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
             <TextView
                     android:id="@+id/period_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/list_item_empty_placeholder"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:text="-"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintTop_toBottomOf="@+id/end_date_tv"
                     tools:text="2 Weeks" />
@@ -157,21 +156,20 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/list_item_rate_label"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
-                    app:layout_constraintEnd_toStartOf="@+id/percent_tv" />
+                    app:layout_constraintEnd_toEndOf="@+id/textView9" />
 
             <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/list_item_rate_divider"
-                    android:textSize="12sp"
+                    android:text="/"
+                    android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
                     app:layout_constraintEnd_toStartOf="@+id/period_tv" />
 
@@ -180,10 +178,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/list_item_empty_placeholder"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:text="-"
+                    android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/period_tv"
                     app:layout_constraintEnd_toStartOf="@+id/textView13"
                     tools:text="14.88%" />
@@ -191,12 +187,34 @@
             <View
                     android:id="@+id/divider6"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/current_amount_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/period_tv" />
+
+            <TextView
+                    android:id="@+id/start_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="@+id/guideline4"
+                    tools:text="Apr 14, 2020" />
+
+            <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/list_item_start_date_label"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/start_date_tv"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->
