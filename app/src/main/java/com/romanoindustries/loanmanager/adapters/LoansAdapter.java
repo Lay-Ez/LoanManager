@@ -139,7 +139,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 mainLayout.setBackgroundResource(R.drawable.background_highlighted_ripple);
             } else {
                 btnEdit.setImageResource(R.drawable.ic_star_border);
-                mainLayout.setBackgroundResource(R.color.design_default_color_background);
+                mainLayout.setBackgroundResource(R.drawable.background_not_highlighted_ripple);
             }
 
             if (loan.getInterestRate() != 0) {
