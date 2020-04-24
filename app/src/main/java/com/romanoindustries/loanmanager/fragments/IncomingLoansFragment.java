@@ -22,6 +22,7 @@ import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener {
     private static final String TAG = "IncomingLoansFragment";
@@ -103,6 +104,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private void archiveLoan(int position) {
         Loan loanToArchive = loansAdapter.getLoans().get(position);
         loanToArchive.setType(Loan.TYPE_ARCHIVED_IN);
+        loanToArchive.setPaymentDateInMs(Calendar.getInstance().getTimeInMillis());
         loansViewModel.update(loanToArchive);
     }
 
