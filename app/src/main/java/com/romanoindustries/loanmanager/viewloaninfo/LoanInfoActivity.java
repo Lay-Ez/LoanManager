@@ -16,6 +16,9 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.databinding.ActivityLoanInfoBinding;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class LoanInfoActivity extends AppCompatActivity {
     private static final String TAG = "LoanInfoActivity";
     public static final String LOAN_ID_KEY = "loan_id_key";
@@ -84,10 +87,10 @@ public class LoanInfoActivity extends AppCompatActivity {
         }
 
         int startAmount = loan.getStartAmount();
-        binding.infoStartAmountTv.setText(String.valueOf(startAmount));
+        binding.infoStartAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(startAmount));
 
         int currentAmount = loan.getCurrentAmount();
-        binding.infoCurrentAmountTv.setText(String.valueOf(currentAmount));
+        binding.infoCurrentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(currentAmount));
 
         double interestRate = loan.getInterestRate();
         if (interestRate > 0.0) {
