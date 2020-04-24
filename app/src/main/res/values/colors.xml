@@ -5,8 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     
     <!--  button colors  -->
-    <color name="delete_button_default_color">#FF3030</color>
-    <color name="delete_button_pressed_color">#FF5454</color>
+    <color name="delete_button_default_color">#D50000</color>
+    <color name="delete_button_pressed_color">#FF2121</color>
     <color name="delete_button_disabled_color">#919191</color>
 
     <color name="edit_button_default_color">#FFAB00</color>
@@ -15,4 +15,6 @@
 
     <!-- highlighted loan color -->
     <color name="highlighted_loan_color">#7FFFD600</color>
+    <color name="tomorrow_due_date_color">#FFAB00</color>
+    <color name="past_due_date_color">#D50000</color>
 </resources>

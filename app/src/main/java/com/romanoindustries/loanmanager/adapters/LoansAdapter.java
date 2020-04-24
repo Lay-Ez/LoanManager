@@ -132,6 +132,13 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 calendar.setTimeInMillis(loan.getPaymentDateInMs());
                 String endDateString = DateFormat.getDateInstance().format(calendar.getTime());
                 endDateTv.setText(endDateString);
+                Calendar tomorrowsCalendar = Calendar.getInstance();
+                tomorrowsCalendar.add(Calendar.DAY_OF_YEAR, 1);
+                if (loan.getPaymentDateInMs() < System.currentTimeMillis()) {
+                    endDateTv.setTextColor(context.getColor(R.color.past_due_date_color));
+                } else if (loan.getPaymentDateInMs() < tomorrowsCalendar.getTimeInMillis()) {
+                    endDateTv.setTextColor(context.getColor(R.color.tomorrow_due_date_color));
+                }
             }
 
             if (loan.isHighlighted()) {
