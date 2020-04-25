@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.romanoindustries.loanmanager.fragments.ArchivedLoansFragment;
+import com.romanoindustries.loanmanager.archivedloans.ArchivedLoansFragment;
 import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
 import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
 

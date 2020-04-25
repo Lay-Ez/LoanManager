@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.fragments;
+package com.romanoindustries.loanmanager.archivedloans;
 
 
 import android.app.AlertDialog;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.romanoindustries.loanmanager.R;
-import com.romanoindustries.loanmanager.adapters.ArchivedLoansAdapter;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;

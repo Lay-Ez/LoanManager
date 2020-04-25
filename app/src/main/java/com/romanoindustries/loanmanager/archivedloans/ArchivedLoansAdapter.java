@@ -1,4 +1,4 @@
-package com.romanoindustries.loanmanager.adapters;
+package com.romanoindustries.loanmanager.archivedloans;
 
 import android.content.Context;
 import android.view.LayoutInflater;
