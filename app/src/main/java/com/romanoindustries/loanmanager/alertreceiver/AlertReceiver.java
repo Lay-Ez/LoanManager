@@ -38,7 +38,8 @@ public class AlertReceiver extends BroadcastReceiver {
         protected Void doInBackground(Void... voids) {
             List<Loan> activeLoans = repo.getAllActiveLoans();
             for (Loan loan : activeLoans) {
-                // process the loan
+                loan = ReceiverLoanHelper.processLoansInterestRate(loan);
+                repo.update(loan);
             }
             Context base = MyApp.getContext();
             NotificationHelper helper = new NotificationHelper(base);
