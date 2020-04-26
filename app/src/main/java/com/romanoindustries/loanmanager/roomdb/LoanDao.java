@@ -29,6 +29,9 @@ public interface LoanDao {
     @Query("SELECT * FROM loan_table")
     LiveData<List<Loan>> getAllLoans();
 
+    @Query("SELECT * FROM loan_table WHERE type=" + Loan.TYPE_IN + " OR type=" + Loan.TYPE_OUT)
+    List<Loan> getAllActiveLoans();
+
     @Query("SELECT * FROM loan_table WHERE type=" + Loan.TYPE_IN)
     LiveData<List<Loan>> getInLoans();
 

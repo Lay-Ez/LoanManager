@@ -14,4 +14,8 @@ public class MyApp extends Application {
     public static Context getContext() {
         return instance;
     }
+
+    public static Application getApplication() {
+        return instance;
+    }
 }

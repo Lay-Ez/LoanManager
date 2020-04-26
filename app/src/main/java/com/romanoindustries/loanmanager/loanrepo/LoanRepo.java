@@ -60,6 +60,10 @@ public class LoanRepo {
     public LiveData<List<Loan>> getAllLoans() {
         return allLoans;
     }
+
+    public List<Loan> getAllActiveLoans() {
+        return loanDao.getAllActiveLoans();
+    }
 }
 
 
