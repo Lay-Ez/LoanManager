@@ -21,20 +21,20 @@ public class ReceiverLoanHelper {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(nextChargingDateInMs);
             calendar.add(Calendar.DAY_OF_YEAR, loan.getPeriodInDays());
+            calendar.set(Calendar.HOUR_OF_DAY, 12);
             nextChargingDateInMs = calendar.getTimeInMillis();
         }
-
         loan.setNextChargingDateInMs(nextChargingDateInMs);
         return loan;
     }
 
     public static boolean loanEndsTomorrow(Loan loan) {
         Calendar calendar = Calendar.getInstance();
-        long currentTime = calendar.getTimeInMillis();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        long sameTimeTomorrow = calendar.getTimeInMillis();
-
-        return true; // TODO: 26.04.2020 implement
+        int tomorrow = calendar.get(Calendar.DAY_OF_YEAR);
+        calendar.setTimeInMillis(loan.getPaymentDateInMs());
+        int loanEndDay = calendar.get(Calendar.DAY_OF_YEAR);
+        return loanEndDay == tomorrow;
     }
 
 }
