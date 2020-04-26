@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.notifications.NotificationHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
@@ -99,6 +101,12 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         boolean loanHighlighted = loanToHighlight.isHighlighted();
         loanToHighlight.setHighlighted(!loanHighlighted);
         loansViewModel.update(loanToHighlight);
+
+        NotificationHelper helper = new NotificationHelper(getContext());
+        NotificationCompat.Builder notificationBuilder = helper.getMainChannelNotification("Time to pay man",
+                "Yoo brah time to get the money some really long ass text in here so it doesn't fit on one page");
+        notificationBuilder.setColor(getContext().getColor(R.color.colorPrimary));
+        helper.getManager().notify(1, notificationBuilder.build());
     }
 
     private void archiveLoan(int position) {
