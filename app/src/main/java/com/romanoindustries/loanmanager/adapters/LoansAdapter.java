@@ -118,14 +118,14 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 swipeLayout.close();});
             btnEdit.setOnClickListener(v -> {
                 onLoanListener.onLoanHighlightClicked(getAdapterPosition());
-                swipeLayout.close();});
+                });
         }
 
         public void bind(Loan loan) {
             Context context = MyApp.getContext();
 
             nameTv.setText(loan.getDebtorName());
-            currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()));
+            currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()).trim());
 
             if (loan.getPaymentDateInMs() != 0) {
                 Calendar calendar = Calendar.getInstance();

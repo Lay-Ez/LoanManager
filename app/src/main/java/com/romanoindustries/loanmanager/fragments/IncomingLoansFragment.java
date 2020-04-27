@@ -103,7 +103,6 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         boolean loanHighlighted = loanToHighlight.isHighlighted();
         loanToHighlight.setHighlighted(!loanHighlighted);
         loansViewModel.update(loanToHighlight);
-        startAlarm();
     }
 
     private void startAlarm() {
