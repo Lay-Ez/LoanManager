@@ -63,7 +63,7 @@ public class NewLoanVmHelper {
             loan.setNextChargingDateInMs(0);
         }
 
-        loan.setChargeEvents(new ArrayList<>()); /* implement later */
+        loan.setChargeEvents(new ArrayList<>());
 
         return loan;
     }

@@ -1,6 +1,7 @@
 package com.romanoindustries.loanmanager.alertreceiver;
 
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoHelper;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -81,5 +82,10 @@ public class ReceiverLoanHelperTest {
         loan = ReceiverLoanHelper.processLoansInterestRate(loan);
         System.out.println(loan.getNextChargingDateInMs());
         Assert.assertEquals(1061, loan.getCurrentAmount());
+        loan.getChargeEvents().forEach(l -> {
+            System.out.println("date = " + LoanInfoHelper.formatDate(l.getChargeEventDate().getTimeInMillis()));
+            System.out.println("start amount = " + l.getStartAmount());
+            System.out.println("end amount = " + l.getEndAmount());
+        });
     }
 }

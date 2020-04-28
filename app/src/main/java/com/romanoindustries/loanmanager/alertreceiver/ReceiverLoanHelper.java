@@ -1,5 +1,6 @@
 package com.romanoindustries.loanmanager.alertreceiver;
 
+import com.romanoindustries.loanmanager.datamodel.InterestAccrualEvent;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
 import java.util.Calendar;
@@ -12,19 +13,24 @@ public class ReceiverLoanHelper {
             return loan;
         }
         long currentTime = Calendar.getInstance().getTimeInMillis();
-        long nextChargingDateInMs = loan.getNextChargingDateInMs();
+        long chargingDateInMs = loan.getNextChargingDateInMs();
 
-        while (nextChargingDateInMs < currentTime) {
-            int currentAmount = loan.getCurrentAmount();
-            double resultingAmount = currentAmount * (1+interestRate/100);
+        while (chargingDateInMs < currentTime) {
+
+            int startAmount = loan.getCurrentAmount();
+            double resultingAmount = startAmount * (1+interestRate/100);
             loan.setCurrentAmount((int) resultingAmount);
+
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(nextChargingDateInMs);
+            calendar.setTimeInMillis(chargingDateInMs);
+            InterestAccrualEvent accrualEvent = new InterestAccrualEvent(calendar, startAmount, (int) resultingAmount);
+            loan.getChargeEvents().add(accrualEvent);
+
             calendar.add(Calendar.DAY_OF_YEAR, loan.getPeriodInDays());
             calendar.set(Calendar.HOUR_OF_DAY, 12);
-            nextChargingDateInMs = calendar.getTimeInMillis();
+            chargingDateInMs = calendar.getTimeInMillis();
         }
-        loan.setNextChargingDateInMs(nextChargingDateInMs);
+        loan.setNextChargingDateInMs(chargingDateInMs);
         return loan;
     }
 
@@ -36,5 +42,4 @@ public class ReceiverLoanHelper {
         int loanEndDay = calendar.get(Calendar.DAY_OF_YEAR);
         return loanEndDay == tomorrow;
     }
-
 }
