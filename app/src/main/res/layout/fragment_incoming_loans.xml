@@ -30,19 +30,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="60dp">
+                    android:layout_marginTop="68dp">
 
                 <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="0dp"
+                        android:id="@+id/in_loans_total_amount_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:text="Hello mate"
+                        android:text="0"
                         android:textColor="#FFFFFF"
-                        android:textSize="30sp"
+                        android:textSize="24sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/in_loans_total_amount_currency_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center"
+                        android:text="@string/list_item_currency_label"
+                        android:textSize="18sp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/in_loans_total_amount_tv"
+                        app:layout_constraintStart_toEndOf="@+id/in_loans_total_amount_tv"
+                        tools:text="@string/list_item_currency_label" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
