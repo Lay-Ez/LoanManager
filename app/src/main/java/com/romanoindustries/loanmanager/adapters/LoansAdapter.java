@@ -139,6 +139,8 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 } else if (loan.getPaymentDateInMs() < tomorrowsCalendar.getTimeInMillis()) {
                     endDateTv.setTextColor(context.getColor(R.color.tomorrow_due_date_color));
                 }
+            } else {
+                endDateTv.setText(context.getString(R.string.list_item_empty_placeholder));
             }
 
             if (loan.isHighlighted()) {
@@ -184,7 +186,12 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                         default:
                             //
                 }
+
                 periodTv.setText(periodStr);
+
+            } else {
+                percentTv.setText(context.getString(R.string.list_item_empty_placeholder));
+                periodTv.setText(context.getString(R.string.list_item_empty_placeholder));
             }
         }
     }
