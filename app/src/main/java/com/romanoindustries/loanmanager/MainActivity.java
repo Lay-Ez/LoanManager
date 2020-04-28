@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.romanoindustries.loanmanager.alertreceiver.AlarmScheduler;
 import com.romanoindustries.loanmanager.archivedloans.ArchivedLoansFragment;
 import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
 import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ARCH_FRAGMENT_ID = 3;
 
     public static final String CURRENT_FRAGMENT_KEY = "current_fragment";
-    private int currentlFragmentId = 1;
+    private int currentFragmentId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setOnNavigationItemSelectedListener(navListener);
 
         restoreViewedFragment(savedInstanceState);
+        startAlarm();
     }
 
     private void restoreViewedFragment(Bundle bundle) {
@@ -59,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, archivedLoansFragment).commit();
         }
-        currentlFragmentId = viewFragmentId;
+        currentFragmentId = viewFragmentId;
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(CURRENT_FRAGMENT_KEY, currentlFragmentId);
+        outState.putInt(CURRENT_FRAGMENT_KEY, currentFragmentId);
         super.onSaveInstanceState(outState);
     }
 
@@ -78,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.nav_loans_in:
                             selectedFragment = incomingLoansFragment;
-                            currentlFragmentId = IN_FRAGMENT_ID;
+                            currentFragmentId = IN_FRAGMENT_ID;
                             break;
 
                         case R.id.nav_loans_out:
                             selectedFragment = outgoingLoansFragment;
-                            currentlFragmentId = OUT_FRAGMENT_ID;
+                            currentFragmentId = OUT_FRAGMENT_ID;
                             break;
 
                         case R.id.nav_loans_history:
                             selectedFragment = archivedLoansFragment;
-                            currentlFragmentId = ARCH_FRAGMENT_ID;
+                            currentFragmentId = ARCH_FRAGMENT_ID;
                             break;
                     }
                     getSupportFragmentManager().beginTransaction()
@@ -96,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    private void startAlarm() {
+        AlarmScheduler.scheduleAlarm(this);
+    }
 }
 
 

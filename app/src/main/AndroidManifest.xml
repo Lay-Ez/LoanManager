@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.romanoindustries.loanmanager">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
             android:name=".MyApp"
             android:allowBackup="true"
@@ -21,6 +23,13 @@
             </intent-filter>
         </activity>
         <receiver android:name=".alertreceiver.AlertReceiver"/>
+        <receiver android:name=".alertreceiver.BootReceiver"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
         <meta-data
                 android:name="preloaded_fonts"

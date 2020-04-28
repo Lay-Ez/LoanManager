@@ -115,7 +115,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private void startAlarm() {
         AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, 20);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
