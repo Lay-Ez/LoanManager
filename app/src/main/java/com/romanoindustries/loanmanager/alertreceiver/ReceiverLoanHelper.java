@@ -1,9 +1,17 @@
 package com.romanoindustries.loanmanager.alertreceiver;
 
+import android.app.NotificationManager;
+import android.content.Context;
+
+import com.romanoindustries.loanmanager.MyApp;
+import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.InterestAccrualEvent;
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.notifications.NotificationHelper;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ReceiverLoanHelper {
 
@@ -32,6 +40,29 @@ public class ReceiverLoanHelper {
         }
         loan.setNextChargingDateInMs(chargingDateInMs);
         return loan;
+    }
+
+    public static void notifyLoanEndsTomorrow(Loan loan) {
+        Context context = MyApp.getContext();
+        String debtorName = loan.getDebtorName();
+        String amount = NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount());
+
+        String title;
+        String msgBody;
+
+        if (loan.getType() == Loan.TYPE_IN) {
+            title = context.getString(R.string.in_loan_notification_title);
+            msgBody = context.getString(R.string.in_loan_notification_body, debtorName, amount);
+        } else {
+            title = context.getString(R.string.out_loan_notification_title);
+            msgBody = context.getString(R.string.out_loan_notification_body, debtorName, amount);
+        }
+
+        NotificationHelper helper = new NotificationHelper(context);
+        NotificationManager manager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(loan.getId(), helper
+                .getMainChannelNotification(title, msgBody)
+                .build());
     }
 
     public static boolean loanEndsTomorrow(Loan loan) {

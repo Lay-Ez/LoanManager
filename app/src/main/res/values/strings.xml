@@ -118,6 +118,15 @@
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Archived</string>
 
+    <!-- notifications -->
+    <string name="in_loan_notification_title">Time to get the money!</string>
+    <string name="in_loan_notification_body">The loan you gave to %1$s should be returned tomorrow.
+    They owe you %2$s RUB</string>
+
+    <string name="out_loan_notification_title">Time to pay!</string>
+    <string name="out_loan_notification_body">The loan %1$s gave you should be returned tomorrow.
+    You owe them %2$s RUB</string>
+
 </resources>
 
 

@@ -1,6 +1,5 @@
 package com.romanoindustries.loanmanager.alertreceiver;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.os.AsyncTask;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.loanrepo.LoanRepo;
-import com.romanoindustries.loanmanager.notifications.NotificationHelper;
 
 import java.util.List;
 
@@ -39,15 +37,11 @@ public class AlertReceiver extends BroadcastReceiver {
             List<Loan> activeLoans = repo.getAllActiveLoans();
             for (Loan loan : activeLoans) {
                 loan = ReceiverLoanHelper.processLoansInterestRate(loan);
+                if (ReceiverLoanHelper.loanEndsTomorrow(loan)) {
+                    ReceiverLoanHelper.notifyLoanEndsTomorrow(loan);
+                }
                 repo.update(loan);
             }
-            Context base = MyApp.getContext();
-            NotificationHelper helper = new NotificationHelper(base);
-            NotificationManager manager = (NotificationManager) base.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.notify(1, helper
-                    .getMainChannelNotification("Hello from receiver", "Msg body here")
-                    .build());
-
             return null;
         }
 
