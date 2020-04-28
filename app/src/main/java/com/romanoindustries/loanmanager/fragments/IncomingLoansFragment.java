@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,8 +26,11 @@ import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener {
     private static final String TAG = "IncomingLoansFragment";
@@ -36,6 +40,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private FloatingActionButton fab;
     private LoansViewModel loansViewModel;
     private LoansAdapter loansAdapter;
+    private TextView totalAmountTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,12 +53,14 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 .AndroidViewModelFactory(getActivity().getApplication())
                 .create(LoansViewModel.class);
 
-        loansViewModel.getInLoans().observe(this, loans -> loansAdapter.updateLoans(loans));
+        loansViewModel.getInLoans().observe(this, this::parseLoans);
 
         return view;
     }
 
     private void initViews(View view) {
+        totalAmountTv = view.findViewById(R.id.in_loans_total_amount_tv);
+
         fab = view.findViewById(R.id.in_loans_fab);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), NewLoanActivity.class);
@@ -131,5 +138,15 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void parseLoans(List<Loan> loans) {
+        if (loans == null || loans.isEmpty()) {
+            totalAmountTv.setText(getString(R.string.total_amount_zero));
+            return;
+        }
+        loansAdapter.updateLoans(loans);
+        int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
+        totalAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(totalAmount));
     }
 }

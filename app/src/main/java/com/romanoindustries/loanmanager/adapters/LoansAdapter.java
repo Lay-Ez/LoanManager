@@ -125,7 +125,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             Context context = MyApp.getContext();
 
             nameTv.setText(loan.getDebtorName());
-            currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()).trim());
+            currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()));
 
             if (loan.getPaymentDateInMs() != 0) {
                 Calendar calendar = Calendar.getInstance();

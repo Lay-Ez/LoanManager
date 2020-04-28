@@ -2,6 +2,7 @@
     <string name="app_name">LoanManager</string>
 
     <!-- used in multiple places -->
+    <string name="total_amount_zero">0</string>
     <string name="not_specified_string">Not Specified</string>
     <string name="loan_type_incoming">Incoming</string>
     <string name="loan_type_outgoing">Outgoing</string>
