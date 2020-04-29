@@ -3,6 +3,7 @@ package com.romanoindustries.loanmanager.sorting;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Menu;
 
 import com.romanoindustries.loanmanager.R;
 
@@ -32,8 +33,33 @@ public class SortModeHelper {
         SharedPreferences.Editor editor = preferences.edit();
         if (sortMode>=1 && sortMode<=4) {
             editor.putInt(context.getString(R.string.sort_mode_key), sortMode);
+            editor.apply();
         } else {
             Log.e(TAG, "setSortMode: ", new IllegalArgumentException());
+        }
+    }
+
+    public static void checkCorrectSortItem(Menu sortMenu, Context context) {
+        int sortMode = SortModeHelper.getSortMode(context);
+        Log.d(TAG, "checkCorrectSortItem: sort mode = " + sortMode);
+
+        switch (sortMode) {
+
+            case SortModeHelper.SORT_OLD_FIRST:
+                sortMenu.findItem(R.id.mnu_sort_item_old_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_NEW_FIRST:
+                sortMenu.findItem(R.id.mnu_sort_item_new_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_BIG_FIRST:
+                sortMenu.findItem(R.id.mnu_sort_item_big_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_SMALL_FIRST:
+                sortMenu.findItem(R.id.mnu_sort_item_small_first).setChecked(true);
+                break;
         }
     }
 }

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -172,31 +171,34 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         View menuItemView = view.findViewById(R.id.mnu_item_sort);
         PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
-        checkCorrectSortItem(popupMenu.getMenu());
+        SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
         popupMenu.show();
-    }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.isChecked()) {
+                return true;
+            }
+            item.setChecked(true);
+            switch (item.getItemId()) {
 
-    private void checkCorrectSortItem(Menu menu) {
-        int sortMode = SortModeHelper.getSortMode(getContext());
+                case R.id.mnu_sort_item_old_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    break;
 
-        switch (sortMode) {
+                case R.id.mnu_sort_item_new_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    break;
 
-            case SortModeHelper.SORT_OLD_FIRST:
-                menu.findItem(R.id.mnu_sort_item_old_first).setChecked(true);
-                break;
+                case R.id.mnu_sort_item_big_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    break;
 
-            case SortModeHelper.SORT_NEW_FIRST:
-                menu.findItem(R.id.mnu_sort_item_new_first).setChecked(true);
-                break;
+                case R.id.mnu_sort_item_small_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    break;
 
-            case SortModeHelper.SORT_BIG_FIRST:
-                menu.findItem(R.id.mnu_sort_item_big_first).setChecked(true);
-                break;
-
-            case SortModeHelper.SORT_SMALL_FIRST:
-                menu.findItem(R.id.mnu_sort_item_small_first).setChecked(true);
-                break;
-        }
+            }
+            return true;
+        });
     }
 }
 
