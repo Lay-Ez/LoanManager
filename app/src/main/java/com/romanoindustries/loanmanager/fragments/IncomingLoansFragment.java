@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,8 +61,22 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     private void initViews(View view) {
-        totalAmountTv = view.findViewById(R.id.in_loans_total_amount_tv);
+        Toolbar toolbar = view.findViewById(R.id.in_loans_toolbar);
+        toolbar.inflateMenu(R.menu.fragment_menu);
+        toolbar.setOnMenuItemClickListener(item -> {
 
+            switch (item.getItemId()) {
+
+                case R.id.mnu_item_sort:
+                    showSortMenu(view);
+                    return true;
+
+            }
+
+            return false;
+        });
+
+        totalAmountTv = view.findViewById(R.id.in_loans_total_amount_tv);
         fab = view.findViewById(R.id.in_loans_fab);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), NewLoanActivity.class);
@@ -148,5 +164,13 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         loansAdapter.updateLoans(loans);
         int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(totalAmount));
+    }
+
+    private void showSortMenu(View view) {
+        View menuItemView = view.findViewById(R.id.mnu_item_sort);
+        PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
+        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
+        popupMenu.getMenu().getItem(0).setChecked(true);
+        popupMenu.show();
     }
 }

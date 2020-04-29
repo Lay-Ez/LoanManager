@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single" >
+        <item
+                android:orderInCategory="1"
+                android:title="@string/filter_new_first" />
+        <item
+                android:orderInCategory="2"
+                android:title="@string/filter_old_first" />
+        <item
+                android:orderInCategory="3"
+                android:title="@string/filter_big_first" />
+        <item
+                android:orderInCategory="4"
+                android:title="@string/filter_small_first" />
+    </group>
+</menu>
