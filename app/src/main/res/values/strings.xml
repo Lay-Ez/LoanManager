@@ -9,6 +9,8 @@
     <string name="loan_type_archived_in">Archived (incoming)</string>
     <string name="loan_type_archived_out">Archived (outgoing)</string>
 
+    <string name="filter_by_mnu_item_label">Filter</string>
+
     <!-- main activity -->
     <string name="nav_loans_in">In</string>
     <string name="nav_loans_out">Out</string>
