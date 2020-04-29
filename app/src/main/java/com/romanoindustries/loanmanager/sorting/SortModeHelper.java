@@ -41,7 +41,6 @@ public class SortModeHelper {
 
     public static void checkCorrectSortItem(Menu sortMenu, Context context) {
         int sortMode = SortModeHelper.getSortMode(context);
-        Log.d(TAG, "checkCorrectSortItem: sort mode = " + sortMode);
 
         switch (sortMode) {
 

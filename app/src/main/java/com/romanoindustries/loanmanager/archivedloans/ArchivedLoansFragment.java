@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
@@ -51,6 +54,21 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void initViews(View view) {
+        Toolbar toolbar = view.findViewById(R.id.arch_loans_toolbar);
+        toolbar.inflateMenu(R.menu.fragment_menu);
+        toolbar.setOnMenuItemClickListener(item -> {
+
+            switch (item.getItemId()) {
+
+                case R.id.mnu_item_sort:
+                    showSortMenu(view);
+                    return true;
+
+            }
+
+            return false;
+        });
+
         recyclerView = view.findViewById(R.id.arch_loans_recycler_view);
         loansAdapter = new ArchivedLoansAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(loansAdapter);
@@ -84,6 +102,40 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 .setNegativeButton(getString(R.string.arch_dialog_delete_negative), (dialog, which) -> {});
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void showSortMenu(View view) {
+        View menuItemView = view.findViewById(R.id.mnu_item_sort);
+        PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
+        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
+        SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.isChecked()) {
+                return true;
+            }
+            item.setChecked(true);
+            switch (item.getItemId()) {
+
+                case R.id.mnu_sort_item_old_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_new_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_big_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_small_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    break;
+
+            }
+            return true;
+        });
     }
 }
 

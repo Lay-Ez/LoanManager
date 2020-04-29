@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +21,7 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
@@ -56,6 +59,21 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     private void initViews(View view) {
+        Toolbar toolbar = view.findViewById(R.id.out_loans_toolbar);
+        toolbar.inflateMenu(R.menu.fragment_menu);
+        toolbar.setOnMenuItemClickListener(item -> {
+
+            switch (item.getItemId()) {
+
+                case R.id.mnu_item_sort:
+                    showSortMenu(view);
+                    return true;
+
+            }
+
+            return false;
+        });
+
         totalAmountTv = view.findViewById(R.id.out_loans_total_amount_tv);
 
         fab = view.findViewById(R.id.out_loans_fab);
@@ -136,5 +154,39 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         loansAdapter.updateLoans(loans);
         int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(totalAmount));
+    }
+
+    private void showSortMenu(View view) {
+        View menuItemView = view.findViewById(R.id.mnu_item_sort);
+        PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
+        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
+        SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.isChecked()) {
+                return true;
+            }
+            item.setChecked(true);
+            switch (item.getItemId()) {
+
+                case R.id.mnu_sort_item_old_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_new_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_big_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    break;
+
+                case R.id.mnu_sort_item_small_first:
+                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    break;
+
+            }
+            return true;
+        });
     }
 }
