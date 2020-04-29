@@ -29,7 +29,7 @@
     <string name="new_loan_amount_hint">Amount</string>
     <string name="new_loan_date_btn_label">Choose End Date</string>
     <string name="new_loan_without_end_date_checkbox">No End Date</string>
-    <string name="new_loan_enable_interest_label">Apply Interest Rate</string>
+    <string name="new_loan_enable_interest_label">Add Interest Rate</string>
     <string name="new_loan_note_hint">Note</string>
 
     <string name="new_loan_percentage">Interest rate</string>

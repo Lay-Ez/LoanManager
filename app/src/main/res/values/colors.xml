@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#004D40</color>
+    <color name="colorPrimaryDark">#003C32</color>
+    <color name="colorAccent">#4D000D</color>
     
     <!--  button colors  -->
     <color name="delete_button_default_color">#D50000</color>
@@ -13,8 +13,14 @@
     <color name="edit_button_pressed_color">#FFD600</color>
     <color name="edit_button_disabled_color">#919191</color>
 
+    <color name="fab_color">@color/colorPrimary</color>
+
     <!-- highlighted loan color -->
-    <color name="highlighted_loan_color">#7FFFD600</color>
+    <color name="highlighted_loan_color">#4DFFD600</color>
     <color name="tomorrow_due_date_color">#FFAB00</color>
     <color name="past_due_date_color">#D50000</color>
+
+    <!-- icon colors -->
+    <color name="icon_loan_in_color">#00C853</color>
+    <color name="icon_loan_out_color">@color/delete_button_default_color</color>
 </resources>

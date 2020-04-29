@@ -92,6 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginEnd="16dp"
+            app:tint="#FFFFFF"
+            app:backgroundTint="@color/fab_color"
             android:layout_marginBottom="16dp"
             app:srcCompat="@drawable/ic_add" />
 
