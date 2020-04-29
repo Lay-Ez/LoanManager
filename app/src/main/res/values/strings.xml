@@ -9,6 +9,9 @@
     <string name="loan_type_archived_in">Archived (incoming)</string>
     <string name="loan_type_archived_out">Archived (outgoing)</string>
 
+    <string name="sort_preference_key">com.tomanoindustries.loanmanager.SORT_PREFERENCE</string>
+    <string name="sort_mode_key">sort_mode</string>
+    
     <string name="filter_by_mnu_item_label">Sort</string>
     <string name="filter_old_first">Old First</string>
     <string name="filter_new_first">New First</string>

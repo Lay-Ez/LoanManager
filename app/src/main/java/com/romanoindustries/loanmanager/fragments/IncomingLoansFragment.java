@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.alertreceiver.AlertReceiver;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
@@ -170,7 +172,43 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         View menuItemView = view.findViewById(R.id.mnu_item_sort);
         PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
-        popupMenu.getMenu().getItem(0).setChecked(true);
+        checkCorrectSortItem(popupMenu.getMenu());
         popupMenu.show();
     }
+
+    private void checkCorrectSortItem(Menu menu) {
+        int sortMode = SortModeHelper.getSortMode(getContext());
+
+        switch (sortMode) {
+
+            case SortModeHelper.SORT_OLD_FIRST:
+                menu.findItem(R.id.mnu_sort_item_old_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_NEW_FIRST:
+                menu.findItem(R.id.mnu_sort_item_new_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_BIG_FIRST:
+                menu.findItem(R.id.mnu_sort_item_big_first).setChecked(true);
+                break;
+
+            case SortModeHelper.SORT_SMALL_FIRST:
+                menu.findItem(R.id.mnu_sort_item_small_first).setChecked(true);
+                break;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,15 +3,19 @@
 
     <group android:checkableBehavior="single" >
         <item
-                android:orderInCategory="1"
+                android:id="@+id/mnu_sort_item_new_first"
+                android:orderInCategory="2"
                 android:title="@string/filter_new_first" />
         <item
-                android:orderInCategory="2"
+                android:id="@+id/mnu_sort_item_old_first"
+                android:orderInCategory="1"
                 android:title="@string/filter_old_first" />
         <item
+                android:id="@+id/mnu_sort_item_big_first"
                 android:orderInCategory="3"
                 android:title="@string/filter_big_first" />
         <item
+                android:id="@+id/mnu_sort_item_small_first"
                 android:orderInCategory="4"
                 android:title="@string/filter_small_first" />
     </group>
