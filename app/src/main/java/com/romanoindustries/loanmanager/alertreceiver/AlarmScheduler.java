@@ -11,28 +11,33 @@ import java.util.Calendar;
 public class AlarmScheduler {
     private static final String TAG = "AlarmScheduler";
 
-    private static final int ALARM_HOUR_OF_DAY = 21;
+    private static final int ALARM_HOUR_OF_DAY = 18;
+    private static final int REQUEST_CODE = 1;
 
     public static void scheduleAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0);
 
-        Calendar calendar = Calendar.getInstance();
-        long currentTime = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, ALARM_HOUR_OF_DAY);
-        calendar.set(Calendar.MINUTE, 52);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        if (calendar.getTimeInMillis() < currentTime) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-            Log.d(TAG, "scheduleAlarm: scheduling alarm tomorrow with time = " + calendar.getTimeInMillis());
-        } else {
-            Log.d(TAG, "scheduleAlarm: scheduling alarm today with time = " + calendar.getTimeInMillis());
+        boolean alarmUp = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE) != null;
+        if (!alarmUp) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+            Calendar calendar = Calendar.getInstance();
+            long currentTime = calendar.getTimeInMillis();
+            calendar.set(Calendar.HOUR_OF_DAY, ALARM_HOUR_OF_DAY);
+            calendar.set(Calendar.MINUTE, 48);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            if (calendar.getTimeInMillis() < currentTime) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                Log.d(TAG, "scheduleAlarm: scheduling alarm tomorrow with time = " + calendar.getTimeInMillis());
+            } else {
+                Log.d(TAG, "scheduleAlarm: scheduling alarm today with time = " + calendar.getTimeInMillis());
+            }
+            if (alarmManager != null) {
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+            }
         }
-        if (alarmManager != null) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        }
+
     }
 
 }
