@@ -21,7 +21,7 @@ public class AlarmScheduler {
         Calendar calendar = Calendar.getInstance();
         long currentTime = calendar.getTimeInMillis();
         calendar.set(Calendar.HOUR_OF_DAY, ALARM_HOUR_OF_DAY);
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MINUTE, 52);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         if (calendar.getTimeInMillis() < currentTime) {
