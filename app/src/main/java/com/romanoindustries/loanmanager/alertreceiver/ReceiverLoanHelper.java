@@ -3,15 +3,14 @@ package com.romanoindustries.loanmanager.alertreceiver;
 import android.app.NotificationManager;
 import android.content.Context;
 
+import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.InterestAccrualEvent;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.notifications.NotificationHelper;
 
-import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class ReceiverLoanHelper {
 
@@ -45,7 +44,7 @@ public class ReceiverLoanHelper {
     public static void notifyLoanEndsTomorrow(Loan loan) {
         Context context = MyApp.getContext();
         String debtorName = loan.getDebtorName();
-        String amount = NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount());
+        String amount = MainActivity.formatAmount(loan.getCurrentAmount());
 
         String title;
         String msgBody;

@@ -17,16 +17,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdapter.ArchOnLoanListener {
     public ArchivedLoansFragment() {}
@@ -127,8 +126,8 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 .mapToInt(loan -> loan.getCurrentAmount())
                 .sum();
 
-        inLoansTotalTv.setText(NumberFormat.getNumberInstance(Locale.US).format(incomingLoansTotal));
-        outLoansTotalTv.setText(NumberFormat.getNumberInstance(Locale.US).format(outgoingLoansTotal));
+        inLoansTotalTv.setText(MainActivity.formatAmount(incomingLoansTotal));
+        outLoansTotalTv.setText(MainActivity.formatAmount(outgoingLoansTotal));
 
 
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);

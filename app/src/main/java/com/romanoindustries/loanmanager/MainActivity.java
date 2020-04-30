@@ -13,6 +13,9 @@ import com.romanoindustries.loanmanager.archivedloans.ArchivedLoansFragment;
 import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
 import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private IncomingLoansFragment incomingLoansFragment;
@@ -101,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAlarm() {
         AlarmScheduler.scheduleAlarm(this);
+    }
+
+    public static String formatAmount(int amount) {
+        return NumberFormat.getNumberInstance(Locale.US).format(amount);
     }
 }
 

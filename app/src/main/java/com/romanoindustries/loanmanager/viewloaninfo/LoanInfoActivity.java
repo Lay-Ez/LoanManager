@@ -12,12 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.databinding.ActivityLoanInfoBinding;
 import com.romanoindustries.loanmanager.datamodel.Loan;
-
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class LoanInfoActivity extends AppCompatActivity {
     private static final String TAG = "LoanInfoActivity";
@@ -87,10 +85,10 @@ public class LoanInfoActivity extends AppCompatActivity {
         }
 
         int startAmount = loan.getStartAmount();
-        binding.infoStartAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(startAmount));
+        binding.infoStartAmountTv.setText(MainActivity.formatAmount(startAmount));
 
         int currentAmount = loan.getCurrentAmount();
-        binding.infoCurrentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(currentAmount));
+        binding.infoCurrentAmountTv.setText(MainActivity.formatAmount(currentAmount));
 
         double interestRate = loan.getInterestRate();
         if (interestRate > 0.0) {

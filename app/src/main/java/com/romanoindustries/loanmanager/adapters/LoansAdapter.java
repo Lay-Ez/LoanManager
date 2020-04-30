@@ -14,16 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
+import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_DAY;
 import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_MONTH;
@@ -131,7 +130,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             Context context = MyApp.getContext();
 
             nameTv.setText(loan.getDebtorName());
-            currentAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(loan.getCurrentAmount()));
+            currentAmountTv.setText(MainActivity.formatAmount(loan.getCurrentAmount()));
 
             if (loan.getPaymentDateInMs() != 0) {
                 Calendar calendar = Calendar.getInstance();

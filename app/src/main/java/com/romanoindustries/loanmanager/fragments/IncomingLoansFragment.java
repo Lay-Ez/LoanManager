@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.alertreceiver.AlertReceiver;
@@ -29,11 +30,9 @@ import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener {
     private static final String TAG = "IncomingLoansFragment";
@@ -165,7 +164,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
         loansAdapter.updateLoans(loans);
         int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
-        totalAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(totalAmount));
+        totalAmountTv.setText(MainActivity.formatAmount(totalAmount));
     }
 
     private void showSortMenu(View view) {
