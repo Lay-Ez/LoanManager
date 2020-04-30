@@ -136,11 +136,11 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
             String startDateString = DateFormat.getDateInstance().format(calendar.getTime());
             startDateTv.setText(startDateString);
 
+            String periodStr = context.getString(R.string.list_item_empty_placeholder);
             if (loan.getInterestRate() != 0) {
                 String percentRateStr = loan.getInterestRate() + "%";
                 percentTv.setText(percentRateStr);
 
-                String periodStr = context.getString(R.string.list_item_empty_placeholder);
 
                 switch (loan.getPeriodInDays()) {
 
@@ -171,6 +171,9 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
                     default:
                         //
                 }
+                periodTv.setText(periodStr);
+            } else {
+                percentTv.setText(periodStr);
                 periodTv.setText(periodStr);
             }
         }

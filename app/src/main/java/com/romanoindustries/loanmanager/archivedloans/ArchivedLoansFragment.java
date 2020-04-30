@@ -30,6 +30,7 @@ import java.util.List;
 public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdapter.ArchOnLoanListener {
     public ArchivedLoansFragment() {}
 
+    private static final String TAG = "ArchivedLoansFragment";
     private RecyclerView recyclerView;
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
@@ -115,23 +116,33 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         if (loans == null || loans.isEmpty()) {
             return;
         }
+        setAmountText(loans);
+        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
+        loansAdapter.updateLoans(loans);
+    }
 
+    private void setAmountText(List<Loan> loans) {
         int incomingLoansTotal = loans.stream()
                 .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_IN)
-                .mapToInt(loan -> loan.getCurrentAmount())
+                .mapToInt(Loan::getCurrentAmount)
                 .sum();
 
         int outgoingLoansTotal = loans.stream()
                 .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_OUT)
-                .mapToInt(loan -> loan.getCurrentAmount())
+                .mapToInt(Loan::getCurrentAmount)
                 .sum();
 
-        inLoansTotalTv.setText(MainActivity.formatAmount(incomingLoansTotal));
-        outLoansTotalTv.setText(MainActivity.formatAmount(outgoingLoansTotal));
+        inLoansTotalTv.setText(formatNumber(incomingLoansTotal));
+        outLoansTotalTv.setText(formatNumber(outgoingLoansTotal));
+    }
 
-
-        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
-        loansAdapter.updateLoans(loans);
+    private String formatNumber(int amount) {
+        if (amount < 1000000) {
+            return MainActivity.formatAmount(amount);
+        } else {
+            int totalThousands = (amount - (amount % 1000)) / 1000;
+            return MainActivity.formatAmount(totalThousands) + " " + getString(R.string.arch_thousands);
+        }
     }
 
     private void showSortMenu(View view) {

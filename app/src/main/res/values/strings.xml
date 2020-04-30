@@ -126,6 +126,8 @@
 
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Archived</string>
+    <string name="arch_thousands">K</string>
+    <string name="arch_millions">M</string>
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Time to get the money!</string>

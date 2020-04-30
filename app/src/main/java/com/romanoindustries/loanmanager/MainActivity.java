@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String formatAmount(int amount) {
-        return NumberFormat.getNumberInstance(Locale.US).format(amount);
+        return NumberFormat.getNumberInstance(Locale.US).format(amount).trim();
     }
 }
 
