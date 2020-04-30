@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         AlarmScheduler.scheduleAlarm(this);
     }
 
-    public static String formatAmount(int amount) {
+    public static String formatAmount(long amount) {
         return NumberFormat.getNumberInstance(Locale.US).format(amount).trim();
     }
 }

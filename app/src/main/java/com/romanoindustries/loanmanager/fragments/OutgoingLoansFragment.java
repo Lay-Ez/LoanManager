@@ -152,7 +152,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         }
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
         loansAdapter.updateLoans(loans);
-        int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
+        long totalAmount = loans.stream().mapToLong(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(MainActivity.formatAmount(totalAmount));
     }
 

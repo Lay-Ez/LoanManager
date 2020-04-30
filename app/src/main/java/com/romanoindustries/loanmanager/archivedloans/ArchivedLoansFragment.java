@@ -122,25 +122,25 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void setAmountText(List<Loan> loans) {
-        int incomingLoansTotal = loans.stream()
+        long incomingLoansTotal = loans.stream()
                 .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_IN)
-                .mapToInt(Loan::getCurrentAmount)
+                .mapToLong(Loan::getCurrentAmount)
                 .sum();
 
-        int outgoingLoansTotal = loans.stream()
+        long outgoingLoansTotal = loans.stream()
                 .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_OUT)
-                .mapToInt(Loan::getCurrentAmount)
+                .mapToLong(Loan::getCurrentAmount)
                 .sum();
 
         inLoansTotalTv.setText(formatNumber(incomingLoansTotal));
         outLoansTotalTv.setText(formatNumber(outgoingLoansTotal));
     }
 
-    private String formatNumber(int amount) {
+    private String formatNumber(long amount) {
         if (amount < 1000000) {
             return MainActivity.formatAmount(amount);
         } else {
-            int totalThousands = (amount - (amount % 1000)) / 1000;
+            long totalThousands = (amount - (amount % 1000)) / 1000;
             return MainActivity.formatAmount(totalThousands) + " " + getString(R.string.arch_thousands);
         }
     }
