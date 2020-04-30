@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
@@ -22,8 +23,10 @@ import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdapter.ArchOnLoanListener {
     public ArchivedLoansFragment() {}
@@ -31,6 +34,9 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private RecyclerView recyclerView;
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
+
+    private TextView inLoansTotalTv;
+    private TextView outLoansTotalTv;
 
 
     @Override
@@ -46,7 +52,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         loansViewModel.getArchivedLoans().observe(this, new Observer<List<Loan>>() {
             @Override
             public void onChanged(List<Loan> loans) {
-                loansAdapter.updateLoans(loans);
+                parseLoans(loans);
             }
         });
 
@@ -54,6 +60,9 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void initViews(View view) {
+        inLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_in_tv);
+        outLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_out_tv);
+
         Toolbar toolbar = view.findViewById(R.id.arch_loans_toolbar);
         toolbar.inflateMenu(R.menu.fragment_menu);
         toolbar.setOnMenuItemClickListener(item -> {
@@ -101,6 +110,29 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 .setNegativeButton(getString(R.string.arch_dialog_delete_negative), (dialog, which) -> {});
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void parseLoans(List<Loan> loans) {
+        if (loans == null || loans.isEmpty()) {
+            return;
+        }
+
+        int incomingLoansTotal = loans.stream()
+                .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_IN)
+                .mapToInt(loan -> loan.getCurrentAmount())
+                .sum();
+
+        int outgoingLoansTotal = loans.stream()
+                .filter(loan -> loan.getType() == Loan.TYPE_ARCHIVED_OUT)
+                .mapToInt(loan -> loan.getCurrentAmount())
+                .sum();
+
+        inLoansTotalTv.setText(NumberFormat.getNumberInstance(Locale.US).format(incomingLoansTotal));
+        outLoansTotalTv.setText(NumberFormat.getNumberInstance(Locale.US).format(outgoingLoansTotal));
+
+
+        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
+        loansAdapter.updateLoans(loans);
     }
 
     private void showSortMenu(View view) {
