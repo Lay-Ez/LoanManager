@@ -68,33 +68,19 @@ public class SortModeHelper {
         }
     }
 
-    public static void sortLoansAccordingly(Context context, List<Loan> loans) {
-        int sortMode = getSortMode(context);
+    public static void sortLoansAccordingly(int sortMode, List<Loan> loans) {
+        if (loans == null || loans.isEmpty()) {
+            return;
+        }
 
         switch (sortMode) {
 
             case SortModeHelper.SORT_OLD_FIRST:
-                loans.sort((loan1, loan2) -> {
-                    if (loan1.getStartDateInMs() > loan2.getStartDateInMs()) {
-                        return 1;
-                    } else if (loan1.getStartDateInMs() < loan2.getStartDateInMs()) {
-                        return  -1;
-                    } else {
-                        return 0;
-                    }
-                });
+                loans.sort((loan1, loan2) -> Long.compare(loan1.getStartDateInMs(), loan2.getStartDateInMs()));
                 break;
 
             case SortModeHelper.SORT_NEW_FIRST:
-                loans.sort((loan1, loan2) -> {
-                    if (loan1.getStartDateInMs() < loan2.getStartDateInMs()) {
-                        return 1;
-                    } else if (loan1.getStartDateInMs() > loan2.getStartDateInMs()) {
-                        return  -1;
-                    } else {
-                        return 0;
-                    }
-                });
+                loans.sort((loan1, loan2) -> Long.compare(loan2.getStartDateInMs(), loan1.getStartDateInMs()));
                 break;
 
             case SortModeHelper.SORT_BIG_FIRST:

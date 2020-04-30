@@ -162,6 +162,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
             totalAmountTv.setText(getString(R.string.total_amount_zero));
             return;
         }
+        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
         loansAdapter.updateLoans(loans);
         int totalAmount = loans.stream().mapToInt(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(NumberFormat.getNumberInstance(Locale.US).format(totalAmount));
@@ -178,25 +179,31 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 return true;
             }
             item.setChecked(true);
+            int sortMode = 1;
             switch (item.getItemId()) {
 
                 case R.id.mnu_sort_item_old_first:
                     SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    sortMode = SortModeHelper.SORT_OLD_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_new_first:
                     SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    sortMode = SortModeHelper.SORT_NEW_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_big_first:
                     SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    sortMode = SortModeHelper.SORT_BIG_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_small_first:
                     SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    sortMode = SortModeHelper.SORT_SMALL_FIRST;
                     break;
 
             }
+            loansAdapter.sortModeChanged(sortMode);
             return true;
         });
     }

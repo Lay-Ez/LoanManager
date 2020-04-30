@@ -17,6 +17,7 @@ import com.daimajia.swipe.util.Attributes;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -48,6 +49,11 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
 
     public void updateLoans(List<Loan> loans) {
         this.loans = loans;
+        notifyDataSetChanged();
+    }
+
+    public void sortModeChanged(int sortMode) {
+        SortModeHelper.sortLoansAccordingly(sortMode, loans);
         notifyDataSetChanged();
     }
 
