@@ -63,7 +63,6 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 case R.id.mnu_item_sort:
                     showSortMenu(view);
                     return true;
-
             }
 
             return false;
