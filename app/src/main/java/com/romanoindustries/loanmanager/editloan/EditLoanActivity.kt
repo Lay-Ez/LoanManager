@@ -50,7 +50,12 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         }
         viewModel = ViewModelProvider(this).get(EditLoanViewModel::class.java)
         viewModel.allLoans.observe(this, Observer { loans ->
-            loans.find { loan -> loan.id == loanId }.also {viewModel.setEditedLoan(loan = it)}})
+            loans.find { loan -> loan.id == loanId }.also {
+                if (!viewModel.loanAlreadyFound) {
+                    viewModel.setEditedLoan(loan = it)
+                    viewModel.loanAlreadyFound = true
+                }
+            }})
         viewModel.editedLoan.observe(this, Observer { loan -> displayLoan(loan) })
     }
 
@@ -90,7 +95,6 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun onLoanSavePressed() {
-        Log.d(TAG, "onLoanSavePressed: isInput ok = ${isInputCorrect()}")
         if (isInputCorrect()) {
             saveInputToCurrentLoan()
             viewModel.updateLoan(currentlyEditedLoan)

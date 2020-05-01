@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.romanoindustries.loanmanager.MyApp
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.loanrepo.LoanRepo
-class EditLoanViewModel(): ViewModel() {
+
+
+class EditLoanViewModel: ViewModel() {
 
     private val loanRepo = LoanRepo(MyApp.getApplication())
+    var loanAlreadyFound = false
     val allLoans: LiveData<List<Loan>> = loanRepo.allLoans
     val editedLoan = MutableLiveData<Loan>()
 
