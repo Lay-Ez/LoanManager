@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.newloan.DatePickerFragment
-import kotlinx.android.synthetic.main.activity_new_loan.*
 import java.text.DateFormat
 import java.util.*
 
@@ -92,30 +90,24 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun onLoanSavePressed() {
-        saveInputToCurrentLoan()
+        Log.d(TAG, "onLoanSavePressed: isInput ok = ${isInputCorrect()}")
+        if (isInputCorrect()) {
+            saveInputToCurrentLoan()
+            viewModel.updateLoan(currentlyEditedLoan)
+            onBackPressed()
+        }
     }
 
     private fun saveInputToCurrentLoan() {
-        var isInputOk = true
         val name = binding.editTextName.text.toString().trim()
         val phone = binding.editTextPhone.text.toString().trim()
-        val amountStr = binding.editTextAmount.text.toString()
+        val amount = binding.editTextAmount.text.toString().toInt()
         val note = binding.editTextNote.text.toString().trim()
 
-        if (name.isBlank()) {
-            isInputOk = false
-            binding.textInputName.error = getString(R.string.name_cannot_be_empty_error_msg)
-        }
-        if (amountStr.isBlank()) {
-            isInputOk = false
-            binding.textInputAmount.error = getString(R.string.amount_should_be_specified_error_msg)
-        } else {
-            val amountInt: Int = amountStr.toInt()
-            if (amountInt == 0) {
-                isInputOk = false
-                binding.textInputAmount.error = getString(R.string.amount_cannot_be_zero_error_msg)
-            }
-        }
+        currentlyEditedLoan.debtorName = name
+        currentlyEditedLoan.phoneNumber = phone
+        currentlyEditedLoan.currentAmount = amount
+        currentlyEditedLoan.specialNote = note
     }
 
     private fun onCancelLoanPressed() {
