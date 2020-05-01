@@ -3,6 +3,8 @@
     <color name="colorPrimary">#004D40</color>
     <color name="colorPrimaryDark">#003C32</color>
     <color name="colorAccent">#4D000D</color>
+
+    <color name="list_item_date_rate_text_color">#8A000000</color>
     
     <!--  button colors  -->
     <color name="delete_button_default_color">#D50000</color>

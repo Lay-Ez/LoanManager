@@ -143,9 +143,12 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                     endDateTv.setTextColor(context.getColor(R.color.past_due_date_color));
                 } else if (loan.getPaymentDateInMs() < tomorrowsCalendar.getTimeInMillis()) {
                     endDateTv.setTextColor(context.getColor(R.color.tomorrow_due_date_color));
+                } else {
+                    endDateTv.setTextColor(context.getColor(R.color.list_item_date_rate_text_color));
                 }
             } else {
                 endDateTv.setText(context.getString(R.string.list_item_empty_placeholder));
+                endDateTv.setTextColor(context.getColor(R.color.list_item_date_rate_text_color));
             }
 
             if (loan.isHighlighted()) {
