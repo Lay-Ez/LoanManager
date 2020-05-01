@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.newloan.DatePickerFragment
+import kotlinx.android.synthetic.main.activity_new_loan.*
 import java.text.DateFormat
 import java.util.*
 
@@ -27,6 +29,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
     lateinit var binding: ActivityEditLoanBinding
     private lateinit var currentlyEditedLoan: Loan
+    private lateinit var viewModel: EditLoanViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,8 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         processIntent()
-
+        setListeners()
+        hideErrorsOnInput()
     }
 
     private fun processIntent() {
@@ -46,7 +50,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             onBackPressed()
             return
         }
-        val viewModel: EditLoanViewModel = ViewModelProvider(this).get(EditLoanViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EditLoanViewModel::class.java)
         viewModel.allLoans.observe(this, Observer { loans ->
             loans.find { loan -> loan.id == loanId }.also {viewModel.setEditedLoan(loan = it)}})
         viewModel.editedLoan.observe(this, Observer { loan -> displayLoan(loan) })
@@ -69,16 +73,49 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             binding.endDateBtn.isEnabled = false
             binding.noEndDateCb.isChecked = true
         }
+    }
 
+    private fun setListeners() {
         binding.endDateBtn.setOnClickListener {
             hideKeyboard()
             val datePicker: DialogFragment = DatePickerFragment()
             datePicker.show(supportFragmentManager, "date_picker")
         }
+
+        binding.noEndDateCb.setOnCheckedChangeListener { _, isChecked ->
+            run {
+                hideKeyboard()
+                binding.endDateBtn.isEnabled = !isChecked
+                currentlyEditedLoan.paymentDateInMs = 0
+            }
+        }
     }
 
     private fun onLoanSavePressed() {
-        Log.d(TAG, "onLoanSavePressed")
+        saveInputToCurrentLoan()
+    }
+
+    private fun saveInputToCurrentLoan() {
+        var isInputOk = true
+        val name = binding.editTextName.text.toString().trim()
+        val phone = binding.editTextPhone.text.toString().trim()
+        val amountStr = binding.editTextAmount.text.toString()
+        val note = binding.editTextNote.text.toString().trim()
+
+        if (name.isBlank()) {
+            isInputOk = false
+            binding.textInputName.error = getString(R.string.name_cannot_be_empty_error_msg)
+        }
+        if (amountStr.isBlank()) {
+            isInputOk = false
+            binding.textInputAmount.error = getString(R.string.amount_should_be_specified_error_msg)
+        } else {
+            val amountInt: Int = amountStr.toInt()
+            if (amountInt == 0) {
+                isInputOk = false
+                binding.textInputAmount.error = getString(R.string.amount_cannot_be_zero_error_msg)
+            }
+        }
     }
 
     private fun onCancelLoanPressed() {
@@ -91,6 +128,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             set(Calendar.MONTH, month)
             set(Calendar.YEAR, year)
             binding.endDateBtn.text = DateFormat.getDateInstance().format(time)
+            currentlyEditedLoan.paymentDateInMs = timeInMillis
         }
     }
 
@@ -111,6 +149,11 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPause() {
+        viewModel.setEditedLoan(currentlyEditedLoan)
+        super.onPause()
     }
 
     override fun onSupportNavigateUp(): Boolean {
