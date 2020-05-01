@@ -38,7 +38,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_interest, container, false);
+        View view = inflater.inflate(R.layout.new_loan_interest_fragment, container, false);
         initViews(view);
         newLoanViewModel = new ViewModelProvider(getActivity()).get(NewLoanViewModel.class);
         observeViewModel(newLoanViewModel);

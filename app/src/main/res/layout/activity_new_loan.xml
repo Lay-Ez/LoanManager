@@ -41,6 +41,7 @@
                     app:counterMaxLength="40"
                     app:endIconDrawable="@drawable/ic_person"
                     app:endIconMode="custom"
+                    app:endIconTint="@color/colorPrimary"
                     app:endIconTintMode="src_in"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_right"

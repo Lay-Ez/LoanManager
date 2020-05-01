@@ -2,6 +2,7 @@ package com.romanoindustries.loanmanager.newloan;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,6 +12,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -104,12 +107,14 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
         endDateBtn = findViewById(R.id.end_date_btn);
         endDateBtn.setOnClickListener(v -> {
+            hideKeyboard();
             DialogFragment datePicker = new DatePickerFragment();
             datePicker.show(getSupportFragmentManager(), "date_picker");
         });
 
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            hideKeyboard();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             if (isChecked) {
@@ -124,6 +129,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
         noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                hideKeyboard();
                 endDateBtn.setEnabled(!isChecked);
                 newLoanViewModel.setNoEndDate(isChecked);});
     }
@@ -339,6 +345,16 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
     }
 }
 
