@@ -81,7 +81,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private fun setListeners() {
         binding.endDateBtn.setOnClickListener {
             hideKeyboard()
-            val datePicker: DialogFragment = DatePickerFragment()
+            val datePicker: DialogFragment = EditLoanDatePickerFragment(currentlyEditedLoan.paymentDateInMs)
             datePicker.show(supportFragmentManager, "date_picker")
         }
 
@@ -152,9 +152,20 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         super.onPause()
     }
 
+    override fun onBackPressed() {
+        stopObservingVm()
+        super.onBackPressed()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        stopObservingVm()
         return true
+    }
+
+    private fun stopObservingVm() {
+        viewModel.allLoans.removeObservers(this)
+        viewModel.editedLoan.removeObservers(this)
     }
 
     private fun hideKeyboard() {
