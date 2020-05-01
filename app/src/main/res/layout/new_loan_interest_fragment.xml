@@ -5,7 +5,7 @@
         tools:viewBindingIgnore="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".newloan.InterestFragment">
+        tools:context=".newloan.NewLoanInterestFragment">
 
     <NumberPicker
             android:id="@+id/decimal_np"

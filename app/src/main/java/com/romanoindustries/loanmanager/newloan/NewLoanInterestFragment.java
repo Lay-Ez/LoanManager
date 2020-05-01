@@ -17,7 +17,7 @@ import com.romanoindustries.loanmanager.R;
 
 import java.util.Locale;
 
-public class InterestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class NewLoanInterestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "InterestFragment";
 
     public static final int LOAN_PERIOD_ONE_DAY = 1;
@@ -33,7 +33,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemSele
 
     private NewLoanViewModel newLoanViewModel;
 
-    public InterestFragment() {}
+    public NewLoanInterestFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

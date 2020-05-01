@@ -24,12 +24,12 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_DAY;
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_MONTH;
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_WEEK;
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_ONE_YEAR;
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_THREE_DAYS;
-import static com.romanoindustries.loanmanager.newloan.InterestFragment.LOAN_PERIOD_TWO_WEEKS;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_ONE_DAY;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_ONE_MONTH;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_ONE_WEEK;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_ONE_YEAR;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_THREE_DAYS;
+import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.LOAN_PERIOD_TWO_WEEKS;
 
 public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdapter.ArchLoanViewHolder> {
 

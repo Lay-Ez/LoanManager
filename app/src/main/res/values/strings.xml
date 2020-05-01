@@ -80,6 +80,10 @@
 
     <string name="optional_helper_text">Optional</string>
 
+
+    <!-- edit loan activity -->
+    <string name="edit_loan_toolbar_title">Edit Loan</string>
+
     <!-- loan info activity -->
     <string name="info_activity_delete_mnu">Delete</string>
     <string name="info_activity_share_mnu">Share</string>

@@ -39,7 +39,7 @@ import java.util.Objects;
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
 
-    private InterestFragment interestFragment;
+    private NewLoanInterestFragment newLoanInterestFragment;
     private NewLoanViewModel newLoanViewModel;
 
     private TextInputLayout inputLayoutName;
@@ -62,7 +62,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        interestFragment = new InterestFragment();
+        newLoanInterestFragment = new NewLoanInterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
         parseIntent(getIntent());
         initViews();
@@ -118,10 +118,10 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             if (isChecked) {
-                fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment);
+                fragmentTransaction.replace(R.id.new_loan_fragment_container, newLoanInterestFragment);
                 fragmentTransaction.commit();
             } else {
-                fragmentTransaction.remove(interestFragment);
+                fragmentTransaction.remove(newLoanInterestFragment);
                 fragmentTransaction.commit();
             }
             newLoanViewModel.setApplyInterestRate(isChecked);
