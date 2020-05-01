@@ -113,7 +113,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             percentTv = itemView.findViewById(R.id.percent_tv);
             periodTv = itemView.findViewById(R.id.period_tv);
             btnDelete = itemView.findViewById(R.id.delete_ib);
-            btnEdit = itemView.findViewById(R.id.edit_ib);
+            btnEdit = itemView.findViewById(R.id.highlight_ib);
 
             mainLayout.setOnClickListener(v -> {
                 onLoanListener.onLoanCLicked(getAdapterPosition());
