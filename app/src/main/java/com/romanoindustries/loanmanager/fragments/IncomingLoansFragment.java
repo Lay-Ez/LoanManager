@@ -25,6 +25,7 @@ import com.romanoindustries.loanmanager.editloan.EditLoanActivity;
 import com.romanoindustries.loanmanager.editloan.EditLoanActivityKt;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
+import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
 import java.util.ArrayList;
@@ -107,21 +108,26 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     @Override
     public void onLoanCLicked(int position) {
         Loan loanToView = loansAdapter.getLoans().get(position);
-        startEditLoanActivity(loanToView.getId());
-//        Intent intent = new Intent(getContext(), LoanInfoActivity.class);
-//        intent.putExtra(LoanInfoActivity.LOAN_ID_KEY, loanToView.getId());
-//        startActivity(intent);
-    }
-
-    private void startEditLoanActivity(int loanId) {
-        Intent intent = new Intent(getContext(), EditLoanActivity.class);
-        intent.putExtra(EditLoanActivityKt.LOAN_ID_KEY, loanId);
+        Intent intent = new Intent(getContext(), LoanInfoActivity.class);
+        intent.putExtra(LoanInfoActivity.LOAN_ID_KEY, loanToView.getId());
         startActivity(intent);
     }
 
     @Override
     public void onLoanDeleteClicked(int position) {
         showDeleteDialog(position);
+    }
+
+    @Override
+    public void onLoanEditClicked(int position) {
+        Loan loanToEdit = loansAdapter.getLoans().get(position);
+        startEditLoanActivity(loanToEdit.getId());
+    }
+
+    private void startEditLoanActivity(int loanId) {
+        Intent intent = new Intent(getContext(), EditLoanActivity.class);
+        intent.putExtra(EditLoanActivityKt.LOAN_ID_KEY, loanId);
+        startActivity(intent);
     }
 
     @Override

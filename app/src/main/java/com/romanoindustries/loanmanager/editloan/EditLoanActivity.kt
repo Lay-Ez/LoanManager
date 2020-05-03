@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
-import com.romanoindustries.loanmanager.newloan.DatePickerFragment
 import java.text.DateFormat
 import java.util.*
 

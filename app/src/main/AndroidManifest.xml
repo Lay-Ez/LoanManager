@@ -12,7 +12,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".editloan.EditLoanActivity"></activity>
+        <activity
+                android:name=".editloan.EditLoanActivity"
+                android:launchMode="singleTop" />
         <activity
                 android:name=".viewloaninfo.LoanInfoActivity"
                 android:launchMode="singleTop" />

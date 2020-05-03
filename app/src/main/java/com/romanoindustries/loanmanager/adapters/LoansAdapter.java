@@ -97,8 +97,9 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
         private TextView endDateTv;
         private TextView percentTv;
         private TextView periodTv;
-        private ImageButton btnDelete;
+        private ImageButton btnHighlight;
         private ImageButton btnEdit;
+        private ImageButton btnDelete;
 
         public LoanViewHolder(@NonNull View itemView, OnLoanListener onLoanListener) {
             super(itemView);
@@ -112,18 +113,20 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             endDateTv = itemView.findViewById(R.id.end_date_tv);
             percentTv = itemView.findViewById(R.id.percent_tv);
             periodTv = itemView.findViewById(R.id.period_tv);
+            btnHighlight = itemView.findViewById(R.id.highlight_ib);
+            btnEdit = itemView.findViewById(R.id.edit_ib);
             btnDelete = itemView.findViewById(R.id.delete_ib);
-            btnEdit = itemView.findViewById(R.id.highlight_ib);
 
             mainLayout.setOnClickListener(v -> {
                 onLoanListener.onLoanCLicked(getAdapterPosition());
-                swipeLayout.close();});
+                swipeLayout.close();
+            });
+            btnHighlight.setOnClickListener(v -> onLoanListener.onLoanHighlightClicked(getAdapterPosition()));
             btnDelete.setOnClickListener(v -> {
                 onLoanListener.onLoanDeleteClicked(getAdapterPosition());
-                swipeLayout.close();});
-            btnEdit.setOnClickListener(v -> {
-                onLoanListener.onLoanHighlightClicked(getAdapterPosition());
-                });
+                swipeLayout.close();
+            });
+            btnEdit.setOnClickListener(v -> onLoanListener.onLoanEditClicked(getAdapterPosition()));
         }
 
         public void bind(Loan loan) {
@@ -152,10 +155,10 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             }
 
             if (loan.isHighlighted()) {
-                btnEdit.setImageResource(R.drawable.ic_star_filled);
+                btnHighlight.setImageResource(R.drawable.ic_star_filled);
                 mainLayout.setBackgroundResource(R.drawable.background_highlighted_ripple);
             } else {
-                btnEdit.setImageResource(R.drawable.ic_star_border);
+                btnHighlight.setImageResource(R.drawable.ic_star_border);
                 mainLayout.setBackgroundResource(R.drawable.background_not_highlighted_ripple);
             }
 
@@ -206,7 +209,8 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
     public interface OnLoanListener{
         void onLoanCLicked(int position);
-        void onLoanDeleteClicked(int position);
         void onLoanHighlightClicked(int position);
+        void onLoanEditClicked(int position);
+        void onLoanDeleteClicked(int position);
     }
 }
