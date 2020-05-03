@@ -23,6 +23,7 @@ public class LoanInfoActivity extends AppCompatActivity {
     private ActivityLoanInfoBinding binding;
     private LoanInfoViewModel viewModel;
     private Loan viewedLoan;
+    private boolean loanIsArchived = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,14 +128,26 @@ public class LoanInfoActivity extends AppCompatActivity {
 
             case Loan.TYPE_ARCHIVED_IN:
                 loanType = getString(R.string.loan_type_archived_in);
+                loanIsArchived = true;
+                displayDeleteIcon();
                 break;
 
             case Loan.TYPE_ARCHIVED_OUT:
                 loanType = getString(R.string.loan_type_archived_out);
+                loanIsArchived = true;
+                displayDeleteIcon();
                 break;
         }
         binding.infoLoanTypeTv.setText(loanType);
     }
+
+    private void displayDeleteIcon() {
+        MenuItem deleteMnuItem = binding.loansInfoToolbar.getMenu().findItem(R.id.info_mnu_delete);
+        if (deleteMnuItem != null) {
+            deleteMnuItem.setIcon(R.drawable.ic_delete_mnu);
+        }
+    }
+
 
     private void shareLoan() {
         String msgToShare = LoanInfoHelper.composeShareText(viewedLoan);
@@ -146,24 +159,45 @@ public class LoanInfoActivity extends AppCompatActivity {
 
     private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.in_dialog_delete_title)
-                .setMessage(R.string.in_dialog_delete_msg)
-                .setPositiveButton(getString(R.string.in_dialog_delete_positive),
-                        (dialog, which) -> archiveLoan())
-                .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
+
+        if (viewedLoan.getType() == Loan.TYPE_ARCHIVED_IN || viewedLoan.getType() == Loan.TYPE_ARCHIVED_OUT) {
+            builder.setMessage(R.string.arch_dialog_delete_msg)
+                    .setPositiveButton(getString(R.string.arch_dialog_delete_positive),
+                            (dialog, which) -> deleteLoan())
+                    .setNegativeButton(getString(R.string.arch_dialog_delete_negative), (dialog, which) -> {});
+        } else {
+            builder.setTitle(R.string.in_dialog_delete_title)
+                    .setMessage(R.string.in_dialog_delete_msg)
+                    .setPositiveButton(getString(R.string.in_dialog_delete_positive),
+                            (dialog, which) -> archiveLoan())
+                    .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
+        }
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void archiveLoan() {
-        viewedLoan.setType(Loan.TYPE_ARCHIVED_IN);
+        if (viewedLoan.getType() == Loan.TYPE_IN) {
+            viewedLoan.setType(Loan.TYPE_ARCHIVED_IN);
+        } else if (viewedLoan.getType() == Loan.TYPE_OUT){
+            viewedLoan.setType(Loan.TYPE_ARCHIVED_OUT);
+        }
         viewModel.update(viewedLoan);
+        onBackPressed();
+    }
+
+    private void deleteLoan() {
+        viewModel.delete(viewedLoan);
         onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.info_activity_menu, menu);
+        if (loanIsArchived) {
+            menu.findItem(R.id.info_mnu_delete).setIcon(R.drawable.ic_delete_mnu);
+        }
         return true;
     }
 

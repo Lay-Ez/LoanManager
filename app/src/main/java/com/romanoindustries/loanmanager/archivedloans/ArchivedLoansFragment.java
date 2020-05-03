@@ -113,7 +113,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void parseLoans(List<Loan> loans) {
-        if (loans == null || loans.isEmpty()) {
+        if (loans == null) {
             return;
         }
         setAmountText(loans);

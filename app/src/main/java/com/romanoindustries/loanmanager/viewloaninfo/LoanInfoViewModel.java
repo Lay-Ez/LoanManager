@@ -29,4 +29,8 @@ public class LoanInfoViewModel extends AndroidViewModel {
     public void update(Loan loan) {
         loanRepo.update(loan);
     }
+
+    public void delete(Loan loan) {
+        loanRepo.delete(loan);
+    }
 }
