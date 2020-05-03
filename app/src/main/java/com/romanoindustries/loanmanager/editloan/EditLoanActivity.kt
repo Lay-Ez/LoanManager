@@ -1,11 +1,15 @@
 package com.romanoindustries.loanmanager.editloan
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -113,6 +117,12 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun setListeners() {
+
+        binding.textInputName.setEndIconOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+            startActivityForResult(intent, Activity.RESULT_FIRST_USER) }
+
         binding.endDateBtn.setOnClickListener {
             hideKeyboard()
             val datePicker: DialogFragment = EditLoanDatePickerFragment(currentlyEditedLoan.paymentDateInMs)
@@ -171,6 +181,41 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             currentlyEditedLoan.periodInDays = 0
             currentlyEditedLoan.nextChargingDateInMs = 0
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Activity.RESULT_FIRST_USER && resultCode == Activity.RESULT_OK) {
+            val contactUri: Uri?
+            if (data != null) {
+                contactUri = data.data
+                val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                var cursor: Cursor? = null
+                if (contactUri != null) {
+                    cursor = contentResolver.query(contactUri,
+                            projection,
+                            null,
+                            null,
+                            null)
+                }
+                cursor?.let { parseContactInfo(it) }
+            }
+        }
+    }
+
+    private fun parseContactInfo(cursor: Cursor) {
+        if (cursor.moveToFirst()) {
+            val numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            val nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+            val number = cursor.getString(numberColumnIndex)
+            val name = cursor.getString(nameColumnIndex)
+            binding.editTextName.setText(name)
+            binding.editTextPhone.setText(number)
+            currentlyEditedLoan.debtorName = name
+            currentlyEditedLoan.phoneNumber = number
+        }
+        cursor.close()
     }
 
     fun showInterestRateError() {
