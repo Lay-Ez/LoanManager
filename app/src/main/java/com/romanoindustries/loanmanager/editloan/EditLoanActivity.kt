@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
+import android.widget.CompoundButton
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
@@ -17,6 +19,7 @@ import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import java.text.DateFormat
 import java.util.*
+import kotlin.math.*
 
 
 const val LOAN_ID_KEY = "loan_id_key"
@@ -27,6 +30,10 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     lateinit var binding: ActivityEditLoanBinding
     private lateinit var currentlyEditedLoan: Loan
     private lateinit var viewModel: EditLoanViewModel
+    private lateinit var interestFragment: EditLoanInterestFragment
+    private var wholePercentPart: Int = 0
+    private var decimalPercentPart: Int = 0
+    private var periodInDays: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +43,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         setSupportActionBar(binding.newLoanToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        interestFragment = EditLoanInterestFragment()
         processIntent()
         setListeners()
         hideErrorsOnInput()
@@ -50,12 +58,37 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         viewModel = ViewModelProvider(this).get(EditLoanViewModel::class.java)
         viewModel.allLoans.observe(this, Observer { loans ->
             loans.find { loan -> loan.id == loanId }.also {
-                if (!viewModel.loanAlreadyFound) {
-                    viewModel.setEditedLoan(loan = it)
-                    viewModel.loanAlreadyFound = true
-                }
+                loadFoundLoanToVm(it)
             }})
-        viewModel.editedLoan.observe(this, Observer { loan -> displayLoan(loan) })
+        viewModel.editedLoan.observe(this, Observer { displayLoan(it) })
+        viewModel.wholePercent.observe(this, Observer {
+            wholePercentPart = it
+            Log.d(TAG, "processIntent: whole part = $it")})
+        viewModel.decimalPercent.observe(this, Observer {
+            decimalPercentPart = it
+            Log.d(TAG, "processIntent: decimal part = $it")})
+        viewModel.periodInDays.observe(this, Observer {
+            periodInDays = it
+            Log.d(TAG, "processIntent: period in days = $it")})
+    }
+
+    private fun loadFoundLoanToVm(loan: Loan?) {
+        if (loan == null) return
+        if (!viewModel.loanAlreadyFound) {
+            viewModel.setEditedLoan(loan)
+            if (loan.interestRate != 0.0) {
+                val wholePart = loan.interestRate.toInt()
+                val decimalPart = ((loan.interestRate - wholePart) * 100).roundToInt()
+                viewModel.setWholePercent(wholePart)
+                viewModel.setDecimalPercent(decimalPart)
+                viewModel.setPeriodInDays(loan.periodInDays)
+            } else {
+                viewModel.setWholePercent(0)
+                viewModel.setDecimalPercent(0)
+                viewModel.setPeriodInDays(1)
+            }
+            viewModel.loanAlreadyFound = true
+        }
     }
 
     private fun displayLoan(loan: Loan?) {
@@ -89,6 +122,19 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 hideKeyboard()
                 binding.endDateBtn.isEnabled = !isChecked
                 currentlyEditedLoan.paymentDateInMs = 0
+            }
+        }
+
+        binding.enableInterestCb.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            hideKeyboard()
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            if (isChecked) {
+                fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment)
+                fragmentTransaction.commit()
+            } else {
+                fragmentTransaction.remove(interestFragment)
+                fragmentTransaction.commit()
             }
         }
     }

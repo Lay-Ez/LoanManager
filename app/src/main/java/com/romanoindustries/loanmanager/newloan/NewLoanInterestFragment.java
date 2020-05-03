@@ -48,7 +48,7 @@ public class NewLoanInterestFragment extends Fragment implements AdapterView.OnI
     private void initViews(View view) {
         periodSpinner = view.findViewById(R.id.interest_period_spinner);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-                getContext(),
+                requireContext(),
                 R.array.periods,
                 android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
