@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
+import com.romanoindustries.loanmanager.newloan.NewLoanVmHelper
 import java.text.DateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -162,6 +163,18 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         currentlyEditedLoan.phoneNumber = phone
         currentlyEditedLoan.currentAmount = amount
         currentlyEditedLoan.specialNote = note
+
+        if (binding.enableInterestCb.isChecked) {
+            currentlyEditedLoan.interestRate = convertInterestRateToDouble(wholePercentPart, decimalPercentPart)
+            currentlyEditedLoan.periodInDays = periodInDays
+            currentlyEditedLoan.nextChargingDateInMs =
+                    calculateNextChargingTime(NewLoanVmHelper().normalizeTime(Calendar.getInstance().timeInMillis),
+                            periodInDays)
+        } else {
+            currentlyEditedLoan.interestRate = 0.0
+            currentlyEditedLoan.periodInDays = 0
+            currentlyEditedLoan.nextChargingDateInMs = 0
+        }
     }
 
     fun showInterestRateError() {
@@ -181,6 +194,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             set(Calendar.DAY_OF_MONTH, dayOfMonth)
             set(Calendar.MONTH, month)
             set(Calendar.YEAR, year)
+            set(Calendar.HOUR_OF_DAY, 12)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
             binding.endDateBtn.text = DateFormat.getDateInstance().format(time)
             currentlyEditedLoan.paymentDateInMs = timeInMillis
         }

@@ -65,15 +65,6 @@ fun calculateNextChargingTime(startTime: Long, periodDays: Int): Long {
     return calendar.timeInMillis
 }
 
-fun normalizeTime(rawStartTime: Long): Long {
-    val calendarEndDate = Calendar.getInstance()
-    calendarEndDate.timeInMillis = rawStartTime
-    calendarEndDate[Calendar.HOUR_OF_DAY] = 12
-    calendarEndDate[Calendar.MINUTE] = 0
-    calendarEndDate[Calendar.SECOND] = 0
-    return calendarEndDate.timeInMillis
-}
-
 
 
 
