@@ -82,10 +82,12 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 viewModel.setWholePercent(wholePart)
                 viewModel.setDecimalPercent(decimalPart)
                 viewModel.setPeriodInDays(loan.periodInDays)
+                binding.enableInterestCb.isChecked = true
             } else {
                 viewModel.setWholePercent(0)
                 viewModel.setDecimalPercent(0)
                 viewModel.setPeriodInDays(1)
+                binding.enableInterestCb.isChecked = false
             }
             viewModel.loanAlreadyFound = true
         }

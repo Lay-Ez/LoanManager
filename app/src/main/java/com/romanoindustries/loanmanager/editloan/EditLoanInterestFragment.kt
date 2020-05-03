@@ -37,7 +37,6 @@ class EditLoanInterestFragment : Fragment(), OnItemSelectedListener {
     }
 
     private fun setUpViews(view: View) {
-        val interestSpinner = view.findViewById<Spinner>(R.id.interest_period_spinner)
         val spinnerAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.periods,
@@ -45,14 +44,27 @@ class EditLoanInterestFragment : Fragment(), OnItemSelectedListener {
         ).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-        interestSpinner.adapter = spinnerAdapter
-        interestSpinner.onItemSelectedListener = this
+        val periodSpinner = view.findViewById<Spinner>(R.id.interest_period_spinner)
+        periodSpinner.adapter = spinnerAdapter
+        periodSpinner.onItemSelectedListener = this
+        viewModel.periodInDays.observe(this, androidx.lifecycle.Observer {
+            when(it) {
+                LOAN_PERIOD_ONE_DAY -> periodSpinner.setSelection(0)
+                LOAN_PERIOD_THREE_DAYS -> periodSpinner.setSelection(1)
+                LOAN_PERIOD_ONE_WEEK -> periodSpinner.setSelection(2)
+                LOAN_PERIOD_TWO_WEEKS -> periodSpinner.setSelection(3)
+                LOAN_PERIOD_ONE_MONTH -> periodSpinner.setSelection(4)
+                LOAN_PERIOD_ONE_YEAR -> periodSpinner.setSelection(5)
+                else -> periodSpinner.setSelection(0)
+            }
+        })
 
         val wholePercentNp = view.findViewById<NumberPicker>(R.id.whole_np).apply {
             minValue = 0
             maxValue = 99
             setOnValueChangedListener { _, _, newVal -> viewModel.setWholePercent(newVal) }
         }
+        viewModel.wholePercent.observe(this, androidx.lifecycle.Observer { wholePercentNp.value = it })
 
         val decimalPercentNp = view.findViewById<NumberPicker>(R.id.decimal_np).apply {
             minValue = 0
@@ -60,14 +72,21 @@ class EditLoanInterestFragment : Fragment(), OnItemSelectedListener {
             setFormatter { String.format(Locale.US, "%02d", it) }
             setOnValueChangedListener { _, _, newVal -> viewModel.setDecimalPercent(newVal) }
         }
+        viewModel.decimalPercent.observe(this, androidx.lifecycle.Observer { decimalPercentNp.value = it })
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+        when(position) {
+            0 -> viewModel.setPeriodInDays(LOAN_PERIOD_ONE_DAY)
+            1 -> viewModel.setPeriodInDays(LOAN_PERIOD_THREE_DAYS)
+            2 -> viewModel.setPeriodInDays(LOAN_PERIOD_ONE_WEEK)
+            3 -> viewModel.setPeriodInDays(LOAN_PERIOD_TWO_WEEKS)
+            4 -> viewModel.setPeriodInDays(LOAN_PERIOD_ONE_MONTH)
+            5 -> viewModel.setPeriodInDays(LOAN_PERIOD_ONE_YEAR)
+            else -> viewModel.setPeriodInDays(1)
+        }
     }
 }
 
