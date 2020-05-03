@@ -53,7 +53,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_name_hint"
                         android:inputType="text|textCapSentences"
-                        android:maxLength="40" />
+                        android:maxLength="40"
+                        android:text="@string/list_item_empty_placeholder" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_phone_number_hint"
                         android:inputType="phone"
-                        android:maxLength="20" />
+                        android:maxLength="20"
+                        android:text="@string/list_item_empty_placeholder" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +103,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_amount_hint"
                         android:inputType="number"
-                        android:maxLength="8" />
+                        android:maxLength="8"
+                        android:text="@string/list_item_empty_placeholder" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -122,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/new_loan_enable_interest_label"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +196,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/new_loan_note_hint"
                         android:inputType="textMultiLine|text|textCapSentences"
-                        android:maxLength="140" />
+                        android:maxLength="140"
+                        android:text="@string/list_item_empty_placeholder" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

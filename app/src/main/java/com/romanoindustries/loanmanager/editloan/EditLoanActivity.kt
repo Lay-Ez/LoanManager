@@ -65,20 +65,16 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             }})
         viewModel.editedLoan.observe(this, Observer { displayLoan(it) })
         viewModel.wholePercent.observe(this, Observer {
-            wholePercentPart = it
-            Log.d(TAG, "processIntent: new rate = ${convertInterestRateToDouble(wholePercentPart, decimalPercentPart)}")})
+            wholePercentPart = it })
         viewModel.decimalPercent.observe(this, Observer {
-            decimalPercentPart = it
-            Log.d(TAG, "processIntent: new rate = ${convertInterestRateToDouble(wholePercentPart, decimalPercentPart)}")})
+            decimalPercentPart = it })
         viewModel.periodInDays.observe(this, Observer {
-            periodInDays = it
-            Log.d(TAG, "processIntent: period in days = $it")})
+            periodInDays = it })
     }
 
     private fun loadFoundLoanToVm(loan: Loan?) {
         if (loan == null) return
         if (!viewModel.loanAlreadyFound) {
-            Log.d(TAG, "loadFoundLoanToVm: loans rate = ${loan.interestRate}")
             viewModel.setEditedLoan(loan)
             if (loan.interestRate != 0.0) {
                 val wholePart = loan.interestRate.toInt()
@@ -186,7 +182,15 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun onCancelLoanPressed() {
-        Log.d(TAG, "onLoanCancelPressed")
+        showConfirmCancelDialog()
+    }
+
+    private fun showConfirmCancelDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.confirm_cancel_dialog_msg)
+                .setPositiveButton(R.string.confirm_cancel_dialog_positive) { _, _ -> onBackPressed() }
+                .setNegativeButton(R.string.confirm_cancel_dialog_negative) { _, _ -> }
+        builder.create().show()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -228,12 +232,12 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
     override fun onBackPressed() {
         stopObservingVm()
+        finish()
         super.onBackPressed()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-        stopObservingVm()
         return true
     }
 
