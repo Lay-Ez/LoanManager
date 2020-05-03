@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.NumberPicker
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.EditLoanInterestFragmentBinding
+import java.util.*
 
 const val LOAN_PERIOD_ONE_DAY = 1
 const val LOAN_PERIOD_THREE_DAYS = 3
@@ -45,6 +47,19 @@ class EditLoanInterestFragment : Fragment(), OnItemSelectedListener {
         }
         interestSpinner.adapter = spinnerAdapter
         interestSpinner.onItemSelectedListener = this
+
+        val wholePercentNp = view.findViewById<NumberPicker>(R.id.whole_np).apply {
+            minValue = 0
+            maxValue = 99
+            setOnValueChangedListener { _, _, newVal -> viewModel.setWholePercent(newVal) }
+        }
+
+        val decimalPercentNp = view.findViewById<NumberPicker>(R.id.decimal_np).apply {
+            minValue = 0
+            maxValue = 99
+            setFormatter { String.format(Locale.US, "%02d", it) }
+            setOnValueChangedListener { _, _, newVal -> viewModel.setDecimalPercent(newVal) }
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
