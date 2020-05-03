@@ -3,6 +3,7 @@ package com.romanoindustries.loanmanager.editloan
 import android.text.Editable
 import android.text.TextWatcher
 import com.romanoindustries.loanmanager.R
+import java.util.*
 
 fun EditLoanActivity.hideErrorsOnInput() {
 
@@ -45,5 +46,47 @@ fun EditLoanActivity.isInputCorrect(): Boolean {
             binding.textInputAmount.error = getString(R.string.amount_cannot_be_zero_error_msg)
         }
     }
+    if (binding.enableInterestCb.isChecked && convertInterestRateToDouble(wholePercentPart, decimalPercentPart) == 0.0) {
+        isInputOk = false
+        showInterestRateError()
+    }
+
     return isInputOk
 }
+
+fun EditLoanActivity.convertInterestRateToDouble(whole: Int, decimal: Int): Double {
+    return whole.toDouble() + (decimal.toDouble() / 100)
+}
+
+fun calculateNextChargingTime(startTime: Long, periodDays: Int): Long {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = startTime
+    calendar.add(Calendar.DAY_OF_YEAR, periodDays)
+    return calendar.timeInMillis
+}
+
+fun normalizeTime(rawStartTime: Long): Long {
+    val calendarEndDate = Calendar.getInstance()
+    calendarEndDate.timeInMillis = rawStartTime
+    calendarEndDate[Calendar.HOUR_OF_DAY] = 12
+    calendarEndDate[Calendar.MINUTE] = 0
+    calendarEndDate[Calendar.SECOND] = 0
+    return calendarEndDate.timeInMillis
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

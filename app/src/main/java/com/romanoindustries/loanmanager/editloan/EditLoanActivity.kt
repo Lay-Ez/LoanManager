@@ -1,7 +1,9 @@
 package com.romanoindustries.loanmanager.editloan
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -19,7 +21,7 @@ import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import java.text.DateFormat
 import java.util.*
-import kotlin.math.*
+import kotlin.math.roundToInt
 
 
 const val LOAN_ID_KEY = "loan_id_key"
@@ -31,8 +33,8 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var currentlyEditedLoan: Loan
     private lateinit var viewModel: EditLoanViewModel
     private lateinit var interestFragment: EditLoanInterestFragment
-    private var wholePercentPart: Int = 0
-    private var decimalPercentPart: Int = 0
+    var wholePercentPart: Int = 0
+    var decimalPercentPart: Int = 0
     private var periodInDays: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,10 +65,10 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         viewModel.editedLoan.observe(this, Observer { displayLoan(it) })
         viewModel.wholePercent.observe(this, Observer {
             wholePercentPart = it
-            Log.d(TAG, "processIntent: whole part = $it")})
+            Log.d(TAG, "processIntent: new rate = ${convertInterestRateToDouble(wholePercentPart, decimalPercentPart)}")})
         viewModel.decimalPercent.observe(this, Observer {
             decimalPercentPart = it
-            Log.d(TAG, "processIntent: decimal part = $it")})
+            Log.d(TAG, "processIntent: new rate = ${convertInterestRateToDouble(wholePercentPart, decimalPercentPart)}")})
         viewModel.periodInDays.observe(this, Observer {
             periodInDays = it
             Log.d(TAG, "processIntent: period in days = $it")})
@@ -75,6 +77,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private fun loadFoundLoanToVm(loan: Loan?) {
         if (loan == null) return
         if (!viewModel.loanAlreadyFound) {
+            Log.d(TAG, "loadFoundLoanToVm: loans rate = ${loan.interestRate}")
             viewModel.setEditedLoan(loan)
             if (loan.interestRate != 0.0) {
                 val wholePart = loan.interestRate.toInt()
@@ -159,6 +162,14 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         currentlyEditedLoan.phoneNumber = phone
         currentlyEditedLoan.currentAmount = amount
         currentlyEditedLoan.specialNote = note
+    }
+
+    fun showInterestRateError() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.interest_rate_zero_msg)
+                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun onCancelLoanPressed() {
