@@ -10,6 +10,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -38,6 +39,11 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var currentlyEditedLoan: Loan
     private lateinit var viewModel: EditLoanViewModel
     private lateinit var interestFragment: EditLoanInterestFragment
+
+    var initialWholePercentPart: Int = 0
+    var initialDecimalPercentPart: Int = 0
+    var initialPeriodInDays: Int = 1
+
     var wholePercentPart: Int = 0
     var decimalPercentPart: Int = 0
     private var periodInDays: Int = 1
@@ -83,9 +89,13 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             if (loan.interestRate != 0.0) {
                 val wholePart = loan.interestRate.toInt()
                 val decimalPart = ((loan.interestRate - wholePart) * 100).roundToInt()
+                val periodInDays = loan.periodInDays
+                initialWholePercentPart = wholePart
+                initialDecimalPercentPart = decimalPart
+                initialPeriodInDays = periodInDays
                 viewModel.setWholePercent(wholePart)
                 viewModel.setDecimalPercent(decimalPart)
-                viewModel.setPeriodInDays(loan.periodInDays)
+                viewModel.setPeriodInDays(periodInDays)
                 binding.enableInterestCb.isChecked = true
             } else {
                 viewModel.setWholePercent(0)
@@ -171,16 +181,28 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         currentlyEditedLoan.specialNote = note
 
         if (binding.enableInterestCb.isChecked) {
-            currentlyEditedLoan.interestRate = convertInterestRateToDouble(wholePercentPart, decimalPercentPart)
-            currentlyEditedLoan.periodInDays = periodInDays
-            currentlyEditedLoan.nextChargingDateInMs =
-                    calculateNextChargingTime(NewLoanVmHelper().normalizeTime(Calendar.getInstance().timeInMillis),
-                            periodInDays)
+            if (interestRateHasChanged()) {
+                currentlyEditedLoan.interestRate = convertInterestRateToDouble(wholePercentPart, decimalPercentPart)
+            }
+            if (periodInDaysHasChanged()) {
+                currentlyEditedLoan.periodInDays = periodInDays
+                currentlyEditedLoan.nextChargingDateInMs =
+                        calculateNextChargingTime(NewLoanVmHelper().normalizeTime(Calendar.getInstance().timeInMillis),
+                                periodInDays)
+            }
         } else {
             currentlyEditedLoan.interestRate = 0.0
             currentlyEditedLoan.periodInDays = 0
             currentlyEditedLoan.nextChargingDateInMs = 0
         }
+    }
+
+    private fun interestRateHasChanged(): Boolean {
+        return (initialWholePercentPart != wholePercentPart || initialDecimalPercentPart != decimalPercentPart)
+    }
+
+    private fun periodInDaysHasChanged(): Boolean {
+        return (initialPeriodInDays != periodInDays)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
