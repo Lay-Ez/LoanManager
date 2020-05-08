@@ -246,11 +246,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     fun showInterestRateError() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(R.string.interest_rate_zero_msg)
-                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> }
-        val dialog = builder.create()
-        dialog.show()
+       if (!zeroRateErrorDialog.isShowing) {
+           zeroRateErrorDialog.show()
+       }
     }
 
     private fun onCancelLoanPressed() {
