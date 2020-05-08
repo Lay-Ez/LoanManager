@@ -38,6 +38,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var currentlyEditedLoan: Loan
     private lateinit var viewModel: EditLoanViewModel
     private lateinit var interestFragment: EditLoanInterestFragment
+    private lateinit var datePicker: DialogFragment
+    private lateinit var zeroRateErrorDialog: AlertDialog
+    private lateinit var confirmCancelDialog: AlertDialog
 
     private var initialWholePercentPart: Int = 0
     private var initialDecimalPercentPart: Int = 0
@@ -57,6 +60,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         supportActionBar?.setDisplayShowHomeEnabled(true)
         interestFragment = EditLoanInterestFragment()
         processIntent()
+        buildDialogs()
         setListeners()
         hideErrorsOnInput()
     }
@@ -123,6 +127,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             binding.endDateBtn.isEnabled = false
             binding.noEndDateCb.isChecked = true
         }
+        datePicker = EditLoanDatePickerFragment(currentlyEditedLoan.paymentDateInMs)
     }
 
     private fun setListeners() {
@@ -134,8 +139,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         binding.endDateBtn.setOnClickListener {
             hideKeyboard()
-            val datePicker: DialogFragment = EditLoanDatePickerFragment(currentlyEditedLoan.paymentDateInMs)
-            datePicker.show(supportFragmentManager, "date_picker")
+            if (!datePicker.isAdded) {
+                datePicker.show(supportFragmentManager, "date_picker")
+            }
         }
 
         binding.noEndDateCb.setOnCheckedChangeListener { _, isChecked ->
@@ -251,12 +257,22 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         showConfirmCancelDialog()
     }
 
+    private fun buildDialogs() {
+        val confirmCancelBuilder = AlertDialog.Builder(this)
+        confirmCancelBuilder.setMessage(R.string.interest_rate_zero_msg)
+                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> }
+        confirmCancelDialog = confirmCancelBuilder.create()
+
+        val zeroRateErrorBuilder = AlertDialog.Builder(this)
+        zeroRateErrorBuilder.setMessage(R.string.interest_rate_zero_msg)
+                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> }
+        zeroRateErrorDialog = zeroRateErrorBuilder.create()
+    }
+
     private fun showConfirmCancelDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(R.string.confirm_cancel_dialog_msg)
-                .setPositiveButton(R.string.confirm_cancel_dialog_positive) { _, _ -> onBackPressed() }
-                .setNegativeButton(R.string.confirm_cancel_dialog_negative) { _, _ -> }
-        builder.create().show()
+        if (!confirmCancelDialog.isShowing) {
+            confirmCancelDialog.show()
+        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
