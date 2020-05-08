@@ -135,6 +135,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         binding.textInputName.setEndIconOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivityForResult(intent, Activity.RESULT_FIRST_USER) }
 
         binding.endDateBtn.setOnClickListener {

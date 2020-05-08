@@ -104,6 +104,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         inputLayoutName.setEndIconOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivityForResult(intent, RESULT_FIRST_USER);
         });
 
