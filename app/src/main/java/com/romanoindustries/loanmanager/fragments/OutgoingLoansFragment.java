@@ -29,6 +29,8 @@ import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -67,12 +69,9 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         toolbar.inflateMenu(R.menu.fragment_menu);
         toolbar.setOnMenuItemClickListener(item -> {
 
-            switch (item.getItemId()) {
-
-                case R.id.mnu_item_sort:
-                    showSortMenu(view);
-                    return true;
-
+            if (item.getItemId() == R.id.mnu_item_sort) {
+                showSortMenu(view);
+                return true;
             }
 
             return false;
@@ -93,7 +92,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy){
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (dy >0) {
@@ -173,7 +172,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
             totalAmountTv.setText(getString(R.string.total_amount_zero));
             return;
         }
-        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
+        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), loans);
         loansAdapter.updateLoans(loans);
         long totalAmount = loans.stream().mapToLong(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(MainActivity.formatAmount(totalAmount));
@@ -181,7 +180,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     private void showSortMenu(View view) {
         View menuItemView = view.findViewById(R.id.mnu_item_sort);
-        PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
+        PopupMenu popupMenu = new PopupMenu(requireContext(), menuItemView);
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
         SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
         popupMenu.show();
@@ -194,22 +193,22 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
             switch (item.getItemId()) {
 
                 case R.id.mnu_sort_item_old_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_OLD_FIRST);
                     sortMode = SortModeHelper.SORT_OLD_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_new_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_NEW_FIRST);
                     sortMode = SortModeHelper.SORT_NEW_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_big_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_BIG_FIRST);
                     sortMode = SortModeHelper.SORT_BIG_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_small_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_SMALL_FIRST);
                     sortMode = SortModeHelper.SORT_SMALL_FIRST;
                     break;
 
