@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private Button endDateBtn;
     private CheckBox noEndDateCb;
     private CheckBox applyInterestCb;
+    private FrameLayout interestFragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,26 +120,31 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             }
         });
 
+        interestFragmentContainer = findViewById(R.id.new_loan_fragment_container);
+        interestFragmentContainer.setVisibility(View.INVISIBLE);
+        addInterestFragment();
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             hideKeyboard();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             if (isChecked) {
-                fragmentTransaction.replace(R.id.new_loan_fragment_container, newLoanInterestFragment);
-                fragmentTransaction.commit();
+                interestFragmentContainer.setVisibility(View.VISIBLE);
             } else {
-                fragmentTransaction.remove(newLoanInterestFragment);
-                fragmentTransaction.commit();
+                interestFragmentContainer.setVisibility(View.INVISIBLE);
             }
             newLoanViewModel.setApplyInterestRate(isChecked);
         });
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
         noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                hideKeyboard();
-                endDateBtn.setEnabled(!isChecked);
-                newLoanViewModel.setNoEndDate(isChecked);});
+            hideKeyboard();
+            endDateBtn.setEnabled(!isChecked);
+            newLoanViewModel.setNoEndDate(isChecked);});
+    }
+
+    private void addInterestFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.new_loan_fragment_container, newLoanInterestFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
