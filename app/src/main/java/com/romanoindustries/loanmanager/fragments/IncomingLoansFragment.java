@@ -2,6 +2,7 @@ package com.romanoindustries.loanmanager.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private LoansViewModel loansViewModel;
     private LoansAdapter loansAdapter;
     private TextView totalAmountTv;
+    private AlertDialog deleteDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +50,10 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
         View view = inflater.inflate(R.layout.fragment_incoming_loans, container, false);
         initViews(view);
+        buildDeleteDialog();
 
         loansViewModel = new ViewModelProvider
-                .AndroidViewModelFactory(getActivity().getApplication())
+                .AndroidViewModelFactory(requireActivity().getApplication())
                 .create(LoansViewModel.class);
 
         loansViewModel.getInLoans().observe(this, this::parseLoans);
@@ -146,19 +149,25 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         loansViewModel.update(loanToArchive);
     }
 
-    private void showDeleteDialog(int position) {
+    private void buildDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.in_dialog_delete_title)
                 .setMessage(R.string.in_dialog_delete_msg)
-                .setPositiveButton(getString(R.string.in_dialog_delete_positive),
-                        (dialog, which) -> archiveLoan(position))
                 .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        deleteDialog = builder.create();
+    }
+
+    private void showDeleteDialog(int position) {
+        deleteDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                getString(R.string.in_dialog_delete_positive),
+                (dialog, which) -> archiveLoan(position));
+        if (!deleteDialog.isShowing()) {
+            deleteDialog.show();
+        }
     }
 
     private void parseLoans(List<Loan> loans) {
-        if (loans == null || loans.isEmpty()) {
+        if (loans == null) {
             totalAmountTv.setText(getString(R.string.total_amount_zero));
             return;
         }
