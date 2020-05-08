@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.DatePicker
@@ -153,18 +154,26 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             }
         }
 
+        addInterestFragment()
         binding.enableInterestCb.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             hideKeyboard()
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             if (isChecked) {
-                fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment)
-                fragmentTransaction.commit()
+               binding.newLoanFragmentContainer.visibility = View.VISIBLE
             } else {
-                fragmentTransaction.remove(interestFragment)
-                fragmentTransaction.commit()
+                binding.newLoanFragmentContainer.visibility = View.INVISIBLE
             }
         }
+        if (binding.enableInterestCb.isChecked) {
+            binding.newLoanFragmentContainer.visibility = View.VISIBLE
+        } else {
+            binding.newLoanFragmentContainer.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun addInterestFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.new_loan_fragment_container, interestFragment)
+        fragmentTransaction.commit()
     }
 
     private fun onLoanSavePressed() {
