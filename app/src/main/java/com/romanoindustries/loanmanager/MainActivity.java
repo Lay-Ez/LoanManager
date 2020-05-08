@@ -56,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (viewFragmentId == IN_FRAGMENT_ID) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, incomingLoansFragment).commit();
+                    .replace(R.id.fragment_container, incomingLoansFragment).commitNow();
         } else if (viewFragmentId == OUT_FRAGMENT_ID) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, outgoingLoansFragment).commit();
+                    .replace(R.id.fragment_container, outgoingLoansFragment).commitNow();
         } else if (viewFragmentId == ARCH_FRAGMENT_ID){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, archivedLoansFragment).commit();
+                    .replace(R.id.fragment_container, archivedLoansFragment).commitNow();
         }
         currentFragmentId = viewFragmentId;
     }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, selectedFragment).commit();
+                            .replace(R.id.fragment_container, selectedFragment).commitNow();
                     return true;
                 }
             };
