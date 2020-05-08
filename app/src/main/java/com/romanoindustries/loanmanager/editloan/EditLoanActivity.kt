@@ -10,7 +10,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -40,9 +39,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var viewModel: EditLoanViewModel
     private lateinit var interestFragment: EditLoanInterestFragment
 
-    var initialWholePercentPart: Int = 0
-    var initialDecimalPercentPart: Int = 0
-    var initialPeriodInDays: Int = 1
+    private var initialWholePercentPart: Int = 0
+    private var initialDecimalPercentPart: Int = 0
+    private var initialPeriodInDays: Int = 1
 
     var wholePercentPart: Int = 0
     var decimalPercentPart: Int = 0
@@ -222,6 +221,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                             null)
                 }
                 cursor?.let { parseContactInfo(it) }
+                cursor?.close()
             }
         }
     }
@@ -237,7 +237,6 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             currentlyEditedLoan.debtorName = name
             currentlyEditedLoan.phoneNumber = number
         }
-        cursor.close()
     }
 
     fun showInterestRateError() {

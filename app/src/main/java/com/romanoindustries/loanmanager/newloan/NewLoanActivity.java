@@ -41,6 +41,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
     private NewLoanInterestFragment newLoanInterestFragment;
     private NewLoanViewModel newLoanViewModel;
+    DialogFragment datePicker = new DatePickerFragment();
+    AlertDialog confirmCancelDialog;
+    AlertDialog zeroRateErrorDialog;
 
     private TextInputLayout inputLayoutName;
     private TextInputEditText editTextName;
@@ -65,6 +68,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         newLoanInterestFragment = new NewLoanInterestFragment();
         newLoanViewModel = new ViewModelProvider(this).get(NewLoanViewModel.class);
         parseIntent(getIntent());
+        buildDialogs();
         initViews();
         handleViewModelChanges(newLoanViewModel);
     }
@@ -108,8 +112,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         endDateBtn = findViewById(R.id.end_date_btn);
         endDateBtn.setOnClickListener(v -> {
             hideKeyboard();
-            DialogFragment datePicker = new DatePickerFragment();
-            datePicker.show(getSupportFragmentManager(), "date_picker");
+            if (!datePicker.isAdded()) {
+                datePicker.show(getSupportFragmentManager(), "date_picker");
+            }
         });
 
         applyInterestCb = findViewById(R.id.enable_interest_cb);
@@ -287,12 +292,23 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         return isInputOk;
     }
 
-    private void showConfirmCancelDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.confirm_cancel_dialog_msg)
+    private void buildDialogs() {
+        AlertDialog.Builder cancelDialogBuilder = new AlertDialog.Builder(this);
+        cancelDialogBuilder.setMessage(R.string.confirm_cancel_dialog_msg)
                 .setPositiveButton(R.string.confirm_cancel_dialog_positive, (dialog, which) -> onBackPressed())
                 .setNegativeButton(R.string.confirm_cancel_dialog_negative, ((dialog, which) -> {}));
-        builder.create().show();
+        confirmCancelDialog = cancelDialogBuilder.create();
+
+        AlertDialog.Builder zeroRateErrorBulder = new AlertDialog.Builder(this);
+        zeroRateErrorBulder.setMessage(R.string.interest_rate_zero_msg)
+                .setPositiveButton("OK", (dialog, which) -> {});
+        zeroRateErrorDialog = zeroRateErrorBulder.create();
+    }
+
+    private void showConfirmCancelDialog() {
+        if (!confirmCancelDialog.isShowing()) {
+            confirmCancelDialog.show();
+        }
     }
 
     private void showWrongDateDialog() {
@@ -304,11 +320,9 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void showInterestRateError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.interest_rate_zero_msg)
-                .setPositiveButton("OK", (dialog, which) -> {});
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if (!zeroRateErrorDialog.isShowing()) {
+            zeroRateErrorDialog.show();
+        }
     }
 
     private void parseIntent(Intent intent) {
