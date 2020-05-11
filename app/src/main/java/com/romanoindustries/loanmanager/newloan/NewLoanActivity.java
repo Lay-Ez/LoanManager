@@ -121,7 +121,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         });
 
         interestFragmentContainer = findViewById(R.id.new_loan_fragment_container);
-        interestFragmentContainer.setVisibility(View.INVISIBLE);
         addInterestFragment();
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -133,6 +132,11 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             }
             newLoanViewModel.setApplyInterestRate(isChecked);
         });
+        if (applyInterestCb.isChecked()) {
+            interestFragmentContainer.setVisibility(View.VISIBLE);
+        } else {
+            interestFragmentContainer.setVisibility(View.INVISIBLE);
+        }
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
         noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -307,10 +311,10 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
                 .setNegativeButton(R.string.confirm_cancel_dialog_negative, ((dialog, which) -> {}));
         confirmCancelDialog = cancelDialogBuilder.create();
 
-        AlertDialog.Builder zeroRateErrorBulder = new AlertDialog.Builder(this);
-        zeroRateErrorBulder.setMessage(R.string.interest_rate_zero_msg)
+        AlertDialog.Builder zeroRateDialogBuilder = new AlertDialog.Builder(this);
+        zeroRateDialogBuilder.setMessage(R.string.interest_rate_zero_msg)
                 .setPositiveButton("OK", (dialog, which) -> {});
-        zeroRateErrorDialog = zeroRateErrorBulder.create();
+        zeroRateErrorDialog = zeroRateDialogBuilder.create();
     }
 
     private void showConfirmCancelDialog() {

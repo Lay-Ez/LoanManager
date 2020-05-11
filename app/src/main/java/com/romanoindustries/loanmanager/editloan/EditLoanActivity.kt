@@ -18,7 +18,6 @@ import android.widget.CompoundButton
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
@@ -266,10 +265,11 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun buildDialogs() {
-        val confirmCancelBuilder = AlertDialog.Builder(this)
-        confirmCancelBuilder.setMessage(R.string.interest_rate_zero_msg)
-                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> }
-        confirmCancelDialog = confirmCancelBuilder.create()
+        val cancelDialogBuilder = AlertDialog.Builder(this)
+        cancelDialogBuilder.setMessage(R.string.confirm_cancel_dialog_msg)
+                .setPositiveButton(R.string.confirm_cancel_dialog_positive) { _, _ -> onBackPressed() }
+                .setNegativeButton(R.string.confirm_cancel_dialog_negative) { _, _ -> }
+        confirmCancelDialog = cancelDialogBuilder.create()
 
         val zeroRateErrorBuilder = AlertDialog.Builder(this)
         zeroRateErrorBuilder.setMessage(R.string.interest_rate_zero_msg)

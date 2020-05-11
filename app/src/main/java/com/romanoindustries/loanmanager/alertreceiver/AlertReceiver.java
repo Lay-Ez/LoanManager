@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.datamodel.Loan;
@@ -36,11 +37,16 @@ public class AlertReceiver extends BroadcastReceiver {
         protected Void doInBackground(Void... voids) {
             List<Loan> activeLoans = repo.getAllActiveLoans();
             for (Loan loan : activeLoans) {
-                loan = ReceiverLoanHelper.processLoansInterestRate(loan);
-                if (ReceiverLoanHelper.loanEndsTomorrow(loan)) {
-                    ReceiverLoanHelper.notifyLoanEndsTomorrow(loan);
+                try {
+                    ReceiverLoanHelper.processLoansInterestRate(loan);
+                    if (ReceiverLoanHelper.loanEndsTomorrow(loan)) {
+                        ReceiverLoanHelper.notifyLoanEndsTomorrow(loan);
+                    }
+                    repo.update(loan);
+                } catch (Exception e) {
+                    Log.e(TAG, "doInBackground: ", e);
                 }
-                repo.update(loan);
+
             }
             return null;
         }
