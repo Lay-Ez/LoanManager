@@ -160,6 +160,10 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         binding.enableInterestCb.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             if (initialYPositionOfInterestFragment == 0.0f) {
                 initialYPositionOfInterestFragment = binding.newLoanFragmentContainer.y
+                if (initialYPositionOfInterestFragment == 0.0f && isChecked) {
+                    binding.newLoanFragmentContainer.visibility = View.VISIBLE
+                    return@setOnCheckedChangeListener
+                }
             }
             val offset = 160.0f
             hideKeyboard()

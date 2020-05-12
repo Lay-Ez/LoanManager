@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,14 +125,20 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         });
 
         interestFragmentContainer = findViewById(R.id.new_loan_fragment_container);
-        addInterestFragment();
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (initialYPositionOfInterestFragment == 0f) {
+            if (initialYPositionOfInterestFragment == 0.0f) {
                 initialYPositionOfInterestFragment = interestFragmentContainer.getY();
+                if (initialYPositionOfInterestFragment == 0.0f && isChecked) {
+                    /* to avoid view jumping to the top */
+                    interestFragmentContainer.setVisibility(View.VISIBLE);
+                    return;
+                }
             }
-            float offset = 160L;
+            float offset = 160.0f;
             hideKeyboard();
+            Log.d(TAG, "initViews: initial y: " + initialYPositionOfInterestFragment);
+            Log.d(TAG, "initViews: current y: " + interestFragmentContainer.getY());
             if (isChecked) {
                 interestFragmentContainer.setY(initialYPositionOfInterestFragment + offset);
                 interestFragmentContainer.setAlpha(0.0f);
@@ -159,6 +166,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         } else {
             interestFragmentContainer.setVisibility(View.INVISIBLE);
         }
+        addInterestFragment();
 
         noEndDateCb = findViewById(R.id.no_end_date_cb);
         noEndDateCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -363,7 +371,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         int loanType = intent.getIntExtra(LOAN_TYPE_KEY, 0);
         newLoanViewModel.setLoanType(loanType);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
