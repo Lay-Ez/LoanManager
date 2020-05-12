@@ -24,6 +24,7 @@ import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.newloan.NewLoanVmHelper
+import kotlinx.android.synthetic.main.activity_edit_loan.*
 import java.text.DateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -44,7 +45,7 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
     private var initialWholePercentPart: Int = 0
     private var initialDecimalPercentPart: Int = 0
-    private var initialPeriodInDays: Int = 1
+    private var initialPeriodInDays: Int = 0
 
     var wholePercentPart: Int = 0
     var decimalPercentPart: Int = 0
@@ -182,6 +183,11 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                         .withEndAction { binding.newLoanFragmentContainer.visibility = View.INVISIBLE }
                         .start()
             }
+        }
+        if (binding.enableInterestCb.isChecked) {
+            binding.newLoanFragmentContainer.visibility = View.VISIBLE
+        } else {
+            binding.newLoanFragmentContainer.visibility = View.INVISIBLE
         }
     }
 
