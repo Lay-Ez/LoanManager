@@ -44,7 +44,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     }
                     repo.update(loan);
                 } catch (Exception e) {
-                    Log.e(TAG, "doInBackground: ", e);
+                    Log.e(TAG, "exception processing loans in background: ", e);
                 }
 
             }
