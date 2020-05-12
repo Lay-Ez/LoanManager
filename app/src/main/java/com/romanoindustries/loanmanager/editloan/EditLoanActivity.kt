@@ -50,6 +50,8 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     var decimalPercentPart: Int = 0
     private var periodInDays: Int = 1
 
+    private var initialYPositionOfInterestFragment: Float = 0.0f
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditLoanBinding.inflate(layoutInflater)
@@ -155,17 +157,31 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         addInterestFragment()
         binding.enableInterestCb.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (initialYPositionOfInterestFragment == 0.0f) {
+                initialYPositionOfInterestFragment = binding.newLoanFragmentContainer.y
+            }
+            val offset = 160.0f
             hideKeyboard()
             if (isChecked) {
-               binding.newLoanFragmentContainer.visibility = View.VISIBLE
+                binding.newLoanFragmentContainer.apply {
+                    y = initialYPositionOfInterestFragment + offset
+                    alpha = 0.0f
+                    visibility = View.VISIBLE
+                }.also {
+                    it.animate()
+                            .yBy(-offset)
+                            .alpha(1.0f)
+                            .setDuration(300L)
+                            .start()
+                }
             } else {
-                binding.newLoanFragmentContainer.visibility = View.INVISIBLE
+                binding.newLoanFragmentContainer.animate()
+                        .yBy(offset)
+                        .setDuration(300L)
+                        .alpha(0.0f)
+                        .withEndAction { binding.newLoanFragmentContainer.visibility = View.INVISIBLE }
+                        .start()
             }
-        }
-        if (binding.enableInterestCb.isChecked) {
-            binding.newLoanFragmentContainer.visibility = View.VISIBLE
-        } else {
-            binding.newLoanFragmentContainer.visibility = View.INVISIBLE
         }
     }
 
