@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ import java.util.Objects;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
+    private static final String TAG = "NewLoanActivity";
 
     private NewLoanInterestFragment newLoanInterestFragment;
     private NewLoanViewModel newLoanViewModel;
@@ -56,6 +58,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     private CheckBox noEndDateCb;
     private CheckBox applyInterestCb;
     private FrameLayout interestFragmentContainer;
+
+    private float initialYPositionOfInterestFragment = 0.0f; /* needed for correct animation */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +128,30 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         addInterestFragment();
         applyInterestCb = findViewById(R.id.enable_interest_cb);
         applyInterestCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (initialYPositionOfInterestFragment == 0f) {
+                initialYPositionOfInterestFragment = interestFragmentContainer.getY();
+            }
+            float offset = 160L;
             hideKeyboard();
             if (isChecked) {
+                interestFragmentContainer.setY(initialYPositionOfInterestFragment + offset);
+                interestFragmentContainer.setAlpha(0.0f);
                 interestFragmentContainer.setVisibility(View.VISIBLE);
+                interestFragmentContainer.animate()
+                        .yBy(-offset)
+                        .alpha(1.0f)
+                        .setDuration(300L)
+                        .start();
             } else {
-                interestFragmentContainer.setVisibility(View.INVISIBLE);
+                interestFragmentContainer.animate()
+                        .yBy(offset)
+                        .setDuration(300L)
+                        .alpha(0.0f)
+                        .withEndAction(() -> {
+                            interestFragmentContainer.setVisibility(View.INVISIBLE);
+                        })
+                        .start();
+
             }
             newLoanViewModel.setApplyInterestRate(isChecked);
         });
