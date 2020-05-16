@@ -7,4 +7,9 @@
             android:icon="@drawable/ic_filter"
             android:title="@string/filter_by_mnu_item_label"
             app:showAsAction="ifRoom" />
+    <item
+            android:id="@+id/mnu_item_notifications"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/notification_mnu_item_label"
+            app:showAsAction="ifRoom" />
 </menu>
