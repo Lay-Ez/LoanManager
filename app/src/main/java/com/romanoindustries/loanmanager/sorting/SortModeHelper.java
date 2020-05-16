@@ -19,14 +19,14 @@ public class SortModeHelper {
     public static final int SORT_BIG_FIRST = 3;
     public static final int SORT_SMALL_FIRST = 4;
 
-    public static final String SORT_PREFERENCE_KEY = "SORT_PREFERENCE";
+    public static final String SORT_PREFERENCE_NAME = "SORT_PREFERENCE";
     public static final String SORT_MODE_KEY = "SORT_MODE";
 
 
     public static int getSortMode(Context context) {
         SharedPreferences preferences = context
                 .getSharedPreferences(
-                        SORT_PREFERENCE_KEY,
+                        SORT_PREFERENCE_NAME,
                         Context.MODE_PRIVATE);
         return preferences.getInt(SORT_MODE_KEY, SORT_OLD_FIRST);
     }
@@ -34,7 +34,7 @@ public class SortModeHelper {
     public static void setSortMode(Context context, int sortMode) {
         SharedPreferences preferences = context
                 .getSharedPreferences(
-                        SORT_PREFERENCE_KEY,
+                        SORT_PREFERENCE_NAME,
                         Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();

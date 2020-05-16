@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.notifications.NotificationPreferencesHelper;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
@@ -31,15 +33,15 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     public ArchivedLoansFragment() {}
 
     private static final String TAG = "ArchivedLoansFragment";
-    private RecyclerView recyclerView;
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
     private PopupMenu sortPopupMenu;
 
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
+    private Toolbar toolbar;
 
-    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
 
     @Override
@@ -57,7 +59,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         inLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_in_tv);
         outLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_out_tv);
 
-        Toolbar toolbar = view.findViewById(R.id.arch_loans_toolbar);
+        toolbar = view.findViewById(R.id.arch_loans_toolbar);
         toolbar.inflateMenu(R.menu.fragment_menu);
         toolbar.setOnMenuItemClickListener(item -> {
 
@@ -66,12 +68,17 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 case R.id.mnu_item_sort:
                     showSortMenu(view);
                     return true;
+
+                case R.id.mnu_item_notifications:
+                    onShowNotificationClicked(item);
+                    return true;
             }
 
             return false;
         });
+        checkNotificationsMenuItem();
 
-        recyclerView = view.findViewById(R.id.arch_loans_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.arch_loans_recycler_view);
         loansAdapter = new ArchivedLoansAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(loansAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -111,7 +118,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
             return;
         }
         setAmountText(loans);
-        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(getContext()), loans);
+        SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), loans);
         loansAdapter.updateLoans(loans);
     }
 
@@ -142,7 +149,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private void showSortMenu(View view) {
         if (sortPopupMenu == null) {
             View menuItemView = view.findViewById(R.id.mnu_item_sort);
-            sortPopupMenu = new PopupMenu(getContext(), menuItemView);
+            sortPopupMenu = new PopupMenu(requireContext(), menuItemView);
             sortPopupMenu.getMenuInflater().inflate(R.menu.sort_menu, sortPopupMenu.getMenu());
         }
         SortModeHelper.checkCorrectSortItem(sortPopupMenu.getMenu(), getContext());
@@ -155,22 +162,22 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
             switch (item.getItemId()) {
 
                 case R.id.mnu_sort_item_old_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_OLD_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_OLD_FIRST);
                     sortMode = SortModeHelper.SORT_OLD_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_new_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_NEW_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_NEW_FIRST);
                     sortMode = SortModeHelper.SORT_NEW_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_big_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_BIG_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_BIG_FIRST);
                     sortMode = SortModeHelper.SORT_BIG_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_small_first:
-                    SortModeHelper.setSortMode(getContext(), SortModeHelper.SORT_SMALL_FIRST);
+                    SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_SMALL_FIRST);
                     sortMode = SortModeHelper.SORT_SMALL_FIRST;
                     break;
 
@@ -181,17 +188,45 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void registerSharedPreferencesListener() {
-        listener = (sharedPreferences, key) -> {
+        sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
                 List<Loan> currentLoans = loansAdapter.getLoans();
                 SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
                 loansAdapter.updateLoans(currentLoans);
+            } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {
+                checkNotificationsMenuItem();
             }
         };
 
         SharedPreferences sharedPreferences = requireContext()
-                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_KEY, Context.MODE_PRIVATE);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+
+    }
+
+    private void checkNotificationsMenuItem() {
+        if (NotificationPreferencesHelper
+                .getNotificationMode(requireContext()) == NotificationPreferencesHelper.NOTIFICATION_MODE_SHOW_ALL) {
+            toolbar.getMenu().findItem(R.id.mnu_item_notifications).setChecked(true);
+        } else {
+            toolbar.getMenu().findItem(R.id.mnu_item_notifications).setChecked(false);
+        }
+    }
+
+    private void onShowNotificationClicked(MenuItem item) {
+        item.setChecked(!item.isChecked());
+        if (item.isChecked()) {
+            NotificationPreferencesHelper
+                    .setNotificationMode(requireContext(),
+                            NotificationPreferencesHelper.NOTIFICATION_MODE_SHOW_ALL);
+        } else {
+            NotificationPreferencesHelper
+                    .setNotificationMode(requireContext(),
+                            NotificationPreferencesHelper.NOTIFICATION_MODE_NOT_SHOW);
+        }
     }
 }
 

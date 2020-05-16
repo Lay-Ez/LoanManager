@@ -9,7 +9,9 @@
             app:showAsAction="ifRoom" />
     <item
             android:id="@+id/mnu_item_notifications"
-            android:icon="@drawable/ic_notifications"
-            android:title="@string/notification_mnu_item_label"
-            app:showAsAction="ifRoom" />
+            android:checkable="true"
+            android:title="@string/fragment_mnu_notifications_label" />
+    <item
+            android:id="@+id/mnu_item_delete_all"
+            android:title="@string/fragment_mnu_delete_all_label" />
 </menu>

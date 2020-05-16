@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.editloan.EditLoanActivity;
 import com.romanoindustries.loanmanager.editloan.EditLoanActivityKt;
 import com.romanoindustries.loanmanager.newloan.NewLoanActivity;
+import com.romanoindustries.loanmanager.notifications.NotificationPreferencesHelper;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
@@ -46,7 +48,8 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private TextView totalAmountTv;
     private AlertDialog deleteDialog;
     private PopupMenu sortPopupMenu;
-    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private Toolbar toolbar;
+    private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
     public OutgoingLoansFragment() {}
 
@@ -65,17 +68,25 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     private void initViews(View view) {
-        Toolbar toolbar = view.findViewById(R.id.out_loans_toolbar);
+        toolbar = view.findViewById(R.id.out_loans_toolbar);
         toolbar.inflateMenu(R.menu.fragment_menu);
         toolbar.setOnMenuItemClickListener(item -> {
 
-            if (item.getItemId() == R.id.mnu_item_sort) {
-                showSortMenu(view);
-                return true;
+            switch (item.getItemId()) {
+
+                case R.id.mnu_item_sort:
+                    showSortMenu(view);
+                    return true;
+
+                case R.id.mnu_item_notifications:
+                    onShowNotificationClicked(item);
+                    return true;
             }
 
             return false;
         });
+
+        checkNotificationsMenuItem();
 
         totalAmountTv = view.findViewById(R.id.out_loans_total_amount_tv);
 
@@ -221,16 +232,44 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     private void registerSharedPreferencesListener() {
-        listener = (sharedPreferences, key) -> {
+        sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
                 List<Loan> currentLoans = loansAdapter.getLoans();
                 SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
                 loansAdapter.updateLoans(currentLoans);
+            } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {
+                checkNotificationsMenuItem();
             }
         };
 
         SharedPreferences sharedPreferences = requireContext()
-                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_KEY, Context.MODE_PRIVATE);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+
+    }
+
+    private void checkNotificationsMenuItem() {
+        if (NotificationPreferencesHelper
+                .getNotificationMode(requireContext()) == NotificationPreferencesHelper.NOTIFICATION_MODE_SHOW_ALL) {
+            toolbar.getMenu().findItem(R.id.mnu_item_notifications).setChecked(true);
+        } else {
+            toolbar.getMenu().findItem(R.id.mnu_item_notifications).setChecked(false);
+        }
+    }
+
+    private void onShowNotificationClicked(MenuItem item) {
+        item.setChecked(!item.isChecked());
+        if (item.isChecked()) {
+            NotificationPreferencesHelper
+                    .setNotificationMode(requireContext(),
+                            NotificationPreferencesHelper.NOTIFICATION_MODE_SHOW_ALL);
+        } else {
+            NotificationPreferencesHelper
+                    .setNotificationMode(requireContext(),
+                            NotificationPreferencesHelper.NOTIFICATION_MODE_NOT_SHOW);
+        }
     }
 }

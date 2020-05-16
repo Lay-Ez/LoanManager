@@ -3,22 +3,23 @@
 
     <!-- used in multiple places -->
     <string name="total_amount_zero">0</string>
-    <string name="not_specified_string">Not Specified</string>
+    <string name="not_specified_string">Not specified</string>
     <string name="loan_type_incoming">Incoming</string>
     <string name="loan_type_outgoing">Outgoing</string>
     <string name="loan_type_archived_in">Archived (incoming)</string>
     <string name="loan_type_archived_out">Archived (outgoing)</string>
 
+    <!-- fragment menu -->
+    <string name="filter_by_mnu_item_label">Sort</string>
+    <string name="fragment_mnu_notifications_label">Show notifications</string>
+    <string name="fragment_mnu_delete_all_label">Delete all</string>
 
     <!-- sort menu item -->
-    <string name="filter_by_mnu_item_label">Sort</string>
-    <string name="filter_old_first">Old First</string>
-    <string name="filter_new_first">New First</string>
-    <string name="filter_big_first">Big First</string>
-    <string name="filter_small_first">Small First</string>
+    <string name="filter_old_first">Old first</string>
+    <string name="filter_new_first">New first</string>
+    <string name="filter_big_first">Big first</string>
+    <string name="filter_small_first">Small first</string>
 
-    <!-- notification menu item -->
-    <string name="notification_mnu_item_label">Notifications</string>
 
     <!-- main activity -->
     <string name="nav_loans_in">In</string>
@@ -95,13 +96,13 @@
     <string name="info_activity_loan_type_label">Loan type</string>
     <string name="info_activity_loan_name_label">Name</string>
     <string name="info_activity_loan_phone_label">Phone</string>
-    <string name="info_activity_loan_date_start_label">Start Date</string>
-    <string name="info_activity_loan_date_end_label">End Date</string>
-    <string name="info_activity_loan_next_date_label">Next Accrual Date</string>
-    <string name="info_activity_loan_start_amount_label">Start Amount</string>
-    <string name="info_activity_loan_end_amount_label">Current Amount</string>
-    <string name="info_activity_loan_interest_rate_label">Interest Rate</string>
-    <string name="info_activity_loan_interest_period_label">Interest Period (days)</string>
+    <string name="info_activity_loan_date_start_label">Start date</string>
+    <string name="info_activity_loan_date_end_label">End date</string>
+    <string name="info_activity_loan_next_date_label">Next accrual date</string>
+    <string name="info_activity_loan_start_amount_label">Start amount</string>
+    <string name="info_activity_loan_end_amount_label">Current amount</string>
+    <string name="info_activity_loan_interest_rate_label">Interest rate</string>
+    <string name="info_activity_loan_interest_period_label">Interest period (days)</string>
     <string name="info_activity_loan_id_label">Loan ID</string>
     <string name="info_activity_loan_note_label">Note</string>
 
