@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        incomingLoansFragment = new IncomingLoansFragment();
-        outgoingLoansFragment = new OutgoingLoansFragment();
-        archivedLoansFragment = new ArchivedLoansFragment();
+        initFragments();
 
         loansViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(getApplication())
@@ -55,24 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void restoreViewedFragment(Bundle bundle) {
         if (bundle == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, incomingLoansFragment).commit();
+            showFragment(IN_FRAGMENT_ID);
             return;
         }
 
         int viewFragmentId = bundle.getInt(CURRENT_FRAGMENT_KEY, IN_FRAGMENT_ID);
-
-        if (viewFragmentId == IN_FRAGMENT_ID) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, incomingLoansFragment).commitNow();
-        } else if (viewFragmentId == OUT_FRAGMENT_ID) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, outgoingLoansFragment).commitNow();
-        } else if (viewFragmentId == ARCH_FRAGMENT_ID){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, archivedLoansFragment).commitNow();
-        }
-        currentFragmentId = viewFragmentId;
+        showFragment(viewFragmentId);
     }
 
     @Override
@@ -85,30 +71,56 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
 
                         case R.id.nav_loans_in:
-                            selectedFragment = incomingLoansFragment;
-                            currentFragmentId = IN_FRAGMENT_ID;
+                            showFragment(IN_FRAGMENT_ID);
                             break;
 
                         case R.id.nav_loans_out:
-                            selectedFragment = outgoingLoansFragment;
-                            currentFragmentId = OUT_FRAGMENT_ID;
+                            showFragment(OUT_FRAGMENT_ID);
                             break;
 
                         case R.id.nav_loans_history:
-                            selectedFragment = archivedLoansFragment;
-                            currentFragmentId = ARCH_FRAGMENT_ID;
+                            showFragment(ARCH_FRAGMENT_ID);
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, selectedFragment).commitNow();
+
                     return true;
                 }
             };
+
+    private void initFragments() {
+        incomingLoansFragment = new IncomingLoansFragment();
+        outgoingLoansFragment = new OutgoingLoansFragment();
+        archivedLoansFragment = new ArchivedLoansFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, incomingLoansFragment)
+                .add(R.id.fragment_container, outgoingLoansFragment)
+                .add(R.id.fragment_container, archivedLoansFragment)
+                .commit();
+    }
+
+    private void showFragment(int fragmentId) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (fragmentId == IN_FRAGMENT_ID) {
+            transaction.hide(outgoingLoansFragment);
+            transaction.hide(archivedLoansFragment);
+            transaction.show(incomingLoansFragment);
+        } else if (fragmentId == OUT_FRAGMENT_ID) {
+            transaction.hide(archivedLoansFragment);
+            transaction.hide(incomingLoansFragment);
+            transaction.show(outgoingLoansFragment);
+        } else if (fragmentId == ARCH_FRAGMENT_ID) {
+            transaction.hide(outgoingLoansFragment);
+            transaction.hide(incomingLoansFragment);
+            transaction.show(archivedLoansFragment);
+        }
+        transaction.commit();
+        currentFragmentId = fragmentId;
+    }
 
     private void startAlarm() {
         AlarmScheduler.scheduleAlarm(this);
