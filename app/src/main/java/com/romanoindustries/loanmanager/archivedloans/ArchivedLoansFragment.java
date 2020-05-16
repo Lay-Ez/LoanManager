@@ -2,7 +2,9 @@ package com.romanoindustries.loanmanager.archivedloans;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,17 +39,17 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_archived_loans, container, false);
         initViews(view);
-
         loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
-
         loansViewModel.getArchivedLoans().observe(this, this::parseLoans);
-
+        registerSharedPreferencesListener();
         return view;
     }
 
@@ -176,6 +178,20 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
             loansAdapter.sortModeChanged(sortMode);
             return true;
         });
+    }
+
+    private void registerSharedPreferencesListener() {
+        listener = (sharedPreferences, key) -> {
+            if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
+                List<Loan> currentLoans = loansAdapter.getLoans();
+                SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
+                loansAdapter.updateLoans(currentLoans);
+            }
+        };
+
+        SharedPreferences sharedPreferences = requireContext()
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
     }
 }
 

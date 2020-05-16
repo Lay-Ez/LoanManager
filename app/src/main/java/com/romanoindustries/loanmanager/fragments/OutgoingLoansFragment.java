@@ -2,8 +2,10 @@ package com.romanoindustries.loanmanager.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private TextView totalAmountTv;
     private AlertDialog deleteDialog;
     private PopupMenu sortPopupMenu;
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     public OutgoingLoansFragment() {}
 
@@ -55,10 +58,9 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         View view = inflater.inflate(R.layout.fragment_outgoing_loans, container, false);
         initViews(view);
         buildDeleteDialog();
-
         loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
-
         loansViewModel.getOutLoans().observe(this, this::parseLoans);
+        registerSharedPreferencesListener();
         return view;
     }
 
@@ -216,5 +218,19 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
             loansAdapter.sortModeChanged(sortMode);
             return true;
         });
+    }
+
+    private void registerSharedPreferencesListener() {
+        listener = (sharedPreferences, key) -> {
+            if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
+                List<Loan> currentLoans = loansAdapter.getLoans();
+                SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
+                loansAdapter.updateLoans(currentLoans);
+            }
+        };
+
+        SharedPreferences sharedPreferences = requireContext()
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
     }
 }

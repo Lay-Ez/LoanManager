@@ -12,8 +12,6 @@ import java.util.List;
 
 public class SortModeHelper {
 
-    // TODO: 29.04.2020 add sorting class for list of loans
-
     private static final String TAG = "SortModeHelper";
 
     public static final int SORT_OLD_FIRST = 1;
@@ -21,24 +19,27 @@ public class SortModeHelper {
     public static final int SORT_BIG_FIRST = 3;
     public static final int SORT_SMALL_FIRST = 4;
 
+    public static final String SORT_PREFERENCE_KEY = "SORT_PREFERENCE";
+    public static final String SORT_MODE_KEY = "SORT_MODE";
+
 
     public static int getSortMode(Context context) {
         SharedPreferences preferences = context
                 .getSharedPreferences(
-                        context.getString(R.string.sort_preference_key),
+                        SORT_PREFERENCE_KEY,
                         Context.MODE_PRIVATE);
-        return preferences.getInt(context.getString(R.string.sort_mode_key), SORT_OLD_FIRST);
+        return preferences.getInt(SORT_MODE_KEY, SORT_OLD_FIRST);
     }
 
     public static void setSortMode(Context context, int sortMode) {
         SharedPreferences preferences = context
                 .getSharedPreferences(
-                        context.getString(R.string.sort_preference_key),
+                        SORT_PREFERENCE_KEY,
                         Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();
         if (sortMode>=1 && sortMode<=4) {
-            editor.putInt(context.getString(R.string.sort_mode_key), sortMode);
+            editor.putInt(SORT_MODE_KEY, sortMode);
             editor.apply();
         } else {
             Log.e(TAG, "setSortMode: ", new IllegalArgumentException());
