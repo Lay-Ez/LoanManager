@@ -22,6 +22,7 @@ public class LoanInfoActivity extends AppCompatActivity {
     public static final String LOAN_ID_KEY = "loan_id_key";
     private ActivityLoanInfoBinding binding;
     private LoanInfoViewModel viewModel;
+    private AlertDialog deleteDialog;
     private Loan viewedLoan;
     private boolean loanIsArchived = false;
 
@@ -157,7 +158,7 @@ public class LoanInfoActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_using)));
     }
 
-    private void showDeleteDialog() {
+    private void buildDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (viewedLoan.getType() == Loan.TYPE_ARCHIVED_IN || viewedLoan.getType() == Loan.TYPE_ARCHIVED_OUT) {
@@ -173,8 +174,16 @@ public class LoanInfoActivity extends AppCompatActivity {
                     .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
         }
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        deleteDialog = builder.create();
+    }
+
+    private void showDeleteDialog() {
+        if (deleteDialog == null) {
+            buildDeleteDialog();
+        }
+        if (!deleteDialog.isShowing()) {
+            deleteDialog.show();
+        }
     }
 
     private void archiveLoan() {
