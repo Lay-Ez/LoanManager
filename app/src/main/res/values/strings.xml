@@ -104,7 +104,7 @@
     <string name="info_activity_loan_note_label">Note</string>
 
     <!-- string for share text composition -->
-    <string name="share_using">Share Using</string>
+    <string name="share_using">Share loan via</string>
     <string name="incoming_loan_msg">%1$s owes me %2$s RUB since %3$s. And it should be returned by %4$s.</string>
     <string name="incoming_loan_msg_no_date">%1$s owes me %2$s RUB since %3$s.</string>
     <string name="outgoing_loan_msg">I owe %1$s %2$s RUB since %3$s. And I should return it by %4$s.</string>

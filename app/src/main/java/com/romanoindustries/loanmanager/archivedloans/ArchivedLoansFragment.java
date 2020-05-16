@@ -32,6 +32,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private RecyclerView recyclerView;
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
+    private PopupMenu sortPopupMenu;
 
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
@@ -137,12 +138,14 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     }
 
     private void showSortMenu(View view) {
-        View menuItemView = view.findViewById(R.id.mnu_item_sort);
-        PopupMenu popupMenu = new PopupMenu(getContext(), menuItemView);
-        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
-        SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
-        popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(item -> {
+        if (sortPopupMenu == null) {
+            View menuItemView = view.findViewById(R.id.mnu_item_sort);
+            sortPopupMenu = new PopupMenu(getContext(), menuItemView);
+            sortPopupMenu.getMenuInflater().inflate(R.menu.sort_menu, sortPopupMenu.getMenu());
+        }
+        SortModeHelper.checkCorrectSortItem(sortPopupMenu.getMenu(), getContext());
+        sortPopupMenu.show();
+        sortPopupMenu.setOnMenuItemClickListener(item -> {
             if (item.isChecked()) {
                 return true;
             }

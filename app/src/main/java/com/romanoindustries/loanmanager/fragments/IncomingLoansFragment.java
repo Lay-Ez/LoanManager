@@ -44,6 +44,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private LoansAdapter loansAdapter;
     private TextView totalAmountTv;
     private AlertDialog deleteDialog;
+    private PopupMenu sortPopupMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -174,12 +175,14 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     }
 
     private void showSortMenu(View view) {
-        View menuItemView = view.findViewById(R.id.mnu_item_sort);
-        PopupMenu popupMenu = new PopupMenu(requireContext(), menuItemView);
-        popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
-        SortModeHelper.checkCorrectSortItem(popupMenu.getMenu(), getContext());
-        popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(item -> {
+        if (sortPopupMenu == null) {
+            View menuItemView = view.findViewById(R.id.mnu_item_sort);
+            sortPopupMenu = new PopupMenu(requireContext(), menuItemView);
+            sortPopupMenu.getMenuInflater().inflate(R.menu.sort_menu, sortPopupMenu.getMenu());
+        }
+        SortModeHelper.checkCorrectSortItem(sortPopupMenu.getMenu(), getContext());
+        sortPopupMenu.show();
+        sortPopupMenu.setOnMenuItemClickListener(item -> {
             if (item.isChecked()) {
                 return true;
             }
