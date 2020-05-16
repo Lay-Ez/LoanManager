@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,9 +55,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         initViews(view);
         buildDeleteDialog();
 
-        loansViewModel = new ViewModelProvider
-                .AndroidViewModelFactory(requireActivity().getApplication())
-                .create(LoansViewModel.class);
+        loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
 
         loansViewModel.getOutLoans().observe(this, this::parseLoans);
         return view;

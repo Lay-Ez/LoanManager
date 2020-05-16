@@ -12,8 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,16 +43,9 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         View view = inflater.inflate(R.layout.fragment_archived_loans, container, false);
         initViews(view);
 
-        loansViewModel = new ViewModelProvider
-                .AndroidViewModelFactory(getActivity().getApplication())
-                .create(LoansViewModel.class);
+        loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
 
-        loansViewModel.getArchivedLoans().observe(this, new Observer<List<Loan>>() {
-            @Override
-            public void onChanged(List<Loan> loans) {
-                parseLoans(loans);
-            }
-        });
+        loansViewModel.getArchivedLoans().observe(this, this::parseLoans);
 
         return view;
     }

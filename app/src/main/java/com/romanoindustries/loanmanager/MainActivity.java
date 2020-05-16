@@ -6,12 +6,14 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.romanoindustries.loanmanager.alertreceiver.AlarmScheduler;
 import com.romanoindustries.loanmanager.archivedloans.ArchivedLoansFragment;
 import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
 import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
+import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_FRAGMENT_KEY = "current_fragment";
     private int currentFragmentId = 1;
 
+    public LoansViewModel loansViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         incomingLoansFragment = new IncomingLoansFragment();
         outgoingLoansFragment = new OutgoingLoansFragment();
         archivedLoansFragment = new ArchivedLoansFragment();
+
+        loansViewModel = new ViewModelProvider
+                .AndroidViewModelFactory(getApplication())
+                .create(LoansViewModel.class);
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(navListener);
