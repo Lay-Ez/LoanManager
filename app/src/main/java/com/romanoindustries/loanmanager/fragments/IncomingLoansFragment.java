@@ -260,7 +260,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         }
     }
 
-    private void onShowNotificationClicked(MenuItem item) {
+    private void onShowNotificationClicked(@NotNull MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked()) {
             NotificationPreferencesHelper

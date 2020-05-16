@@ -26,6 +26,8 @@ import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,7 +218,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         }
     }
 
-    private void onShowNotificationClicked(MenuItem item) {
+    private void onShowNotificationClicked(@NotNull MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked()) {
             NotificationPreferencesHelper
@@ -229,21 +231,3 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
