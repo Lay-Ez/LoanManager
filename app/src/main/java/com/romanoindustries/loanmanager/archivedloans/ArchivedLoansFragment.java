@@ -38,6 +38,8 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
     private PopupMenu sortPopupMenu;
+    private AlertDialog deleteDialog;
+    private AlertDialog deleteAllDialog;
 
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
@@ -74,6 +76,10 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 case R.id.mnu_item_notifications:
                     onShowNotificationClicked(item);
                     return true;
+
+                case R.id.mnu_item_delete_all:
+                    showDeleteAllDialog();
+                    return true;
             }
 
             return false;
@@ -105,14 +111,47 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         loansViewModel.delete(loanToDelete);
     }
 
-    private void showDeleteDialog(int position) {
+    private void buildDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.arch_dialog_delete_msg)
-                .setPositiveButton(getString(R.string.arch_dialog_delete_positive),
-                        (dialog, which) -> deleteLoan(position))
                 .setNegativeButton(getString(R.string.arch_dialog_delete_negative), (dialog, which) -> {});
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        deleteDialog = builder.create();
+    }
+
+    private void showDeleteDialog(int position) {
+        if (deleteDialog == null) {
+            buildDeleteDialog();
+        }
+        deleteDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                getString(R.string.arch_dialog_delete_positive),
+                (dialog, which) -> deleteLoan(position));
+
+        if (!deleteDialog.isShowing()) {
+            deleteDialog.show();
+        }
+    }
+
+    private void deleteAllLoans() {
+        loansAdapter.getLoans().forEach(loansViewModel::delete);
+    }
+
+    private void buildDeleteAllDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.delete_all_archived_loans_dialog_msg)
+                .setNegativeButton(getString(R.string.arch_dialog_delete_negative),
+                        (dialog, which) -> {})
+                .setPositiveButton(getString(R.string.arch_dialog_delete_positive),
+                        ((dialog, which) -> deleteAllLoans()));
+        deleteAllDialog = builder.create();
+    }
+
+    private void showDeleteAllDialog() {
+        if (deleteAllDialog == null) {
+            buildDeleteAllDialog();
+        }
+        if (!deleteAllDialog.isShowing()) {
+            deleteAllDialog.show();
+        }
     }
 
     private void parseLoans(List<Loan> loans) {

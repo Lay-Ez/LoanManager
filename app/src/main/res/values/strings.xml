@@ -116,10 +116,11 @@
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Incoming</string>
+    <string name="archive_all_incoming_loans_dialog_msg">Archive all incoming loans?</string>
 
     <!-- archive dialog -->
     <string name="in_dialog_delete_title">Confirm action</string>
-    <string name="in_dialog_delete_msg">Put this loan to archived?</string>
+    <string name="in_dialog_delete_msg">Archive this loan?</string>
     <string name="in_dialog_delete_positive">Archive</string>
     <string name="in_dialog_delete_negative">Cancel</string>
 
@@ -130,11 +131,13 @@
 
     <!-- out fragment -->
     <string name="out_toolbar_title">Outgoing</string>
+    <string name="archive_all_outgoing_loans_dialog_msg">Archive all outgoing loans?</string>
 
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Archived</string>
     <string name="arch_thousands">K</string>
     <string name="arch_millions">M</string>
+    <string name="delete_all_archived_loans_dialog_msg">Delete all archived loans?</string>
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Time to get the money!</string>
@@ -146,11 +149,3 @@
     You owe them %2$s RUB</string>
 
 </resources>
-
-
-
-
-
-
-
-
