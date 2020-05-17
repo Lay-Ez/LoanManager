@@ -23,7 +23,7 @@
     <color name="fab_color">@color/colorPrimaryDark</color>
 
     <!-- highlighted loan color -->
-    <color name="highlighted_loan_color">#4DFFD600</color>
+    <color name="highlighted_loan_color">#1FFFD600</color>
     <color name="tomorrow_due_date_color">#FFAB00</color>
     <color name="past_due_date_color">#D50000</color>
 

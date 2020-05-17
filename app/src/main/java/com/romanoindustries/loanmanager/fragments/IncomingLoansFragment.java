@@ -168,8 +168,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
     @Override
     public void onLoanHighlightClicked(int position) {
         Loan loanToHighlight = loansAdapter.getLoans().get(position);
-        boolean loanHighlighted = loanToHighlight.isHighlighted();
-        loanToHighlight.setHighlighted(!loanHighlighted);
+        loanToHighlight.setHighlighted(!loanToHighlight.isHighlighted());
         loansViewModel.update(loanToHighlight);
     }
 

@@ -167,8 +167,7 @@ public class LoanInfoActivity extends AppCompatActivity {
                             (dialog, which) -> deleteLoan())
                     .setNegativeButton(getString(R.string.arch_dialog_delete_negative), (dialog, which) -> {});
         } else {
-            builder.setTitle(R.string.in_dialog_delete_title)
-                    .setMessage(R.string.in_dialog_delete_msg)
+            builder.setMessage(R.string.in_dialog_delete_msg)
                     .setPositiveButton(getString(R.string.in_dialog_delete_positive),
                             (dialog, which) -> archiveLoan())
                     .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});

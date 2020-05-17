@@ -48,6 +48,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
     public void updateLoans(List<Loan> loans) {
         this.loans = loans;
+        mItemManger.closeAllItems();
         notifyDataSetChanged();
     }
 
@@ -142,6 +143,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 endDateTv.setText(endDateString);
                 Calendar tomorrowsCalendar = Calendar.getInstance();
                 tomorrowsCalendar.add(Calendar.DAY_OF_YEAR, 1);
+                tomorrowsCalendar.set(Calendar.HOUR_OF_DAY, 23);
                 if (loan.getPaymentDateInMs() < System.currentTimeMillis()) {
                     endDateTv.setTextColor(context.getColor(R.color.past_due_date_color));
                 } else if (loan.getPaymentDateInMs() < tomorrowsCalendar.getTimeInMillis()) {
