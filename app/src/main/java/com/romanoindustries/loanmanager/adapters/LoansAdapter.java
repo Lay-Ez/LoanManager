@@ -48,7 +48,6 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
     public void updateLoans(List<Loan> loans) {
         this.loans = loans;
-        mItemManger.closeAllItems();
         notifyDataSetChanged();
     }
 

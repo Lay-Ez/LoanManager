@@ -18,6 +18,10 @@ class EditLoanViewModel: ViewModel() {
     val decimalPercent = MutableLiveData<Int>()
     val periodInDays = MutableLiveData<Int>()
 
+    var initialWholePercentPart: Int = 0
+    var initialDecimalPercentPart: Int = 0
+    var initialPeriodInDays: Int = 0
+
     fun updateLoan(loan: Loan) = loanRepo.update(loan)
 
     fun setEditedLoan(loan: Loan?) {

@@ -10,6 +10,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -42,10 +43,6 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var datePicker: DialogFragment
     private lateinit var zeroRateErrorDialog: AlertDialog
     private lateinit var confirmCancelDialog: AlertDialog
-
-    private var initialWholePercentPart: Int = 0
-    private var initialDecimalPercentPart: Int = 0
-    private var initialPeriodInDays: Int = 0
 
     var wholePercentPart: Int = 0
     var decimalPercentPart: Int = 0
@@ -96,9 +93,9 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 val wholePart = loan.interestRate.toInt()
                 val decimalPart = ((loan.interestRate - wholePart) * 100).roundToInt()
                 val periodInDays = loan.periodInDays
-                initialWholePercentPart = wholePart
-                initialDecimalPercentPart = decimalPart
-                initialPeriodInDays = periodInDays
+                viewModel.initialWholePercentPart = wholePart
+                viewModel.initialDecimalPercentPart = decimalPart
+                viewModel.initialPeriodInDays = periodInDays
                 viewModel.setWholePercent(wholePart)
                 viewModel.setDecimalPercent(decimalPart)
                 viewModel.setPeriodInDays(periodInDays)
@@ -238,11 +235,11 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun interestRateHasChanged(): Boolean {
-        return (initialWholePercentPart != wholePercentPart || initialDecimalPercentPart != decimalPercentPart)
+        return (viewModel.initialWholePercentPart != wholePercentPart || viewModel.initialDecimalPercentPart != decimalPercentPart)
     }
 
     private fun periodInDaysHasChanged(): Boolean {
-        return (initialPeriodInDays != periodInDays)
+        return (viewModel.initialPeriodInDays != periodInDays)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

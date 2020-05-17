@@ -176,8 +176,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     private void buildDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.in_dialog_delete_title)
-                .setMessage(R.string.in_dialog_delete_msg)
+        builder.setMessage(R.string.in_dialog_delete_msg)
                 .setNegativeButton(getString(R.string.in_dialog_delete_negative), (dialog, which) -> {});
         deleteDialog = builder.create();
     }

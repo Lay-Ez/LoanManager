@@ -28,8 +28,8 @@
 
     <!--  list item -->
     <string name="list_item_currency_label">RUB</string>
-    <string name="list_item_start_date_label">Start Date:</string>
-    <string name="list_item_end_date_label">End Date:</string>
+    <string name="list_item_start_date_label">Start date:</string>
+    <string name="list_item_end_date_label">End date:</string>
     <string name="list_item_rate_label">Rate:</string>
     <string name="list_item_empty_placeholder">-</string>
     <string name="list_item_rate_divider">/</string>
@@ -40,8 +40,8 @@
     <string name="new_loan_phone_number_hint">Phone</string>
     <string name="new_loan_amount_hint">Amount</string>
     <string name="new_loan_date_btn_label">End Date</string>
-    <string name="new_loan_without_end_date_checkbox">No End Date</string>
-    <string name="new_loan_enable_interest_label">Add Interest Rate</string>
+    <string name="new_loan_without_end_date_checkbox">No end date</string>
+    <string name="new_loan_enable_interest_label">Add interest rate</string>
     <string name="new_loan_note_hint">Note</string>
 
     <string name="new_loan_percentage">Interest rate</string>
