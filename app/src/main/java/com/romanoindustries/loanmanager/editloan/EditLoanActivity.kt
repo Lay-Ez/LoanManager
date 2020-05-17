@@ -10,7 +10,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +24,6 @@ import com.romanoindustries.loanmanager.R
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.newloan.NewLoanVmHelper
-import kotlinx.android.synthetic.main.activity_edit_loan.*
 import java.text.DateFormat
 import java.util.*
 import kotlin.math.roundToInt

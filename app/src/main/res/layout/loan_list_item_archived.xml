@@ -21,7 +21,7 @@
             <ImageButton
                     android:id="@+id/delete_forever_ib"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="80dp"
+                    android:layout_width="60dp"
                     android:layout_height="0dp"
                     android:background="@drawable/btn_delete_ripple"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="16dp" />
+                    app:layout_constraintGuide_begin="10dp" />
 
             <TextView
                     android:id="@+id/name_tv"
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/list_item_empty_placeholder"
                     android:textSize="12sp"
