@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -95,6 +96,8 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
         private TextView endDateTv;
         private TextView percentTv;
         private TextView periodTv;
+        private ImageView outIv;
+        private ImageView inIv;
         private ImageButton btnDelete;
 
         public ArchLoanViewHolder(@NonNull View itemView, ArchOnLoanListener onLoanListener) {
@@ -109,6 +112,8 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
             endDateTv = itemView.findViewById(R.id.end_date_tv);
             percentTv = itemView.findViewById(R.id.percent_tv);
             periodTv = itemView.findViewById(R.id.period_tv);
+            outIv = itemView.findViewById(R.id.arch_list_item_out_im);
+            inIv = itemView.findViewById(R.id.arch_list_item_in_iv);
             btnDelete = itemView.findViewById(R.id.delete_forever_ib);
 
             mainLayout.setOnClickListener(v -> {
@@ -126,6 +131,13 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
             nameTv.setText(loan.getDebtorName());
             currentAmountTv.setText(MainActivity.formatAmount(loan.getCurrentAmount()));
 
+            if (loan.getType() == Loan.TYPE_ARCHIVED_IN) {
+                inIv.setVisibility(View.VISIBLE);
+                outIv.setVisibility(View.GONE);
+            } else if (loan.getType() == Loan.TYPE_ARCHIVED_OUT) {
+                inIv.setVisibility(View.GONE);
+                outIv.setVisibility(View.VISIBLE);
+            }
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(loan.getPaymentDateInMs());

@@ -40,13 +40,21 @@
             android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/arch_main_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/arch_main_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
                 android:orientation="vertical"
                 tools:viewBindingIgnore="true">
+
+            <ImageView
+                    android:id="@+id/arch_list_item_in_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/current_amount_tv"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/current_amount_tv"
+                    app:srcCompat="@drawable/ic_loan_in_small" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -61,6 +69,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="16dp" />
+
+            <ImageView
+                    android:id="@+id/arch_list_item_out_im"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/current_amount_tv"
+                    app:layout_constraintStart_toEndOf="@+id/arch_list_item_in_iv"
+                    app:layout_constraintTop_toTopOf="@+id/current_amount_tv"
+                    app:srcCompat="@drawable/ic_loan_out_small" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline4"
@@ -96,12 +113,13 @@
                     android:id="@+id/current_amount_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/list_item_empty_placeholder"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toEndOf="@+id/arch_list_item_out_im"
                     app:layout_constraintTop_toBottomOf="@+id/name_tv"
                     tools:text="1500" />
 
