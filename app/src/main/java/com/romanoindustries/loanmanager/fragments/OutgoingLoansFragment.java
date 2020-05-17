@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
@@ -100,6 +101,21 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
             Intent intent = new Intent(getContext(), NewLoanActivity.class);
             intent.putExtra(NewLoanActivity.LOAN_TYPE_KEY, Loan.TYPE_OUT);
             startActivity(intent);
+        });
+
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            if (Math.abs(verticalOffset) - appBarLayout1.getTotalScrollRange() == 0) {
+                //  Collapsed
+                if (fab.isShown()) {
+                    fab.hide();
+                }
+            } else {
+                //Expanded
+                if (!fab.isShown()) {
+                    fab.show();
+                }
+            }
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.out_loans_recycler_view);

@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="12dp" />
+                    app:layout_constraintGuide_begin="10dp" />
 
             <TextView
                     android:id="@+id/name_tv"
@@ -215,7 +215,7 @@
                     android:id="@+id/divider6"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:background="?android:attr/listDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

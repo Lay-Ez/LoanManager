@@ -20,7 +20,7 @@
     <color name="edit_button_disabled_color">#919191</color>
 
 
-    <color name="fab_color">@color/colorPrimary</color>
+    <color name="fab_color">@color/colorPrimaryDark</color>
 
     <!-- highlighted loan color -->
     <color name="highlighted_loan_color">#4DFFD600</color>
