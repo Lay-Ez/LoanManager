@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,14 +21,14 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private IncomingLoansFragment incomingLoansFragment;
     private static final int IN_FRAGMENT_ID = 1;
+    public static final String IN_FRAGMENT_TAG = "in_fragment";
 
-    private OutgoingLoansFragment outgoingLoansFragment;
     private static final int OUT_FRAGMENT_ID = 2;
+    public static final String OUT_FRAGMENT_TAG = "out_fragment";
 
-    private ArchivedLoansFragment archivedLoansFragment;
     private static final int ARCH_FRAGMENT_ID = 3;
+    public static final String ARCH_FRAGMENT_TAG = "arch_fragment";
 
     public static final String CURRENT_FRAGMENT_KEY = "current_fragment";
     private int currentFragmentId = 1;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initFragments();
 
         loansViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(getApplication())
@@ -91,32 +91,60 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
-    private void initFragments() {
-        incomingLoansFragment = new IncomingLoansFragment();
-        outgoingLoansFragment = new OutgoingLoansFragment();
-        archivedLoansFragment = new ArchivedLoansFragment();
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, incomingLoansFragment)
-                .add(R.id.fragment_container, outgoingLoansFragment)
-                .add(R.id.fragment_container, archivedLoansFragment)
-                .commit();
-    }
-
     private void showFragment(int fragmentId) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentId == IN_FRAGMENT_ID) {
-            transaction.hide(outgoingLoansFragment);
-            transaction.hide(archivedLoansFragment);
-            transaction.show(incomingLoansFragment);
-        } else if (fragmentId == OUT_FRAGMENT_ID) {
-            transaction.hide(archivedLoansFragment);
-            transaction.hide(incomingLoansFragment);
-            transaction.show(outgoingLoansFragment);
-        } else if (fragmentId == ARCH_FRAGMENT_ID) {
-            transaction.hide(outgoingLoansFragment);
-            transaction.hide(incomingLoansFragment);
-            transaction.show(archivedLoansFragment);
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        switch (fragmentId) {
+
+            case IN_FRAGMENT_ID:
+
+                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
+                    transaction.show(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                } else {
+                    transaction.add(R.id.fragment_container, new IncomingLoansFragment(), IN_FRAGMENT_TAG);
+                }
+
+                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+                }
+                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+                }
+                break;
+
+            case OUT_FRAGMENT_ID:
+
+                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
+                    transaction.show(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+                } else {
+                    transaction.add(R.id.fragment_container, new OutgoingLoansFragment(), OUT_FRAGMENT_TAG);
+                }
+
+                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                }
+                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+                }
+                break;
+
+            case ARCH_FRAGMENT_ID:
+
+                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
+                    transaction.show(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+                } else {
+                    transaction.add(R.id.fragment_container, new ArchivedLoansFragment(), ARCH_FRAGMENT_TAG);
+                }
+
+                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                }
+                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
+                    transaction.hide(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+                }
+                break;
         }
         transaction.commit();
         currentFragmentId = fragmentId;

@@ -6,15 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/arch_loans_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
@@ -55,7 +46,7 @@
                         android:id="@+id/arch_loans_total_amount_in_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:text="0"
+                        android:text="@string/total_amount_zero"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="24dp"
-                        android:text="0"
+                        android:text="@string/total_amount_zero"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,6 +109,15 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:title="@string/arch_toolbar_title" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/arch_loans_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

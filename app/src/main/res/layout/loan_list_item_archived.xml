@@ -40,9 +40,10 @@
             android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/arch_main_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/arch_main_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?selectableItemBackground"
                 android:orientation="vertical"
                 tools:viewBindingIgnore="true">
@@ -165,12 +166,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/list_item_empty_placeholder"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintTop_toBottomOf="@+id/end_date_tv"
                     tools:text="2 Weeks" />
@@ -232,6 +231,16 @@
                     android:textSize="12sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/start_date_tv"
                     app:layout_constraintEnd_toStartOf="@+id/start_date_tv" />
+
+            <View
+                    android:id="@+id/divider10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/period_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
