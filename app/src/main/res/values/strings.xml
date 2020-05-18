@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">LoanManager</string>
+    <string name="app_name" translatable="false">LoanManager</string>
 
     <!-- used in multiple places -->
-    <string name="total_amount_zero">0</string>
+    <string name="total_amount_zero" translatable="false">0</string>
     <string name="not_specified_string">Not specified</string>
-    <string name="loan_type_incoming">Incoming</string>
-    <string name="loan_type_outgoing">Outgoing</string>
-    <string name="loan_type_archived_in">Archived (incoming)</string>
-    <string name="loan_type_archived_out">Archived (outgoing)</string>
+    <string name="loan_type_incoming">Owe you</string>
+    <string name="loan_type_outgoing">You owe</string>
+    <string name="loan_type_archived_in">Owed you</string>
+    <string name="loan_type_archived_out">You owed</string>
     <string name="no_loans_here">No loans here yet</string>
 
     <!-- fragment menu -->
@@ -23,17 +23,17 @@
 
 
     <!-- main activity -->
-    <string name="nav_loans_in">In</string>
-    <string name="nav_loans_out">Out</string>
+    <string name="nav_loans_in">Owe you</string>
+    <string name="nav_loans_out">You owe</string>
     <string name="nav_loans_history">History</string>
 
     <!--  list item -->
-    <string name="list_item_currency_label">RUB</string>
+    <string name="list_item_currency_label">USD</string>
     <string name="list_item_start_date_label">Start date:</string>
     <string name="list_item_end_date_label">End date:</string>
     <string name="list_item_rate_label">Rate:</string>
-    <string name="list_item_empty_placeholder">-</string>
-    <string name="list_item_rate_divider">/</string>
+    <string name="list_item_empty_placeholder" translatable="false">-</string>
+    <string name="list_item_rate_divider" translatable="false">/</string>
 
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">Add New Loan</string>
@@ -46,7 +46,7 @@
     <string name="new_loan_note_hint">Note</string>
 
     <string name="new_loan_percentage">Interest rate</string>
-    <string name="new_loan_percentage_suffix">%</string>
+    <string name="new_loan_percentage_suffix" translatable="false">%</string>
     <string name="new_loan_period_label">Period: </string>
 
     <string name="one_day">1 Day</string>
@@ -116,8 +116,8 @@
 
 
     <!-- in fragment -->
-    <string name="in_toolbar_title">Incoming</string>
-    <string name="archive_all_incoming_loans_dialog_msg">Archive all incoming loans?</string>
+    <string name="in_toolbar_title">Owe you</string>
+    <string name="archive_all_incoming_loans_dialog_msg">Archive all loans people owe you?</string>
 
     <!-- archive dialog -->
     <string name="in_dialog_delete_title">Confirm action</string>
@@ -131,14 +131,14 @@
     <string name="arch_dialog_delete_negative">Cancel</string>
 
     <!-- out fragment -->
-    <string name="out_toolbar_title">Outgoing</string>
-    <string name="archive_all_outgoing_loans_dialog_msg">Archive all outgoing loans?</string>
+    <string name="out_toolbar_title">You owe</string>
+    <string name="archive_all_outgoing_loans_dialog_msg">Archive all loans you owe people?</string>
 
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Archived</string>
-    <string name="arch_thousands">K</string>
-    <string name="arch_millions">M</string>
-    <string name="delete_all_archived_loans_dialog_msg">Delete all archived loans?</string>
+    <string name="arch_thousands" translatable="false">K</string>
+    <string name="arch_millions" translatable="false">M</string>
+    <string name="delete_all_archived_loans_dialog_msg">Delete all loans from history?</string>
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Time to get the money!</string>
