@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
@@ -51,6 +52,9 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private AlertDialog deleteAllDialog;
     private PopupMenu sortPopupMenu;
     private Toolbar toolbar;
+    private ImageView emptyIv;
+    private TextView emptyTv;
+
     private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
     public OutgoingLoansFragment() {}
@@ -139,6 +143,9 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 }
             }
         });
+
+        emptyIv = view.findViewById(R.id.empty_list_im);
+        emptyTv = view.findViewById(R.id.empty_list_tv);
     }
 
     @Override
@@ -229,6 +236,13 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         if (loans == null) {
             totalAmountTv.setText(getString(R.string.total_amount_zero));
             return;
+        }
+        if (loans.isEmpty()) {
+            emptyIv.setVisibility(View.VISIBLE);
+            emptyTv.setVisibility(View.VISIBLE);
+        } else {
+            emptyIv.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.GONE);
         }
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), loans);
         loansAdapter.updateLoans(loans);

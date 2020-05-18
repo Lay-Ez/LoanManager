@@ -30,4 +30,8 @@
     <!-- icon colors -->
     <color name="icon_loan_in_color">#00C853</color>
     <color name="icon_loan_out_color">@color/delete_button_default_color</color>
+
+    <!-- empty list item colors-->
+    <color name="empty_list_item_image_color">#E1E1E1</color>
+    <color name="empty_list_item_text_color">#E1E1E1</color>
 </resources>

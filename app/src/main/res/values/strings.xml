@@ -8,6 +8,7 @@
     <string name="loan_type_outgoing">Outgoing</string>
     <string name="loan_type_archived_in">Archived (incoming)</string>
     <string name="loan_type_archived_out">Archived (outgoing)</string>
+    <string name="no_loans_here">No loans here yet</string>
 
     <!-- fragment menu -->
     <string name="filter_by_mnu_item_label">Sort</string>
