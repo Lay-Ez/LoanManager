@@ -1,7 +1,6 @@
 package com.romanoindustries.loanmanager;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,17 +20,14 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int IN_FRAGMENT_ID = 1;
     public static final String IN_FRAGMENT_TAG = "in_fragment";
 
-    private static final int OUT_FRAGMENT_ID = 2;
     public static final String OUT_FRAGMENT_TAG = "out_fragment";
 
-    private static final int ARCH_FRAGMENT_ID = 3;
     public static final String ARCH_FRAGMENT_TAG = "arch_fragment";
 
     public static final String CURRENT_FRAGMENT_KEY = "current_fragment";
-    private int currentFragmentId = 1;
+    private String currentFragmentTag = IN_FRAGMENT_TAG;
 
     public LoansViewModel loansViewModel;
 
@@ -53,52 +49,49 @@ public class MainActivity extends AppCompatActivity {
 
     private void restoreViewedFragment(Bundle bundle) {
         if (bundle == null) {
-            showFragment(IN_FRAGMENT_ID);
+            showFragment(IN_FRAGMENT_TAG);
             return;
         }
 
-        int viewFragmentId = bundle.getInt(CURRENT_FRAGMENT_KEY, IN_FRAGMENT_ID);
-        showFragment(viewFragmentId);
+        String viewFragmentTag = bundle.getString(CURRENT_FRAGMENT_KEY, IN_FRAGMENT_TAG);
+        showFragment(viewFragmentTag);
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(CURRENT_FRAGMENT_KEY, currentFragmentId);
+        outState.putString(CURRENT_FRAGMENT_KEY, currentFragmentTag);
         super.onSaveInstanceState(outState);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            item -> {
 
-                    switch (item.getItemId()) {
+                switch (item.getItemId()) {
 
-                        case R.id.nav_loans_in:
-                            showFragment(IN_FRAGMENT_ID);
-                            break;
+                    case R.id.nav_loans_in:
+                        showFragment(IN_FRAGMENT_TAG);
+                        break;
 
-                        case R.id.nav_loans_out:
-                            showFragment(OUT_FRAGMENT_ID);
-                            break;
+                    case R.id.nav_loans_out:
+                        showFragment(OUT_FRAGMENT_TAG);
+                        break;
 
-                        case R.id.nav_loans_history:
-                            showFragment(ARCH_FRAGMENT_ID);
-                            break;
-                    }
-
-                    return true;
+                    case R.id.nav_loans_history:
+                        showFragment(ARCH_FRAGMENT_TAG);
+                        break;
                 }
+
+                return true;
             };
 
-    private void showFragment(int fragmentId) {
+    private void showFragment(String fragmentTag) {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        switch (fragmentId) {
+        switch (fragmentTag) {
 
-            case IN_FRAGMENT_ID:
+            case IN_FRAGMENT_TAG:
 
                 if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
                     transaction.show(manager.findFragmentByTag(IN_FRAGMENT_TAG));
@@ -114,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-            case OUT_FRAGMENT_ID:
+            case OUT_FRAGMENT_TAG:
 
                 if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
                     transaction.show(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
@@ -130,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-            case ARCH_FRAGMENT_ID:
+            case ARCH_FRAGMENT_TAG:
 
                 if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
                     transaction.show(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
@@ -147,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         transaction.commit();
-        currentFragmentId = fragmentId;
+        currentFragmentTag = fragmentTag;
     }
 
     private void startAlarm() {
