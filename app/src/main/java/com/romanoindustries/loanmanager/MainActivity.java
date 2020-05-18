@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -88,54 +89,69 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
+        Fragment inFragment;
+        Fragment outFragment;
+        Fragment archFragment;
 
         switch (fragmentTag) {
 
             case IN_FRAGMENT_TAG:
 
-                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
-                    transaction.show(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                inFragment = manager.findFragmentByTag(IN_FRAGMENT_TAG);
+                if (inFragment != null) {
+                    transaction.show(inFragment);
                 } else {
                     transaction.add(R.id.fragment_container, new IncomingLoansFragment(), IN_FRAGMENT_TAG);
                 }
 
-                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+                outFragment = manager.findFragmentByTag(OUT_FRAGMENT_TAG);
+                if (outFragment != null) {
+                    transaction.hide(outFragment);
                 }
-                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+
+                archFragment = manager.findFragmentByTag(ARCH_FRAGMENT_TAG);
+                if (archFragment != null) {
+                    transaction.hide(archFragment);
                 }
                 break;
 
             case OUT_FRAGMENT_TAG:
 
-                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
-                    transaction.show(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+                outFragment = manager.findFragmentByTag(OUT_FRAGMENT_TAG);
+                if (outFragment != null) {
+                    transaction.show(outFragment);
                 } else {
                     transaction.add(R.id.fragment_container, new OutgoingLoansFragment(), OUT_FRAGMENT_TAG);
                 }
 
-                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                inFragment = manager.findFragmentByTag(IN_FRAGMENT_TAG);
+                if (inFragment != null) {
+                    transaction.hide(inFragment);
                 }
-                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+
+                archFragment = manager.findFragmentByTag(ARCH_FRAGMENT_TAG);
+                if (archFragment != null) {
+                    transaction.hide(archFragment);
                 }
                 break;
 
             case ARCH_FRAGMENT_TAG:
 
-                if (manager.findFragmentByTag(ARCH_FRAGMENT_TAG) != null) {
-                    transaction.show(manager.findFragmentByTag(ARCH_FRAGMENT_TAG));
+                archFragment = manager.findFragmentByTag(ARCH_FRAGMENT_TAG);
+                if (archFragment != null) {
+                    transaction.show(archFragment);
                 } else {
                     transaction.add(R.id.fragment_container, new ArchivedLoansFragment(), ARCH_FRAGMENT_TAG);
                 }
 
-                if (manager.findFragmentByTag(IN_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(IN_FRAGMENT_TAG));
+                inFragment = manager.findFragmentByTag(IN_FRAGMENT_TAG);
+                if (inFragment != null) {
+                    transaction.hide(inFragment);
                 }
-                if (manager.findFragmentByTag(OUT_FRAGMENT_TAG) != null) {
-                    transaction.hide(manager.findFragmentByTag(OUT_FRAGMENT_TAG));
+
+                outFragment = manager.findFragmentByTag(OUT_FRAGMENT_TAG);
+                if (outFragment != null) {
+                    transaction.hide(outFragment);
                 }
                 break;
         }
