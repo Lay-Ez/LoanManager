@@ -1,0 +1,136 @@
+<resources>
+
+    <!-- used in multiple places -->
+    <string name="not_specified_string">Не указано</string>
+    <string name="loan_type_incoming">Должны вам</string>
+    <string name="loan_type_outgoing">Должы вы</string>
+    <string name="loan_type_archived_in">Вам были должны</string>
+    <string name="loan_type_archived_out">Вы были должны</string>
+    <string name="no_loans_here">Тут пока нет долгов</string>
+
+    <!-- fragment menu -->
+    <string name="filter_by_mnu_item_label">Сортировка</string>
+    <string name="fragment_mnu_notifications_label">Получать уведомления</string>
+    <string name="fragment_mnu_delete_all_label">Удалить все</string>
+
+    <!-- sort menu item -->
+    <string name="filter_old_first">Сначала старые</string>
+    <string name="filter_new_first">Сначала новые</string>
+    <string name="filter_big_first">Сначала крупные</string>
+    <string name="filter_small_first">Сначала малые</string>
+
+
+    <!-- main activity -->
+    <string name="nav_loans_in">Вам должны</string>
+    <string name="nav_loans_out">Вы должны</string>
+    <string name="nav_loans_history">История</string>
+
+    <!--  list item -->
+    <string name="list_item_currency_label">RUB</string>
+    <string name="list_item_start_date_label">Начальная дата:</string>
+    <string name="list_item_end_date_label">Конечная дата:</string>
+    <string name="list_item_rate_label">Ставка:</string>
+
+    <!-- new loan activity -->
+    <string name="new_loan_toolbar_title">Добавление долга</string>
+    <string name="new_loan_name_hint">Имя</string>
+    <string name="new_loan_phone_number_hint">Телефон</string>
+    <string name="new_loan_amount_hint">Сумма</string>
+    <string name="new_loan_date_btn_label">Конечная дата</string>
+    <string name="new_loan_without_end_date_checkbox">Без конечной даты</string>
+    <string name="new_loan_enable_interest_label">С процентной ставкой</string>
+    <string name="new_loan_note_hint">Заметка</string>
+
+    <string name="new_loan_percentage">Процентая ставка</string>
+    <string name="new_loan_period_label">Период: </string>
+
+    <string name="one_day">1 День</string>
+    <string name="three_days">3 Дня</string>
+    <string name="one_week">1 Неделя</string>
+    <string name="two_weeks">2 Недели</string>
+    <string name="one_month">1 Месяц</string>
+    <string name="one_year">1 Год</string>
+
+    <string name="new_loan_menu_save">Сохранить</string>
+    <string name="new_loan_menu_cancel">Отмена</string>
+
+    <string name="name_cannot_be_empty_error_msg">нужно указать имя</string>
+    <string name="amount_cannot_be_zero_error_msg">сумма должна быть больше 0</string>
+    <string name="amount_should_be_specified_error_msg">нужно указать сумму</string>
+
+    <string name="date_error_dialog_title">Неверная дата</string>
+    <string name="date_error_dialog_msg">Конечная дата должна быть в будущем</string>
+
+    <string name="interest_rate_zero_title">Некорректная ставка</string>
+    <string name="interest_rate_zero_msg">Ставка не может быть равна нулю</string>
+
+    <string name="confirm_cancel_dialog_msg">Выйти из редактирования долга?</string>
+    <string name="confirm_cancel_dialog_positive">Выход</string>
+    <string name="confirm_cancel_dialog_negative">Отмена</string>
+
+    <string name="optional_helper_text">необязательно</string>
+
+
+    <!-- edit loan activity -->
+    <string name="edit_loan_toolbar_title">Изменение долга</string>
+
+    <!-- loan info activity -->
+    <string name="info_activity_delete_mnu">Удалить</string>
+    <string name="info_activity_share_mnu">Поделиться</string>
+    <string name="info_activity_error_message">Ошибка отображения информации о долге</string>
+
+    <string name="info_activity_toolbar_title">Информация</string>
+    <string name="info_activity_loan_type_label">Тип долга</string>
+    <string name="info_activity_loan_name_label">Имя</string>
+    <string name="info_activity_loan_phone_label">Телефон</string>
+    <string name="info_activity_loan_date_start_label">Начальная дата</string>
+    <string name="info_activity_loan_date_end_label">Конечная дата</string>
+    <string name="info_activity_loan_next_date_label">След. начисление %</string>
+    <string name="info_activity_loan_start_amount_label">Начальная сумма</string>
+    <string name="info_activity_loan_end_amount_label">Текущая сумма</string>
+    <string name="info_activity_loan_interest_rate_label">Процентная ставка</string>
+    <string name="info_activity_loan_interest_period_label">Период (дней)</string>
+    <string name="info_activity_loan_id_label">Номер долга</string>
+    <string name="info_activity_loan_note_label">Заметка</string>
+
+    <!-- string for share text composition -->
+    <string name="share_using">Поделиться с помощью</string>
+    <string name="incoming_loan_msg">%1$s должен(а) мне %2$s рублей начиная с %3$s. Этот долг должен быть возвращён до %4$s.</string>
+    <string name="incoming_loan_msg_no_date">%1$s должен(-а) мне %2$s рублей начиная с %3$s.</string>
+    <string name="outgoing_loan_msg">Я должен(-а) человеку по имени %1$s %2$s рублей, начиная с %3$s. И %4$s.</string>
+    <string name="outgoing_loan_msg_no_date">Я должен человеку по имено %1$s %2$s рублей, начиная с %3$s.</string>
+
+
+    <!-- in fragment -->
+    <string name="in_toolbar_title">Вам должны</string>
+    <string name="archive_all_incoming_loans_dialog_msg">Отправить все долги которые должны вам в архив?</string>
+
+    <!-- archive dialog -->
+    <string name="in_dialog_delete_title">Подтвердите действие</string>
+    <string name="in_dialog_delete_msg">Отправить этот долг в архив?</string>
+    <string name="in_dialog_delete_positive">Отправить</string>
+    <string name="in_dialog_delete_negative">Отмена</string>
+
+    <!-- delete forever dialog-->
+    <string name="arch_dialog_delete_msg">Удалить этот долг навсегда?</string>
+    <string name="arch_dialog_delete_positive">Удалить</string>
+    <string name="arch_dialog_delete_negative">Отмена</string>
+
+    <!-- out fragment -->
+    <string name="out_toolbar_title">Вы должны</string>
+    <string name="archive_all_outgoing_loans_dialog_msg">Отправить все долги которые вы должны в архив?</string>
+
+    <!-- archived fragment -->
+    <string name="arch_toolbar_title">Архив</string>
+    <string name="delete_all_archived_loans_dialog_msg">Удалить все долги из архива?</string>
+
+    <!-- notifications -->
+    <string name="in_loan_notification_title">Пора собирать долги!</string>
+    <string name="in_loan_notification_body">Долг, который вы давали %1$s должен быть возвращён завтра.
+    Сумма долга: %2$s RUB</string>
+
+    <string name="out_loan_notification_title">Пора платить по долгам!</string>
+    <string name="out_loan_notification_body">Долг который вам давал(а) %1$s Должен быть возвращён завтра.
+    Вы должны %2$s рублей</string>
+
+</resources>

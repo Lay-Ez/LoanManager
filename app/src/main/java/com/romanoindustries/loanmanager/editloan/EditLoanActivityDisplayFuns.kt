@@ -47,8 +47,10 @@ fun EditLoanActivity.isInputCorrect(): Boolean {
         }
     }
     if (binding.enableInterestCb.isChecked && convertInterestRateToDouble(wholePercentPart, decimalPercentPart) == 0.0) {
+        if (isInputOk) {
+            showInterestRateError()
+        }
         isInputOk = false
-        showInterestRateError()
     }
 
     return isInputOk
