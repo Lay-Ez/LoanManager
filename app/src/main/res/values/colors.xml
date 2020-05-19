@@ -19,6 +19,10 @@
     <color name="edit_button_pressed_color">#E17A27</color>
     <color name="edit_button_disabled_color">#919191</color>
 
+    <color name="unarchive_button_default_color">#00C853</color>
+    <color name="unarchive_button_pressed_color">#00DF5D</color>
+    <color name="unarchive_button_disabled_color">#919191</color>
+
 
     <color name="fab_color">@color/colorPrimaryDark</color>
 

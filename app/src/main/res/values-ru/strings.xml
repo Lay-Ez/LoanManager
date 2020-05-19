@@ -10,7 +10,7 @@
 
     <!-- fragment menu -->
     <string name="filter_by_mnu_item_label">Сортировка</string>
-    <string name="fragment_mnu_notifications_label">Получать уведомления</string>
+    <string name="fragment_mnu_notifications_label">Отображать уведомления</string>
     <string name="fragment_mnu_delete_all_label">Удалить все</string>
 
     <!-- sort menu item -->
