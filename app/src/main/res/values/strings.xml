@@ -35,6 +35,10 @@
     <string name="list_item_empty_placeholder" translatable="false">-</string>
     <string name="list_item_rate_divider" translatable="false">/</string>
 
+    <!-- arch list item specific -->
+    <string name="list_item_arch_start_date_label">From:</string>
+    <string name="list_item_arch_end_date_label">To:</string>
+
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">Add New Loan</string>
     <string name="new_loan_name_hint">Name</string>

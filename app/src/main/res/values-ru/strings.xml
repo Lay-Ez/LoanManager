@@ -136,5 +136,7 @@
     <string name="unarchive_dialog_negative">Отмена</string>
     <string name="fragment_mnu_archive_all_label">Архивировать все</string>
     <string name="nav_loans_history">Архив</string>
+    <string name="list_item_arch_end_date_label">До:</string>
+    <string name="list_item_arch_start_date_label">С:</string>
 
 </resources>
