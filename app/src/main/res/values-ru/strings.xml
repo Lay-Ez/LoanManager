@@ -23,7 +23,6 @@
     <!-- main activity -->
     <string name="nav_loans_in">Вам должны</string>
     <string name="nav_loans_out">Вы должны</string>
-    <string name="nav_loans_history">История</string>
 
     <!--  list item -->
     <string name="list_item_currency_label">RUB</string>
@@ -103,7 +102,7 @@
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Вам должны</string>
-    <string name="archive_all_incoming_loans_dialog_msg">Отправить все долги которые должны вам в архив?</string>
+    <string name="archive_all_incoming_loans_dialog_msg">Отправить все долги из этой секции в архив?</string>
 
     <!-- archive dialog -->
     <string name="in_dialog_delete_title">Подтвердите действие</string>
@@ -112,13 +111,13 @@
     <string name="in_dialog_delete_negative">Отмена</string>
 
     <!-- delete forever dialog-->
-    <string name="arch_dialog_delete_msg">Удалить этот долг навсегда?</string>
+    <string name="arch_dialog_delete_msg">Удалить этот долг?</string>
     <string name="arch_dialog_delete_positive">Удалить</string>
     <string name="arch_dialog_delete_negative">Отмена</string>
 
     <!-- out fragment -->
     <string name="out_toolbar_title">Вы должны</string>
-    <string name="archive_all_outgoing_loans_dialog_msg">Отправить все долги которые вы должны в архив?</string>
+    <string name="archive_all_outgoing_loans_dialog_msg">Отправить все долги из этой секции в архив?</string>
 
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Архив</string>
@@ -135,5 +134,7 @@
     <string name="unarchive_dialog_msg">Восстановить этот долг?</string>
     <string name="unarchive_dialog_positive">Восстановить</string>
     <string name="unarchive_dialog_negative">Отмена</string>
+    <string name="fragment_mnu_archive_all_label">Архивировать все</string>
+    <string name="nav_loans_history">Архив</string>
 
 </resources>

@@ -71,7 +71,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         outLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_out_tv);
 
         toolbar = view.findViewById(R.id.arch_loans_toolbar);
-        toolbar.inflateMenu(R.menu.fragment_menu);
+        toolbar.inflateMenu(R.menu.fragment_menu_arch);
         toolbar.setOnMenuItemClickListener(item -> {
 
             switch (item.getItemId()) {

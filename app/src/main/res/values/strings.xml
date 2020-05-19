@@ -14,6 +14,7 @@
     <string name="filter_by_mnu_item_label">Sort</string>
     <string name="fragment_mnu_notifications_label">Show notifications</string>
     <string name="fragment_mnu_delete_all_label">Delete all</string>
+    <string name="fragment_mnu_archive_all_label">Archive all</string>
 
     <!-- sort menu item -->
     <string name="filter_old_first">Old first</string>
@@ -25,7 +26,6 @@
     <!-- main activity -->
     <string name="nav_loans_in">Owe you</string>
     <string name="nav_loans_out">You owe</string>
-    <string name="nav_loans_history">History</string>
 
     <!--  list item -->
     <string name="list_item_currency_label">USD</string>
@@ -117,7 +117,7 @@
 
     <!-- in fragment -->
     <string name="in_toolbar_title">Owe you</string>
-    <string name="archive_all_incoming_loans_dialog_msg">Archive all loans people owe you?</string>
+    <string name="archive_all_incoming_loans_dialog_msg">Archive all loans in this section?</string>
 
     <!-- archive dialog -->
     <string name="in_dialog_delete_title">Confirm action</string>
@@ -126,7 +126,7 @@
     <string name="in_dialog_delete_negative">Cancel</string>
 
     <!-- delete forever dialog-->
-    <string name="arch_dialog_delete_msg">Delete this loan forever?</string>
+    <string name="arch_dialog_delete_msg">Delete this loan?</string>
     <string name="arch_dialog_delete_positive">Delete</string>
     <string name="arch_dialog_delete_negative">Cancel</string>
 
@@ -137,7 +137,7 @@
 
     <!-- out fragment -->
     <string name="out_toolbar_title">You owe</string>
-    <string name="archive_all_outgoing_loans_dialog_msg">Archive all loans you owe people?</string>
+    <string name="archive_all_outgoing_loans_dialog_msg">Archive all loans in this section?</string>
 
     <!-- archived fragment -->
     <string name="arch_toolbar_title">Archived</string>
@@ -153,5 +153,6 @@
     <string name="out_loan_notification_title">Time to pay!</string>
     <string name="out_loan_notification_body">The loan %1$s gave you should be returned tomorrow.
     You owe them %2$s RUB</string>
+    <string name="nav_loans_history">Archive</string>
 
 </resources>

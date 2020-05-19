@@ -74,7 +74,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     private void initViews(View view) {
         toolbar = view.findViewById(R.id.in_loans_toolbar);
-        toolbar.inflateMenu(R.menu.fragment_menu);
+        toolbar.inflateMenu(R.menu.fragment_menu_in_out);
         toolbar.setOnMenuItemClickListener(item -> {
 
             switch (item.getItemId()) {
