@@ -52,6 +52,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
     }
 
     public void sortModeChanged(int sortMode) {
+        mItemManger.closeAllItems();
         SortModeHelper.sortLoansAccordingly(sortMode, loans);
         notifyDataSetChanged();
     }

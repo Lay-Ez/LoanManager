@@ -55,6 +55,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
     }
 
     void sortModeChanged(int sortMode) {
+        mItemManger.closeAllItems();
         SortModeHelper.sortLoansAccordingly(sortMode, loans);
         notifyDataSetChanged();
     }
