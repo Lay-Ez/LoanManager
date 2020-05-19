@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Менеджер\nДолгов</string>
 
     <!-- used in multiple places -->
     <string name="not_specified_string">Не указано</string>

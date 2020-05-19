@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">LoanManager</string>
+    <string name="app_name">Loan\nManager</string>
 
     <!-- used in multiple places -->
     <string name="total_amount_zero" translatable="false">0</string>
