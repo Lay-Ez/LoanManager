@@ -55,7 +55,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setColor(getColor(R.color.colorPrimary))
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_dollar_sign);
+                .setSmallIcon(R.drawable.ic_loan_notification);
     }
 }
 

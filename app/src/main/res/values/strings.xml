@@ -147,7 +147,7 @@
     <string name="arch_toolbar_title">Archived</string>
     <string name="arch_thousands" translatable="false">K</string>
     <string name="arch_millions" translatable="false">M</string>
-    <string name="delete_all_archived_loans_dialog_msg">Delete all loans from history?</string>
+    <string name="delete_all_archived_loans_dialog_msg">Delete all archived loans?</string>
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Time to get the money!</string>
@@ -157,6 +157,6 @@
     <string name="out_loan_notification_title">Time to pay!</string>
     <string name="out_loan_notification_body">The loan %1$s gave you should be returned tomorrow.
     You owe them %2$s RUB</string>
-    <string name="nav_loans_history">Archive</string>
+    <string name="nav_loans_history">Archived</string>
 
 </resources>

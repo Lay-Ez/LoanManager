@@ -17,6 +17,7 @@
                 android:launchMode="singleTop" />
         <activity
                 android:name=".viewloaninfo.LoanInfoActivity"
+                android:parentActivityName=".MainActivity"
                 android:launchMode="singleTop" />
         <activity
                 android:name=".newloan.NewLoanActivity"
