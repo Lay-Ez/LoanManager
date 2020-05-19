@@ -132,5 +132,8 @@
     <string name="out_loan_notification_title">Пора платить по долгам!</string>
     <string name="out_loan_notification_body">Долг который вам давал(а) %1$s Должен быть возвращён завтра.
     Вы должны %2$s рублей</string>
+    <string name="unarchive_dialog_msg">Восстановить этот долг?</string>
+    <string name="unarchive_dialog_positive">Восстановить</string>
+    <string name="unarchive_dialog_negative">Отмена</string>
 
 </resources>

@@ -21,7 +21,7 @@
             <ImageButton
                     android:id="@+id/delete_forever_ib"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_height="0dp"
                     android:background="@drawable/btn_delete_ripple"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
             <ImageButton
                     android:id="@+id/unarchive_ib"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_height="0dp"
                     android:background="@drawable/btn_unarchived_ripple"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -21,6 +21,8 @@ import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -37,7 +39,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
     private List<Loan> loans;
     private ArchOnLoanListener onLoanListener;
 
-    public ArchivedLoansAdapter(List<Loan> loans ,ArchOnLoanListener onLoanListener) {
+    ArchivedLoansAdapter(List<Loan> loans, ArchOnLoanListener onLoanListener) {
         this.loans = loans;
         this.onLoanListener = onLoanListener;
         mItemManger.setMode(Attributes.Mode.Single);
@@ -47,16 +49,17 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
         return loans;
     }
 
-    public void updateLoans(List<Loan> loans) {
+    void updateLoans(List<Loan> loans) {
         this.loans = loans;
         notifyDataSetChanged();
     }
 
-    public void sortModeChanged(int sortMode) {
+    void sortModeChanged(int sortMode) {
         SortModeHelper.sortLoansAccordingly(sortMode, loans);
         notifyDataSetChanged();
     }
 
+    @NotNull
     @Override
     public ArchLoanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -84,10 +87,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
         return R.id.arch_swipe_layout;
     }
 
-    class ArchLoanViewHolder extends RecyclerView.ViewHolder {
-
-        private ArchOnLoanListener onLoanListener;
-        private ConstraintLayout mainLayout;
+    static class ArchLoanViewHolder extends RecyclerView.ViewHolder {
 
         private SwipeLayout swipeLayout;
         private TextView nameTv;
@@ -98,14 +98,12 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
         private TextView periodTv;
         private ImageView outIv;
         private ImageView inIv;
-        private ImageButton btnDelete;
 
-        public ArchLoanViewHolder(@NonNull View itemView, ArchOnLoanListener onLoanListener) {
+        ArchLoanViewHolder(@NonNull View itemView, ArchOnLoanListener onLoanListener) {
             super(itemView);
-            this.onLoanListener = onLoanListener;
             swipeLayout = itemView.findViewById(R.id.arch_swipe_layout);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-            mainLayout = itemView.findViewById(R.id.arch_main_layout);
+            ConstraintLayout mainLayout = itemView.findViewById(R.id.arch_main_layout);
             nameTv = itemView.findViewById(R.id.name_tv);
             currentAmountTv = itemView.findViewById(R.id.current_amount_tv);
             startDateTv = itemView.findViewById(R.id.start_date_tv);
@@ -114,17 +112,26 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
             periodTv = itemView.findViewById(R.id.period_tv);
             outIv = itemView.findViewById(R.id.arch_list_item_out_im);
             inIv = itemView.findViewById(R.id.arch_list_item_in_iv);
-            btnDelete = itemView.findViewById(R.id.delete_forever_ib);
+            ImageButton btnDelete = itemView.findViewById(R.id.delete_forever_ib);
+            ImageButton btnUnarchive = itemView.findViewById(R.id.unarchive_ib);
 
             mainLayout.setOnClickListener(v -> {
                 onLoanListener.onLoanCLicked(getAdapterPosition());
-                swipeLayout.close();});
+                swipeLayout.close();
+            });
+
+            btnUnarchive.setOnClickListener(v -> {
+                onLoanListener.onLoanUnarchiveClicked(getAdapterPosition());
+                swipeLayout.close();
+            });
+
             btnDelete.setOnClickListener(v -> {
                 onLoanListener.onLoanDeleteClicked(getAdapterPosition());
-                swipeLayout.close();});
+                swipeLayout.close();
+            });
         }
 
-        public void bind(Loan loan) {
+        void bind(Loan loan) {
 
             Context context = MyApp.getContext();
 
@@ -194,5 +201,6 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
     public interface ArchOnLoanListener {
         void onLoanCLicked(int position);
         void onLoanDeleteClicked(int position);
+        void onLoanUnarchiveClicked(int position);
     }
 }

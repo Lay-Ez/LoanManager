@@ -130,6 +130,11 @@
     <string name="arch_dialog_delete_positive">Delete</string>
     <string name="arch_dialog_delete_negative">Cancel</string>
 
+    <!-- unarchive dialog -->
+    <string name="unarchive_dialog_msg">Unarchive this loan?</string>
+    <string name="unarchive_dialog_positive">Unarchive</string>
+    <string name="unarchive_dialog_negative">Cancel</string>
+
     <!-- out fragment -->
     <string name="out_toolbar_title">You owe</string>
     <string name="archive_all_outgoing_loans_dialog_msg">Archive all loans you owe people?</string>

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
+import com.romanoindustries.loanmanager.newloan.NewLoanVmHelper;
 import com.romanoindustries.loanmanager.notifications.NotificationPreferencesHelper;
 import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 import com.romanoindustries.loanmanager.viewloaninfo.LoanInfoActivity;
@@ -30,6 +31,7 @@ import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdapter.ArchOnLoanListener {
@@ -41,6 +43,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private PopupMenu sortPopupMenu;
     private AlertDialog deleteDialog;
     private AlertDialog deleteAllDialog;
+    private AlertDialog unarchiveDialog;
 
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
@@ -113,9 +116,47 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         showDeleteDialog(position);
     }
 
-    private void deleteLoan(int position) {
-        Loan loanToDelete = loansAdapter.getLoans().get(position);
-        loansViewModel.delete(loanToDelete);
+    @Override
+    public void onLoanUnarchiveClicked(int position) {
+        showUnarchiveDialog(position);
+    }
+
+    private void buildUnarchiveDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.unarchive_dialog_msg)
+                .setNegativeButton(getString(R.string.unarchive_dialog_negative), (dialog, which) -> {});
+        unarchiveDialog = builder.create();
+    }
+
+    private void showUnarchiveDialog(int position) {
+        if (unarchiveDialog == null) {
+            buildUnarchiveDialog();
+        }
+        unarchiveDialog.setButton(AlertDialog.BUTTON_POSITIVE,
+                getString(R.string.unarchive_dialog_positive),
+                (dialog, which) -> unarchiveLoan(position));
+        if (!unarchiveDialog.isShowing()) {
+            unarchiveDialog.show();
+        }
+    }
+
+    private void unarchiveLoan(int position) {
+        Loan loanToUnarchive = loansAdapter.getLoans().get(position);
+
+        if (loanToUnarchive.getInterestRate() != 0.0) {
+            NewLoanVmHelper helper = new NewLoanVmHelper();
+            long nextChargingDate = helper.calculateNextChargingTime(
+                    Calendar.getInstance().getTimeInMillis(),
+                    loanToUnarchive.getPeriodInDays());
+            loanToUnarchive.setNextChargingDateInMs(nextChargingDate);
+        }
+
+        if (loanToUnarchive.getType() == Loan.TYPE_ARCHIVED_IN) {
+            loanToUnarchive.setType(Loan.TYPE_IN);
+        } else if (loanToUnarchive.getType() == Loan.TYPE_ARCHIVED_OUT) {
+            loanToUnarchive.setType(Loan.TYPE_OUT);
+        }
+        loansViewModel.update(loanToUnarchive);
     }
 
     private void buildDeleteDialog() {
@@ -138,8 +179,9 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         }
     }
 
-    private void deleteAllLoans() {
-        loansAdapter.getLoans().forEach(loansViewModel::delete);
+    private void deleteLoan(int position) {
+        Loan loanToDelete = loansAdapter.getLoans().get(position);
+        loansViewModel.delete(loanToDelete);
     }
 
     private void buildDeleteAllDialog() {
@@ -159,6 +201,10 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         if (!deleteAllDialog.isShowing()) {
             deleteAllDialog.show();
         }
+    }
+
+    private void deleteAllLoans() {
+        loansAdapter.getLoans().forEach(loansViewModel::delete);
     }
 
     private void parseLoans(List<Loan> loans) {
