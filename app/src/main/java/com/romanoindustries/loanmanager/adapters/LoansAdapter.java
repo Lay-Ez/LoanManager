@@ -35,11 +35,16 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
     private List<Loan>loans;
     private OnLoanListener onLoanListener;
+    private String currencyLabel;
 
     public LoansAdapter(List<Loan> loans, OnLoanListener onLoanListener) {
         this.loans = loans;
         this.onLoanListener = onLoanListener;
         mItemManger.setMode(Attributes.Mode.Single);
+    }
+
+    public void setCurrencyLabel(String currencyLabel) {
+        this.currencyLabel = currencyLabel;
     }
 
     public List<Loan> getLoans() {
@@ -94,6 +99,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
         private SwipeLayout swipeLayout;
         private TextView nameTv;
+        private TextView currencyLabelTv;
         private TextView currentAmountTv;
         private TextView endDateTv;
         private TextView percentTv;
@@ -110,6 +116,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             mainLayout = itemView.findViewById(R.id.list_item_main_body);
             nameTv = itemView.findViewById(R.id.name_tv);
+            currencyLabelTv = itemView.findViewById(R.id.list_item_currency_label);
             currentAmountTv = itemView.findViewById(R.id.current_amount_tv);
             endDateTv = itemView.findViewById(R.id.end_date_tv);
             percentTv = itemView.findViewById(R.id.percent_tv);
@@ -135,6 +142,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
 
             nameTv.setText(loan.getDebtorName());
             currentAmountTv.setText(MainActivity.formatAmount(loan.getCurrentAmount()));
+            currencyLabelTv.setText(currencyLabel);
 
             if (loan.getPaymentDateInMs() != 0) {
                 Calendar calendar = Calendar.getInstance();

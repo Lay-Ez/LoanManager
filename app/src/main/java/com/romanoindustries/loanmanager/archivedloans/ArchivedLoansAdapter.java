@@ -38,11 +38,16 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
 
     private List<Loan> loans;
     private ArchOnLoanListener onLoanListener;
+    private String currencyLabel;
 
     ArchivedLoansAdapter(List<Loan> loans, ArchOnLoanListener onLoanListener) {
         this.loans = loans;
         this.onLoanListener = onLoanListener;
         mItemManger.setMode(Attributes.Mode.Single);
+    }
+
+    public void setCurrencyLabel(String currencyLabel) {
+        this.currencyLabel = currencyLabel;
     }
 
     public List<Loan> getLoans() {
@@ -89,11 +94,12 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
         return R.id.arch_swipe_layout;
     }
 
-    static class ArchLoanViewHolder extends RecyclerView.ViewHolder {
+    class ArchLoanViewHolder extends RecyclerView.ViewHolder {
 
         private SwipeLayout swipeLayout;
         private TextView nameTv;
         private TextView currentAmountTv;
+        private TextView currencyTv;
         private TextView startDateTv;
         private TextView endDateTv;
         private TextView percentTv;
@@ -107,6 +113,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             ConstraintLayout mainLayout = itemView.findViewById(R.id.arch_main_layout);
             nameTv = itemView.findViewById(R.id.name_tv);
+            currencyTv = itemView.findViewById(R.id.list_item_currency_label);
             currentAmountTv = itemView.findViewById(R.id.current_amount_tv);
             startDateTv = itemView.findViewById(R.id.start_date_tv);
             endDateTv = itemView.findViewById(R.id.end_date_tv);
@@ -139,6 +146,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
 
             nameTv.setText(loan.getDebtorName());
             currentAmountTv.setText(MainActivity.formatAmount(loan.getCurrentAmount()));
+            currencyTv.setText(currencyLabel);
 
             if (loan.getType() == Loan.TYPE_ARCHIVED_IN) {
                 inIv.setVisibility(View.VISIBLE);

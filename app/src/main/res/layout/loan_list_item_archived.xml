@@ -137,7 +137,7 @@
                     tools:text="1500" />
 
             <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/list_item_currency_label"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"

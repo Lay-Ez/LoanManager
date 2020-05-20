@@ -69,7 +69,39 @@ public class CurrencyHelper {
                 break;
 
         }
+    }
 
+    public static String getCurrentCurrencyLabel(Context context) {
+        int currency = CurrencyHelper.getCurrency(context);
+        String newCurrencyLabel = "";
+        switch (currency) {
+
+            case CurrencyHelper.RUB:
+                newCurrencyLabel = context.getString(R.string.currency_rub);
+                break;
+
+            case CurrencyHelper.EUR:
+                newCurrencyLabel = context.getString(R.string.currency_eur);
+                break;
+
+            case CurrencyHelper.CAD:
+                newCurrencyLabel = context.getString(R.string.currency_cad);
+                break;
+
+            case CurrencyHelper.AUD:
+                newCurrencyLabel = context.getString(R.string.currency_aud);
+                break;
+
+            case CurrencyHelper.INR:
+                newCurrencyLabel = context.getString(R.string.currency_inr);
+                break;
+
+            default:
+                newCurrencyLabel = context.getString(R.string.currency_usd);
+                break;
+
+        }
+        return newCurrencyLabel;
     }
 
 }

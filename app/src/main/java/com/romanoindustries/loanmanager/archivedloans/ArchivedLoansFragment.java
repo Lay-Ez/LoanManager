@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.romanoindustries.loanmanager.MainActivity;
+import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.currency.CurrencyHelper;
 import com.romanoindustries.loanmanager.currency.CurrencyMenuItemClickListener;
@@ -49,6 +50,8 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
 
     private TextView inLoansTotalTv;
     private TextView outLoansTotalTv;
+    private TextView currencyLabel1;
+    private TextView currencyLabel2;
     private Toolbar toolbar;
 
     private ImageView emptyIv;
@@ -71,6 +74,8 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private void initViews(View view) {
         inLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_in_tv);
         outLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_out_tv);
+        currencyLabel1 = view.findViewById(R.id.arch_loans_total_amount_currency_label);
+        currencyLabel2 = view.findViewById(R.id.arch_loans_total_amount_currency_label2);
 
         toolbar = view.findViewById(R.id.arch_loans_toolbar);
         toolbar.inflateMenu(R.menu.fragment_menu_arch);
@@ -102,6 +107,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         RecyclerView recyclerView = view.findViewById(R.id.arch_loans_recycler_view);
         loansAdapter = new ArchivedLoansAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(loansAdapter);
+        displayCurrentCurrency();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         emptyIv = view.findViewById(R.id.empty_list_im);
@@ -315,6 +321,8 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
                 loansAdapter.updateLoans(currentLoans);
             } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {
                 checkNotificationsMenuItem();
+            } else if (CurrencyHelper.CURRENCY_PREFERENCE_KEY.equals(key)) {
+                displayCurrentCurrency();
             }
         };
 
@@ -324,7 +332,18 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         sharedPreferences = requireContext()
                 .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
 
+
+    private void displayCurrentCurrency() {
+        String newCurrencyLabel = CurrencyHelper.getCurrentCurrencyLabel(MyApp.getContext());
+        loansAdapter.setCurrencyLabel(newCurrencyLabel);
+        loansAdapter.notifyDataSetChanged();
+        currencyLabel1.setText(newCurrencyLabel);
+        currencyLabel2.setText(newCurrencyLabel);
     }
 
     private void checkNotificationsMenuItem() {

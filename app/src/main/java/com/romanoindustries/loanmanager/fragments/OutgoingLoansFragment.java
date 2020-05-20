@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romanoindustries.loanmanager.MainActivity;
+import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
 import com.romanoindustries.loanmanager.currency.CurrencyHelper;
@@ -49,6 +50,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private LoansViewModel loansViewModel;
     private LoansAdapter loansAdapter;
     private TextView totalAmountTv;
+    private TextView currencyLabel;
     private AlertDialog deleteDialog;
     private AlertDialog deleteAllDialog;
     private PopupMenu sortPopupMenu;
@@ -105,6 +107,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         checkNotificationsMenuItem();
 
         totalAmountTv = view.findViewById(R.id.out_loans_total_amount_tv);
+        currencyLabel = view.findViewById(R.id.out_loans_total_amount_currency_label);
 
         fab = view.findViewById(R.id.out_loans_fab);
         fab.setOnClickListener(v -> {
@@ -131,6 +134,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         RecyclerView recyclerView = view.findViewById(R.id.out_loans_recycler_view);
         loansAdapter = new LoansAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(loansAdapter);
+        displayCurrentCurrency();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -326,6 +330,8 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 loansAdapter.updateLoans(currentLoans);
             } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {
                 checkNotificationsMenuItem();
+            }  else if (CurrencyHelper.CURRENCY_PREFERENCE_KEY.equals(key)) {
+                displayCurrentCurrency();
             }
         };
 
@@ -335,7 +341,16 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         sharedPreferences = requireContext()
                 .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
 
+    private void displayCurrentCurrency() {
+        String newCurrencyLabel = CurrencyHelper.getCurrentCurrencyLabel(MyApp.getContext());
+        loansAdapter.setCurrencyLabel(newCurrencyLabel);
+        loansAdapter.notifyDataSetChanged();
+        currencyLabel.setText(newCurrencyLabel);
     }
 
     private void checkNotificationsMenuItem() {

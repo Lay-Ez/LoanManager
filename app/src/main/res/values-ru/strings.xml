@@ -144,5 +144,6 @@
     <string name="currency_dialog_title">Выберите валюту</string>
     <string name="currency_dialog_negative">Отмена</string>
     <string name="currency_dialog_positive">ОК</string>
+    <string name="fragment_mnu_choose_currency_label">Выбрать валюту</string>
 
 </resources>
