@@ -23,7 +23,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
 
     public static final String IN_FRAGMENT_TAG = "in_fragment";
 
