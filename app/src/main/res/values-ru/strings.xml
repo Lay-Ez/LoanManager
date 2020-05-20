@@ -4,7 +4,7 @@
     <!-- used in multiple places -->
     <string name="not_specified_string">Не указано</string>
     <string name="loan_type_incoming">Должны вам</string>
-    <string name="loan_type_outgoing">Должы вы</string>
+    <string name="loan_type_outgoing">Должны вы</string>
     <string name="loan_type_archived_in">Вам были должны</string>
     <string name="loan_type_archived_out">Вы были должны</string>
     <string name="no_loans_here">Тут пока нет долгов</string>
@@ -32,7 +32,7 @@
     <string name="list_item_rate_label">Ставка:</string>
 
     <!-- new loan activity -->
-    <string name="new_loan_toolbar_title">Добавление долга</string>
+    <string name="new_loan_toolbar_title">Новый долг</string>
     <string name="new_loan_name_hint">Имя</string>
     <string name="new_loan_phone_number_hint">Телефон</string>
     <string name="new_loan_amount_hint">Сумма</string>
@@ -54,9 +54,9 @@
     <string name="new_loan_menu_save">Сохранить</string>
     <string name="new_loan_menu_cancel">Отмена</string>
 
-    <string name="name_cannot_be_empty_error_msg">нужно указать имя</string>
-    <string name="amount_cannot_be_zero_error_msg">сумма должна быть больше 0</string>
-    <string name="amount_should_be_specified_error_msg">нужно указать сумму</string>
+    <string name="name_cannot_be_empty_error_msg">Нужно указать имя</string>
+    <string name="amount_cannot_be_zero_error_msg">Сумма должна быть больше 0</string>
+    <string name="amount_should_be_specified_error_msg">Нужно указать сумму</string>
 
     <string name="date_error_dialog_title">Неверная дата</string>
     <string name="date_error_dialog_msg">Конечная дата должна быть в будущем</string>
@@ -65,10 +65,10 @@
     <string name="interest_rate_zero_msg">Ставка не может быть равна нулю</string>
 
     <string name="confirm_cancel_dialog_msg">Выйти из редактирования долга?</string>
-    <string name="confirm_cancel_dialog_positive">Выход</string>
+    <string name="confirm_cancel_dialog_positive">Выйти</string>
     <string name="confirm_cancel_dialog_negative">Отмена</string>
 
-    <string name="optional_helper_text">необязательно</string>
+    <string name="optional_helper_text">Необязательно</string>
 
 
     <!-- edit loan activity -->

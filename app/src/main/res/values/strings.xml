@@ -40,11 +40,11 @@
     <string name="list_item_arch_end_date_label">To:</string>
 
     <!-- new loan activity -->
-    <string name="new_loan_toolbar_title">Add New Loan</string>
+    <string name="new_loan_toolbar_title">New loan</string>
     <string name="new_loan_name_hint">Name</string>
     <string name="new_loan_phone_number_hint">Phone</string>
     <string name="new_loan_amount_hint">Amount</string>
-    <string name="new_loan_date_btn_label">End Date</string>
+    <string name="new_loan_date_btn_label">End date</string>
     <string name="new_loan_without_end_date_checkbox">No end date</string>
     <string name="new_loan_enable_interest_label">Add interest rate</string>
     <string name="new_loan_note_hint">Note</string>
@@ -72,9 +72,9 @@
     <string name="new_loan_menu_save">Save</string>
     <string name="new_loan_menu_cancel">Cancel</string>
 
-    <string name="name_cannot_be_empty_error_msg">name cannot be empty</string>
-    <string name="amount_cannot_be_zero_error_msg">amount cannot be 0</string>
-    <string name="amount_should_be_specified_error_msg">amount should be specified</string>
+    <string name="name_cannot_be_empty_error_msg">Name cannot be empty</string>
+    <string name="amount_cannot_be_zero_error_msg">Amount cannot be 0</string>
+    <string name="amount_should_be_specified_error_msg">Amount should be specified</string>
 
     <string name="date_error_dialog_title">Incorrect date</string>
     <string name="date_error_dialog_msg">End date should be greater than today</string>
