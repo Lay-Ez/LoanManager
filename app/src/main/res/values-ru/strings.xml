@@ -140,4 +140,9 @@
     <string name="list_item_arch_end_date_label">До:</string>
     <string name="list_item_arch_start_date_label">С:</string>
 
+    <!--currency dialog -->
+    <string name="currency_dialog_title">Выберите валюту</string>
+    <string name="currency_dialog_negative">Отмена</string>
+    <string name="currency_dialog_positive">ОК</string>
+
 </resources>

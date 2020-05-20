@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.romanoindustries.loanmanager.alertreceiver.AlarmScheduler;
 import com.romanoindustries.loanmanager.archivedloans.ArchivedLoansFragment;
+import com.romanoindustries.loanmanager.currency.CurrencyHelper;
 import com.romanoindustries.loanmanager.fragments.IncomingLoansFragment;
 import com.romanoindustries.loanmanager.fragments.OutgoingLoansFragment;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         restoreViewedFragment(savedInstanceState);
         startAlarm();
+        setCorrectCurrency();
     }
 
     private void restoreViewedFragment(Bundle bundle) {
@@ -157,6 +159,16 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction.commit();
         currentFragmentTag = fragmentTag;
+    }
+
+    private void setCorrectCurrency() {
+        if (CurrencyHelper.getCurrency(this) == CurrencyHelper.UNKNOWN) {
+            if (Locale.getDefault().getLanguage().equals("ru")) {
+                CurrencyHelper.setCurrency(this, CurrencyHelper.RUB);
+            } else {
+                CurrencyHelper.setCurrency(this, CurrencyHelper.USD);
+            }
+        }
     }
 
     private void startAlarm() {

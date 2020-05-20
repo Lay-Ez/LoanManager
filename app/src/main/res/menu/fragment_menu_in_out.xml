@@ -12,6 +12,9 @@
             android:checkable="true"
             android:title="@string/fragment_mnu_notifications_label" />
     <item
+            android:id="@+id/mnu_item_choose_currency"
+            android:title="@string/fragment_mnu_choose_currency_label" />
+    <item
             android:id="@+id/mnu_item_delete_all"
             android:title="@string/fragment_mnu_archive_all_label" />
 </menu>

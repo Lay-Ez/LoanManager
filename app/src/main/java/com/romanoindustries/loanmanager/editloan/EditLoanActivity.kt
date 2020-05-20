@@ -30,7 +30,6 @@ import kotlin.math.roundToInt
 
 
 const val LOAN_ID_KEY = "loan_id_key"
-const val TAG = "EditLoanActivity"
 
 class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 

@@ -25,6 +25,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.adapters.LoansAdapter;
+import com.romanoindustries.loanmanager.currency.CurrencyHelper;
+import com.romanoindustries.loanmanager.currency.CurrencyMenuItemClickListener;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.editloan.EditLoanActivity;
 import com.romanoindustries.loanmanager.editloan.EditLoanActivityKt;
@@ -50,6 +52,7 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private AlertDialog deleteDialog;
     private AlertDialog deleteAllDialog;
     private PopupMenu sortPopupMenu;
+    private PopupMenu currencyPopupMenu;
     private Toolbar toolbar;
     private ImageView emptyIv;
     private TextView emptyTv;
@@ -85,6 +88,10 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
                 case R.id.mnu_item_notifications:
                     onShowNotificationClicked(item);
+                    return true;
+
+                case R.id.mnu_item_choose_currency:
+                    showCurrencyMenu(view);
                     return true;
 
                 case R.id.mnu_item_delete_all:
@@ -255,6 +262,18 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
         loansAdapter.updateLoans(loans);
         long totalAmount = loans.stream().mapToLong(Loan::getCurrentAmount).sum();
         totalAmountTv.setText(MainActivity.formatAmount(totalAmount));
+    }
+
+
+    private void showCurrencyMenu(View view) {
+        if (currencyPopupMenu == null) {
+            View menuItemView = view.findViewById(R.id.mnu_item_sort);
+            currencyPopupMenu = new PopupMenu(requireContext(), menuItemView);
+            currencyPopupMenu.getMenuInflater().inflate(R.menu.currency_menu, currencyPopupMenu.getMenu());
+            currencyPopupMenu.setOnMenuItemClickListener(new CurrencyMenuItemClickListener(requireContext()));
+        }
+        CurrencyHelper.checkCorrectCurrencyItem(currencyPopupMenu.getMenu(), requireContext());
+        currencyPopupMenu.show();
     }
 
     private void showSortMenu(View view) {

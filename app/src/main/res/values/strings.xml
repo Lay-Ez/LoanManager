@@ -13,6 +13,7 @@
     <!-- fragment menu -->
     <string name="filter_by_mnu_item_label">Sort</string>
     <string name="fragment_mnu_notifications_label">Show notifications</string>
+    <string name="fragment_mnu_choose_currency_label">Displayed currency</string>
     <string name="fragment_mnu_delete_all_label">Delete all</string>
     <string name="fragment_mnu_archive_all_label">Archive all</string>
 
@@ -158,5 +159,17 @@
     <string name="out_loan_notification_body">The loan %1$s gave you should be returned tomorrow.
     You owe them %2$s.</string>
     <string name="nav_loans_history">Archived</string>
+
+
+    <!-- currency labels -->
+    <string name="currency_dialog_title">Choose currency</string>
+    <string name="currency_dialog_negative">Cancel</string>
+    <string name="currency_dialog_positive">OK</string>
+    <string name="currency_rub" translatable="false">RUB</string>
+    <string name="currency_usd" translatable="false">USD</string>
+    <string name="currency_eur" translatable="false">EUR</string>
+    <string name="currency_aud" translatable="false">AUD</string>
+    <string name="currency_cad" translatable="false">CAD</string>
+    <string name="currency_inr" translatable="false">INR</string>
 
 </resources>
