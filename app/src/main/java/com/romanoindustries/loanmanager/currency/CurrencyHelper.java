@@ -8,7 +8,6 @@ import com.romanoindustries.loanmanager.R;
 
 public class CurrencyHelper {
 
-    public static final int UNKNOWN = 0;
     public static final int USD = 1;
     public static final int RUB = 2;
     public static final int EUR = 3;

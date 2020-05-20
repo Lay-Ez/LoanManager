@@ -1,5 +1,7 @@
 package com.romanoindustries.loanmanager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     public static final String IN_FRAGMENT_TAG = "in_fragment";
 
@@ -162,13 +165,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCorrectCurrency() {
-        if (CurrencyHelper.getCurrency(this) == CurrencyHelper.UNKNOWN) {
-            if (Locale.getDefault().getLanguage().equals("ru")) {
+        if (currencyNotSet()) {
+            String country = Locale.getDefault().getCountry();
+            if (country.equals("RU")) {
                 CurrencyHelper.setCurrency(this, CurrencyHelper.RUB);
+            } else if (country.equals("IN")) {
+                CurrencyHelper.setCurrency(this, CurrencyHelper.INR);
             } else {
                 CurrencyHelper.setCurrency(this, CurrencyHelper.USD);
             }
         }
+    }
+
+    private boolean currencyNotSet() {
+        SharedPreferences preferences = getSharedPreferences(
+                        CurrencyHelper.CURRENCY_PREFERENCE_NAME,
+                        Context.MODE_PRIVATE);
+        return  (preferences.getInt(CurrencyHelper.CURRENCY_PREFERENCE_KEY, 0) == 0);
     }
 
     private void startAlarm() {

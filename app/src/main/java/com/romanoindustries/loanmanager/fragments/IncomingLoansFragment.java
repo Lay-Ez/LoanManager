@@ -45,8 +45,6 @@ import java.util.List;
 
 public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener {
 
-    private static final String TAG = "IncomingLoansFragment";
-
     public IncomingLoansFragment() {}
 
     private FloatingActionButton fab;

@@ -6,19 +6,19 @@
                 android:id="@+id/usd_mnu_item"
                 android:title="@string/currency_usd" />
         <item
-                android:id="@+id/rub_mnu_item"
-                android:title="@string/currency_rub" />
-        <item
                 android:id="@+id/eur_mnu_item"
                 android:title="@string/currency_eur" />
         <item
                 android:id="@+id/cad_mnu_item"
                 android:title="@string/currency_cad" />
         <item
-                android:id="@+id/aud_mnu_item"
-                android:title="@string/currency_aud" />
+                android:id="@+id/rub_mnu_item"
+                android:title="@string/currency_rub" />
         <item
                 android:id="@+id/inr_mnu_item"
                 android:title="@string/currency_inr" />
+        <item
+                android:id="@+id/aud_mnu_item"
+                android:title="@string/currency_aud" />
     </group>
 </menu>
