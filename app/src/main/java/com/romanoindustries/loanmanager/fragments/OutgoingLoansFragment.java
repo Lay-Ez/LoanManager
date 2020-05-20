@@ -42,7 +42,6 @@ import java.util.List;
 
 
 public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener{
-    private static final String TAG = "OutgoingLoansFragment";
 
     private FloatingActionButton fab;
     private LoansViewModel loansViewModel;

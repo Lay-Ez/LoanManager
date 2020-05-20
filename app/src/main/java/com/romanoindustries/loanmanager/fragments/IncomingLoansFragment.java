@@ -41,7 +41,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLoanListener {
-    private static final String TAG = "IncomingLoansFragment";
 
     public IncomingLoansFragment() {}
 

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.datamodel.Loan;
@@ -14,7 +13,6 @@ import com.romanoindustries.loanmanager.notifications.NotificationPreferencesHel
 import java.util.List;
 
 public class AlertReceiver extends BroadcastReceiver {
-    private static final String TAG = "AlertReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -30,7 +28,7 @@ public class AlertReceiver extends BroadcastReceiver {
         private PendingResult pendingResult;
         private boolean shouldNotify;
 
-        public RateAccrualTask(LoanRepo repo, PendingResult pendingResult, boolean shouldNotify) {
+        RateAccrualTask(LoanRepo repo, PendingResult pendingResult, boolean shouldNotify) {
             this.repo = repo;
             this.pendingResult = pendingResult;
             this.shouldNotify = shouldNotify;
@@ -46,8 +44,8 @@ public class AlertReceiver extends BroadcastReceiver {
                         ReceiverLoanHelper.notifyLoanEndsTomorrow(loan);
                     }
                     repo.update(loan);
-                } catch (Exception e) {
-                    Log.e(TAG, "exception processing loans in background: ", e);
+                } catch (Exception ignored) {
+
                 }
 
             }

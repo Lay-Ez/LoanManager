@@ -56,7 +56,7 @@ fun EditLoanActivity.isInputCorrect(): Boolean {
     return isInputOk
 }
 
-fun EditLoanActivity.convertInterestRateToDouble(whole: Int, decimal: Int): Double {
+fun convertInterestRateToDouble(whole: Int, decimal: Int): Double {
     return whole.toDouble() + (decimal.toDouble() / 100)
 }
 

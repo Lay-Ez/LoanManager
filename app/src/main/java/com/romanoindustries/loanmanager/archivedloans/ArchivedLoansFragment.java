@@ -37,7 +37,6 @@ import java.util.List;
 public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdapter.ArchOnLoanListener {
     public ArchivedLoansFragment() {}
 
-    private static final String TAG = "ArchivedLoansFragment";
     private ArchivedLoansAdapter loansAdapter;
     private LoansViewModel loansViewModel;
     private PopupMenu sortPopupMenu;

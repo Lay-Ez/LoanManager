@@ -45,11 +45,11 @@ public class NewLoanViewModel extends ViewModel {
         this.name.setValue(name);
     }
 
-    public LiveData<String> getPhone() {
+    LiveData<String> getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    void setPhone(String phone) {
         this.phone.setValue(phone);
     }
 
@@ -61,19 +61,19 @@ public class NewLoanViewModel extends ViewModel {
         this.amount.setValue(amount);
     }
 
-    public LiveData<String> getNote() {
+    LiveData<String> getNote() {
         return note;
     }
 
-    public void setNote(String note) {
+    void setNote(String note) {
         this.note.setValue(note);
     }
 
-    public LiveData<Integer> getLoanType() {
+    LiveData<Integer> getLoanType() {
         return loanType;
     }
 
-    public void setLoanType(int loanType) {
+    void setLoanType(int loanType) {
         this.loanType.setValue(loanType);
     }
 
@@ -81,39 +81,39 @@ public class NewLoanViewModel extends ViewModel {
         return paymentDateInMs;
     }
 
-    public void setPaymentDateInMs(long paymentDateInMs) {
+    void setPaymentDateInMs(long paymentDateInMs) {
         this.paymentDateInMs.setValue(paymentDateInMs);
     }
 
-    public LiveData<Boolean> getNoEndDate() {
+    LiveData<Boolean> getNoEndDate() {
         return noEndDate;
     }
 
-    public void setNoEndDate(boolean noEndDate) {
+    void setNoEndDate(boolean noEndDate) {
         this.noEndDate.setValue(noEndDate);
     }
 
-    public LiveData<Boolean> getApplyInterestRate() {
+    LiveData<Boolean> getApplyInterestRate() {
         return applyInterestRate;
     }
 
-    public void setApplyInterestRate(boolean applyInterestRate) {
+    void setApplyInterestRate(boolean applyInterestRate) {
         this.applyInterestRate.setValue(applyInterestRate);
     }
 
-    public LiveData<Integer> getWholeInterestPercent() {
+    LiveData<Integer> getWholeInterestPercent() {
         return wholeInterestPercent;
     }
 
-    public void setWholeInterestPercent(int wholeInterestPercent) {
+    void setWholeInterestPercent(int wholeInterestPercent) {
         this.wholeInterestPercent.setValue(wholeInterestPercent);
     }
 
-    public LiveData<Integer> getDecimalInterestPercent() {
+    LiveData<Integer> getDecimalInterestPercent() {
         return decimalInterestPercent;
     }
 
-    public void setDecimalInterestPercent(int decimalInterestPercent) {
+    void setDecimalInterestPercent(int decimalInterestPercent) {
         this.decimalInterestPercent.setValue(decimalInterestPercent);
     }
 

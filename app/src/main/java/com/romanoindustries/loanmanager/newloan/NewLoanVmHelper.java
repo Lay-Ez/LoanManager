@@ -1,19 +1,16 @@
 package com.romanoindustries.loanmanager.newloan;
 
-import android.util.Log;
-
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewLoanVmHelper {
-    private static final String TAG = "NewLoanVmHelper";
 
     public NewLoanVmHelper() {
     }
 
-    public Loan composeLoanFromVm(NewLoanViewModel viewModel) {
+    Loan composeLoanFromVm(NewLoanViewModel viewModel) {
 
         String name = viewModel.getName().getValue();
         String phone = viewModel.getPhone().getValue();
@@ -28,18 +25,13 @@ public class NewLoanVmHelper {
         int periodInDays = viewModel.getPeriodInDays().getValue();
 
         paymentDateInMs = normalizeTime(paymentDateInMs);
-        Log.d(TAG, "composeLoanFromVm: end date in ms= " + paymentDateInMs);
 
         Calendar calendar = Calendar.getInstance();
         long addedTime = calendar.getTimeInMillis();
-        Log.d(TAG, "composeLoanFromVm: loan added at " + addedTime + " ms");
 
         long countStartTime = normalizeTime(addedTime);
-        Log.d(TAG, "composeLoanFromVm: started counting down at " + countStartTime);
 
         long nextChargeDateInMs = calculateNextChargingTime(countStartTime, periodInDays);
-        Log.d(TAG, "composeLoanFromVm: next interest charging time= " + nextChargeDateInMs);
-
 
         Loan loan = new Loan();
         loan.setType(loanType);

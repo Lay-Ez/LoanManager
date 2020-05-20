@@ -14,7 +14,6 @@ import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.R;
 
 public class NotificationHelper extends ContextWrapper {
-    private static final String TAG = "NotificationHelper";
 
     public static final String MAIN_CHANNEL_ID = "channel_main";
     public static final String MAIN_CHANNEL_NAME = "Main Channel";

@@ -18,7 +18,6 @@ import com.romanoindustries.loanmanager.R;
 import java.util.Locale;
 
 public class NewLoanInterestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private static final String TAG = "InterestFragment";
 
     public static final int LOAN_PERIOD_ONE_DAY = 1;
     public static final int LOAN_PERIOD_THREE_DAYS = 3;
@@ -40,7 +39,7 @@ public class NewLoanInterestFragment extends Fragment implements AdapterView.OnI
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_loan_interest_fragment, container, false);
         initViews(view);
-        newLoanViewModel = new ViewModelProvider(getActivity()).get(NewLoanViewModel.class);
+        newLoanViewModel = new ViewModelProvider(requireActivity()).get(NewLoanViewModel.class);
         observeViewModel(newLoanViewModel);
         return view;
     }
@@ -58,15 +57,12 @@ public class NewLoanInterestFragment extends Fragment implements AdapterView.OnI
         wholePercentNp = view.findViewById(R.id.whole_np);
         wholePercentNp.setMinValue(0);
         wholePercentNp.setMaxValue(99);
-        wholePercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            newLoanViewModel.setWholeInterestPercent(newVal);
-        });
+        wholePercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> newLoanViewModel.setWholeInterestPercent(newVal));
 
         decimalPercentNp = view.findViewById(R.id.decimal_np);
         decimalPercentNp.setMinValue(0);
         decimalPercentNp.setMaxValue(99);
-        decimalPercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            newLoanViewModel.setDecimalInterestPercent(newVal);});
+        decimalPercentNp.setOnValueChangedListener((picker, oldVal, newVal) -> newLoanViewModel.setDecimalInterestPercent(newVal));
         decimalPercentNp.setFormatter(value -> String.format(Locale.US ,"%02d", value));
     }
 

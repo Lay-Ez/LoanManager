@@ -12,9 +12,9 @@ import com.romanoindustries.loanmanager.notifications.NotificationHelper;
 
 import java.util.Calendar;
 
-public class ReceiverLoanHelper {
+class ReceiverLoanHelper {
 
-    public static Loan processLoansInterestRate(Loan loan) {
+    static Loan processLoansInterestRate(Loan loan) {
         double interestRate = loan.getInterestRate();
         if (interestRate == 0) {
             return loan;
@@ -41,7 +41,7 @@ public class ReceiverLoanHelper {
         return loan;
     }
 
-    public static void notifyLoanEndsTomorrow(Loan loan) {
+    static void notifyLoanEndsTomorrow(Loan loan) {
         Context context = MyApp.getContext();
         String debtorName = loan.getDebtorName();
         String amount = MainActivity.formatAmount(loan.getCurrentAmount());
@@ -59,12 +59,14 @@ public class ReceiverLoanHelper {
 
         NotificationHelper helper = new NotificationHelper(context);
         NotificationManager manager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(loan.getId(), helper
-                .getMainChannelNotification(title, msgBody)
-                .build());
+        if (manager != null) {
+            manager.notify(loan.getId(), helper
+                    .getMainChannelNotification(title, msgBody)
+                    .build());
+        }
     }
 
-    public static boolean loanEndsTomorrow(Loan loan) {
+    static boolean loanEndsTomorrow(Loan loan) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         int tomorrow = calendar.get(Calendar.DAY_OF_YEAR);

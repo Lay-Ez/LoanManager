@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 @Entity (tableName = "loan_table")
@@ -185,6 +187,7 @@ public class Loan {
         this.highlighted = highlighted;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Loan{" +

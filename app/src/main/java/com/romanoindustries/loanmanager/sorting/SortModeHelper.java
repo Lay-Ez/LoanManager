@@ -2,7 +2,6 @@ package com.romanoindustries.loanmanager.sorting;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.Menu;
 
 import com.romanoindustries.loanmanager.R;
@@ -11,8 +10,6 @@ import com.romanoindustries.loanmanager.datamodel.Loan;
 import java.util.List;
 
 public class SortModeHelper {
-
-    private static final String TAG = "SortModeHelper";
 
     public static final int SORT_OLD_FIRST = 1;
     public static final int SORT_NEW_FIRST = 2;
@@ -41,8 +38,6 @@ public class SortModeHelper {
         if (sortMode>=1 && sortMode<=4) {
             editor.putInt(SORT_MODE_KEY, sortMode);
             editor.apply();
-        } else {
-            Log.e(TAG, "setSortMode: ", new IllegalArgumentException());
         }
     }
 

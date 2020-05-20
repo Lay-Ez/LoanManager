@@ -22,7 +22,7 @@ public class LoanInfoViewModel extends AndroidViewModel {
         allLoans = loanRepo.getAllLoans();
     }
 
-    public LiveData<List<Loan>> getAllLoans() {
+    LiveData<List<Loan>> getAllLoans() {
         return allLoans;
     }
 

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +39,6 @@ import java.util.Objects;
 
 public class NewLoanActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     public static final String LOAN_TYPE_KEY = "new_loan_type_key";
-    private static final String TAG = "NewLoanActivity";
 
     private NewLoanInterestFragment newLoanInterestFragment;
     private NewLoanViewModel newLoanViewModel;
@@ -137,8 +135,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
             }
             float offset = 160.0f;
             hideKeyboard();
-            Log.d(TAG, "initViews: initial y: " + initialYPositionOfInterestFragment);
-            Log.d(TAG, "initViews: current y: " + interestFragmentContainer.getY());
             if (isChecked) {
                 interestFragmentContainer.setY(initialYPositionOfInterestFragment + offset);
                 interestFragmentContainer.setAlpha(0.0f);
@@ -153,9 +149,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
                         .yBy(offset)
                         .setDuration(300L)
                         .alpha(0.0f)
-                        .withEndAction(() -> {
-                            interestFragmentContainer.setVisibility(View.INVISIBLE);
-                        })
+                        .withEndAction(() -> interestFragmentContainer.setVisibility(View.INVISIBLE))
                         .start();
 
             }

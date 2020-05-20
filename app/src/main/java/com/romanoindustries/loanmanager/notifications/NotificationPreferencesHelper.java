@@ -2,10 +2,8 @@ package com.romanoindustries.loanmanager.notifications;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class NotificationPreferencesHelper {
-    private static final String TAG = "NotificationPreferences";
 
     public static final String NOTIFICATION_PREFERENCES_NAME = "notification_preference";
     public static final String NOTIFICATION_MODE_KEY = "notification_mode";
@@ -26,9 +24,6 @@ public class NotificationPreferencesHelper {
         if (mode == 0 || mode == 1) {
             editor.putInt(NOTIFICATION_MODE_KEY, mode);
             editor.apply();
-            Log.d(TAG, "setNotificationMode: mode: " + mode);
-        } else {
-            Log.e(TAG, "setNotificationMode: ", new IllegalArgumentException("unknown notification mode"));
         }
     }
 }

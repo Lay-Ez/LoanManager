@@ -18,7 +18,6 @@ import com.romanoindustries.loanmanager.databinding.ActivityLoanInfoBinding;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 
 public class LoanInfoActivity extends AppCompatActivity {
-    private static final String TAG = "LoanInfoActivity";
     public static final String LOAN_ID_KEY = "loan_id_key";
     private ActivityLoanInfoBinding binding;
     private LoanInfoViewModel viewModel;

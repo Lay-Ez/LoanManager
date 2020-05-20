@@ -15,7 +15,6 @@ import java.util.List;
 public class LoansViewModel extends AndroidViewModel {
 
     private LoanRepo loanRepo;
-    private LiveData<List<Loan>> allLoans;
     private LiveData<List<Loan>> inLoans;
     private LiveData<List<Loan>> outLoans;
     private LiveData<List<Loan>> archivedLoans;
@@ -24,7 +23,6 @@ public class LoansViewModel extends AndroidViewModel {
         super(application);
         Log.d("LoansViewModel", "LoansViewModel: create");
         loanRepo = new LoanRepo(application);
-        allLoans = loanRepo.getAllLoans();
         inLoans = loanRepo.getInLoans();
         outLoans = loanRepo.getOutLoans();
         archivedLoans = loanRepo.getArchivedLoans();
