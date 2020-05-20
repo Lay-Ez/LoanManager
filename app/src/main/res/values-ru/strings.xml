@@ -126,12 +126,12 @@
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Пора собирать долги!</string>
-    <string name="in_loan_notification_body">Долг, который вы давали %1$s должен быть возвращён завтра.
-    Сумма долга: %2$s RUB</string>
+    <string name="in_loan_notification_body">Заём, который у вас брал(а) %1$s должен быть возвращён завтра.
+    Вам должны %2$s рублей.</string>
 
     <string name="out_loan_notification_title">Пора платить по долгам!</string>
-    <string name="out_loan_notification_body">Долг который вам давал(а) %1$s Должен быть возвращён завтра.
-    Вы должны %2$s рублей</string>
+    <string name="out_loan_notification_body">Заём, который вам давал(а) %1$s должен быть возвращён завтра.
+    Вы должны %2$s рублей.</string>
     <string name="unarchive_dialog_msg">Восстановить этот долг?</string>
     <string name="unarchive_dialog_positive">Восстановить</string>
     <string name="unarchive_dialog_negative">Отмена</string>
