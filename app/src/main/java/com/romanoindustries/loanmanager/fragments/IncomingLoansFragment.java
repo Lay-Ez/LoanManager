@@ -186,6 +186,13 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         loansViewModel.update(loanToArchive);
     }
 
+    private void archiveLoan(Loan loan) {
+        loan.setType(Loan.TYPE_ARCHIVED_IN);
+        loan.setNextChargingDateInMs(0);
+        loan.setPaymentDateInMs(Calendar.getInstance().getTimeInMillis());
+        loansViewModel.update(loan);
+    }
+
     private void buildDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.in_dialog_delete_msg)
@@ -207,8 +214,7 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     private void archiveAllLoans() {
         List<Loan> loansToArchive = loansAdapter.getLoans();
-        loansToArchive.forEach(loan -> loan.setType(Loan.TYPE_ARCHIVED_IN));
-        loansToArchive.forEach(loansViewModel::update);
+        loansToArchive.forEach(this::archiveLoan);
     }
 
     private void buildDeleteAllDialog() {
@@ -238,9 +244,11 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         if (loans.isEmpty()) {
             emptyIv.setVisibility(View.VISIBLE);
             emptyTv.setVisibility(View.VISIBLE);
+            toolbar.getMenu().findItem(R.id.mnu_item_delete_all).setEnabled(false);
         } else {
             emptyIv.setVisibility(View.GONE);
             emptyTv.setVisibility(View.GONE);
+            toolbar.getMenu().findItem(R.id.mnu_item_delete_all).setEnabled(true);
         }
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), loans);
         loansAdapter.updateLoans(loans);

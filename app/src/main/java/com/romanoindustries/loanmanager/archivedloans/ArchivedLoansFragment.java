@@ -214,9 +214,11 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         if (loans.isEmpty()) {
             emptyIv.setVisibility(View.VISIBLE);
             emptyTv.setVisibility(View.VISIBLE);
+            toolbar.getMenu().findItem(R.id.mnu_item_delete_all).setEnabled(false);
         } else {
             emptyIv.setVisibility(View.GONE);
             emptyTv.setVisibility(View.GONE);
+            toolbar.getMenu().findItem(R.id.mnu_item_delete_all).setEnabled(true);
         }
         setAmountText(loans);
         SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), loans);
