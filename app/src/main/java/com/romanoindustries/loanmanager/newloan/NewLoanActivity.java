@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.romanoindustries.loanmanager.R;
+import com.romanoindustries.loanmanager.currency.CurrencyHelper;
 import com.romanoindustries.loanmanager.datamodel.Loan;
 import com.romanoindustries.loanmanager.viewmodels.LoansViewModel;
 
@@ -93,6 +94,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
 
         editTextPhone = findViewById(R.id.edit_text_phone);
         inputLayoutAmount = findViewById(R.id.text_input_amount);
+        inputLayoutAmount.setStartIconDrawable(CurrencyHelper.getCurrencyIconId(this));
         editTextAmount = findViewById(R.id.edit_text_amount);
         editTextAmount.addTextChangedListener(new TextWatcher() {
             @Override

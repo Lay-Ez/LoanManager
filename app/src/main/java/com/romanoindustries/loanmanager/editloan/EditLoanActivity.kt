@@ -21,6 +21,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.romanoindustries.loanmanager.R
+import com.romanoindustries.loanmanager.currency.CurrencyHelper
 import com.romanoindustries.loanmanager.databinding.ActivityEditLoanBinding
 import com.romanoindustries.loanmanager.datamodel.Loan
 import com.romanoindustries.loanmanager.newloan.NewLoanVmHelper
@@ -134,6 +135,8 @@ class EditLoanActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             intent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivityForResult(intent, Activity.RESULT_FIRST_USER) }
+
+        binding.textInputAmount.setStartIconDrawable(CurrencyHelper.getCurrencyIconId(this))
 
         binding.endDateBtn.setOnClickListener {
             hideKeyboard()

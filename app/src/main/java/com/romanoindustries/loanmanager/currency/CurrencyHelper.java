@@ -104,4 +104,29 @@ public class CurrencyHelper {
         return newCurrencyLabel;
     }
 
+    public static int getCurrencyIconId(Context context) {
+        int currency = CurrencyHelper.getCurrency(context);
+        int currencyIconId;
+        switch (currency) {
+
+            case CurrencyHelper.RUB:
+                currencyIconId = R.drawable.ic_ruble_sign;
+                break;
+
+            case CurrencyHelper.EUR:
+                currencyIconId = R.drawable.ic_euro_sign;
+                break;
+
+            case CurrencyHelper.INR:
+                currencyIconId = R.drawable.ic_indian_rupee_sign;
+                break;
+
+            default:
+                currencyIconId = R.drawable.ic_dollar_sign;
+                break;
+
+        }
+        return currencyIconId;
+    }
+
 }
