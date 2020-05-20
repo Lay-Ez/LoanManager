@@ -26,7 +26,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toBottomOf="@+id/info_period_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/info_next_charge_date_label" />
 
             <View
                     android:id="@+id/divider8"
@@ -37,7 +37,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toBottomOf="@+id/info_next_charge_date_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/info_end_date_label" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline6"
@@ -269,7 +269,7 @@
                     android:text="@string/info_activity_loan_next_date_label"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toBottomOf="@+id/info_end_date_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/info_period_label" />
 
             <TextView
                     android:id="@+id/info_next_accrual_tv"
@@ -349,7 +349,7 @@
                     android:id="@+id/info_note_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/info_activity_loan_note_label"
                     android:textSize="16sp"

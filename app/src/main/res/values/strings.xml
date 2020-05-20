@@ -104,7 +104,7 @@
     <string name="info_activity_loan_date_start_label">Start date</string>
     <string name="info_activity_loan_date_end_label">End date</string>
     <string name="info_activity_loan_next_date_label">Next accrual date</string>
-    <string name="info_activity_loan_start_amount_label">Start amount</string>
+    <string name="info_activity_loan_start_amount_label">Initial amount</string>
     <string name="info_activity_loan_end_amount_label">Current amount</string>
     <string name="info_activity_loan_interest_rate_label">Interest rate</string>
     <string name="info_activity_loan_interest_period_label">Interest period (days)</string>

@@ -52,6 +52,7 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
     void updateLoans(List<Loan> loans) {
         this.loans = loans;
         notifyDataSetChanged();
+        mItemManger.closeAllItems();
     }
 
     void sortModeChanged(int sortMode) {
