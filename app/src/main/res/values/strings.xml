@@ -91,14 +91,14 @@
 
 
     <!-- edit loan activity -->
-    <string name="edit_loan_toolbar_title">Edit Loan</string>
+    <string name="edit_loan_toolbar_title">Edit loan</string>
 
     <!-- loan info activity -->
     <string name="info_activity_delete_mnu">Delete</string>
     <string name="info_activity_share_mnu">Share</string>
     <string name="info_activity_error_message">Cannot display loan info</string>
 
-    <string name="info_activity_toolbar_title">Loan Information</string>
+    <string name="info_activity_toolbar_title">Loan information</string>
     <string name="info_activity_loan_type_label">Loan type</string>
     <string name="info_activity_loan_name_label">Name</string>
     <string name="info_activity_loan_phone_label">Phone</string>
@@ -125,7 +125,7 @@
     <string name="archive_all_incoming_loans_dialog_msg">Archive all loans in this section?</string>
 
     <!-- archive dialog -->
-    <string name="in_dialog_delete_title">Confirm action</string>
+    <string name="in_dialog_delete_title">Are you sure?</string>
     <string name="in_dialog_delete_msg">Archive this loan?</string>
     <string name="in_dialog_delete_positive">Archive</string>
     <string name="in_dialog_delete_negative">Cancel</string>

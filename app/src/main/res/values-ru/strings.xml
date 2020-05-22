@@ -106,7 +106,6 @@
     <string name="archive_all_incoming_loans_dialog_msg">Архивировать все долги в этой секции?</string>
 
     <!-- archive dialog -->
-    <string name="in_dialog_delete_title">Подтвердите действие</string>
     <string name="in_dialog_delete_msg">Архивировать этот долг?</string>
     <string name="in_dialog_delete_positive">Архивировать</string>
     <string name="in_dialog_delete_negative">Отмена</string>
@@ -126,12 +125,10 @@
 
     <!-- notifications -->
     <string name="in_loan_notification_title">Пора собирать долги!</string>
-    <string name="in_loan_notification_body">Заём, который у вас брал(а) %1$s должен быть возвращён завтра.
-    Вам должны %2$s рублей.</string>
+    <string name="in_loan_notification_body">Заём, который у вас брал(а) %1$s должен быть возвращён завтра. Вам должны %2$s.</string>
 
     <string name="out_loan_notification_title">Пора платить по долгам!</string>
-    <string name="out_loan_notification_body">Заём, который вам давал(а) %1$s должен быть возвращён завтра.
-    Вы должны %2$s рублей.</string>
+    <string name="out_loan_notification_body">Заём, который вам давал(а) %1$s должен быть возвращён завтра. Вы должны %2$s.</string>
     <string name="unarchive_dialog_msg">Восстановить этот долг?</string>
     <string name="unarchive_dialog_positive">Восстановить</string>
     <string name="unarchive_dialog_negative">Отмена</string>
@@ -145,5 +142,6 @@
     <string name="currency_dialog_negative">Отмена</string>
     <string name="currency_dialog_positive">ОК</string>
     <string name="fragment_mnu_choose_currency_label">Выбрать валюту</string>
+    <string name="in_dialog_delete_title">Вы уверены?</string>
 
 </resources>
