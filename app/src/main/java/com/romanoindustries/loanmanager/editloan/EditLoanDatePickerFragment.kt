@@ -18,11 +18,7 @@ class EditLoanDatePickerFragment(private val passedTime: Long) : DialogFragment(
         val month = calendar[Calendar.MONTH]
         val day = calendar[Calendar.DAY_OF_MONTH]
 
-        val datePickerDialog = DatePickerDialog(activity!!, activity as OnDateSetListener?,
+        return DatePickerDialog(activity!!, activity as OnDateSetListener?,
                 year, month, day)
-        val calendarForMinDate = Calendar.getInstance()
-        calendarForMinDate.add(Calendar.DAY_OF_YEAR, 1)
-        datePickerDialog.datePicker.minDate = calendarForMinDate.timeInMillis
-        return datePickerDialog
     }
 }

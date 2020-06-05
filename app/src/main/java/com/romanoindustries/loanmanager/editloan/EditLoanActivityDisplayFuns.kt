@@ -28,9 +28,7 @@ fun EditLoanActivity.hideErrorsOnInput() {
 fun EditLoanActivity.isInputCorrect(): Boolean {
     var isInputOk = true
     val name = binding.editTextName.text.toString().trim()
-    val phone = binding.editTextPhone.text.toString().trim()
     val amountStr = binding.editTextAmount.text.toString()
-    val note = binding.editTextNote.text.toString().trim()
 
     if (name.isBlank()) {
         isInputOk = false

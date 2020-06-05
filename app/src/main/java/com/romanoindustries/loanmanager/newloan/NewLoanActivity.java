@@ -220,13 +220,10 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
-        if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
-            newLoanViewModel.setPaymentDateInMs(calendar.getTimeInMillis());
-            String dateString = DateFormat.getDateInstance().format(calendar.getTime());
-            endDateBtn.setText(dateString);
-        } else {
-            showWrongDateDialog();
-        }
+        newLoanViewModel.setPaymentDateInMs(calendar.getTimeInMillis());
+        String dateString = DateFormat.getDateInstance().format(calendar.getTime());
+        endDateBtn.setText(dateString);
+
     }
     
     private void handleViewModelChanges(NewLoanViewModel newLoanViewModel) {
@@ -251,7 +248,7 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void onLoanSavePressed() {
-        if (checkNameAmountFields() && checkDateField() && checkInterestRate()) {
+        if (checkNameAmountFields() && checkInterestRate()) {
             saveTextFieldsToViewModel();
             NewLoanVmHelper helper = new NewLoanVmHelper();
             Loan loanToSave = helper.composeLoanFromVm(newLoanViewModel);
@@ -297,12 +294,8 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         if (!newLoanViewModel.getNoEndDate().getValue()) {
             long setDate = newLoanViewModel.getPaymentDateInMs().getValue();
             long currentTimeInMs = System.currentTimeMillis();
-            if (setDate < currentTimeInMs) {
-                showWrongDateDialog();
-                isDateOk = false;
-            }
         }
-        return isDateOk;
+        return true;
     }
 
     private boolean checkNameAmountFields() {
