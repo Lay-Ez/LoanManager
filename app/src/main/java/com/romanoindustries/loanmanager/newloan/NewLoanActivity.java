@@ -342,14 +342,6 @@ public class NewLoanActivity extends AppCompatActivity implements DatePickerDial
         }
     }
 
-    private void showWrongDateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.date_error_dialog_msg)
-                .setPositiveButton("OK", (dialog, which) -> {});
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
     private void showInterestRateError() {
         if (!zeroRateErrorDialog.isShowing()) {
             zeroRateErrorDialog.show();

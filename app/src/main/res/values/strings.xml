@@ -30,23 +30,23 @@
 
     <!--  list item -->
     <string name="list_item_currency_label">USD</string>
-    <string name="list_item_start_date_label">Start date:</string>
-    <string name="list_item_end_date_label">End date:</string>
+    <string name="list_item_start_date_label">Added:</string>
+    <string name="list_item_end_date_label">Due date:</string>
     <string name="list_item_rate_label">Rate:</string>
     <string name="list_item_empty_placeholder" translatable="false">-</string>
     <string name="list_item_rate_divider" translatable="false">/</string>
 
     <!-- arch list item specific -->
-    <string name="list_item_arch_start_date_label">From:</string>
-    <string name="list_item_arch_end_date_label">To:</string>
+    <string name="list_item_arch_start_date_label">Added:</string>
+    <string name="list_item_arch_end_date_label">Ended:</string>
 
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">New loan</string>
     <string name="new_loan_name_hint">Name</string>
     <string name="new_loan_phone_number_hint">Phone</string>
     <string name="new_loan_amount_hint">Amount</string>
-    <string name="new_loan_date_btn_label">End date</string>
-    <string name="new_loan_without_end_date_checkbox">No end date</string>
+    <string name="new_loan_date_btn_label">Due date</string>
+    <string name="new_loan_without_end_date_checkbox">No due date</string>
     <string name="new_loan_enable_interest_label">Add interest rate</string>
     <string name="new_loan_note_hint">Note</string>
 
@@ -73,12 +73,11 @@
     <string name="new_loan_menu_save">Save</string>
     <string name="new_loan_menu_cancel">Cancel</string>
 
-    <string name="name_cannot_be_empty_error_msg">Name cannot be empty</string>
+    <string name="name_cannot_be_empty_error_msg">Name should be specified</string>
     <string name="amount_cannot_be_zero_error_msg">Amount cannot be 0</string>
     <string name="amount_should_be_specified_error_msg">Amount should be specified</string>
 
     <string name="date_error_dialog_title">Incorrect date</string>
-    <string name="date_error_dialog_msg">End date should be greater than today</string>
 
     <string name="interest_rate_zero_title">Incorrect interest rate</string>
     <string name="interest_rate_zero_msg">Interest rate cannot be zero</string>
@@ -102,22 +101,21 @@
     <string name="info_activity_loan_type_label">Loan type</string>
     <string name="info_activity_loan_name_label">Name</string>
     <string name="info_activity_loan_phone_label">Phone</string>
-    <string name="info_activity_loan_date_start_label">Start date</string>
-    <string name="info_activity_loan_date_end_label">End date</string>
+    <string name="info_activity_loan_date_end_label">Due date</string>
     <string name="info_activity_loan_next_date_label">Next accrual date</string>
     <string name="info_activity_loan_start_amount_label">Initial amount</string>
     <string name="info_activity_loan_end_amount_label">Current amount</string>
     <string name="info_activity_loan_interest_rate_label">Interest rate</string>
     <string name="info_activity_loan_interest_period_label">Interest period (days)</string>
-    <string name="info_activity_loan_id_label">Loan ID</string>
+    <string name="info_activity_loan_id_label">Loan number</string>
     <string name="info_activity_loan_note_label">Note</string>
 
     <!-- string for share text composition -->
     <string name="share_using">Share loan via</string>
-    <string name="incoming_loan_msg">%1$s owes me %2$s RUB since %3$s. And it should be returned by %4$s.</string>
-    <string name="incoming_loan_msg_no_date">%1$s owes me %2$s RUB since %3$s.</string>
-    <string name="outgoing_loan_msg">I owe %1$s %2$s RUB since %3$s. And I should return it by %4$s.</string>
-    <string name="outgoing_loan_msg_no_date">I owe %1$s %2$s RUB since %3$s.</string>
+    <string name="incoming_loan_msg">%1$s owes me %2$s since %3$s. And it should be returned by %4$s.</string>
+    <string name="incoming_loan_msg_no_date">%1$s owes me %2$s since %3$s.</string>
+    <string name="outgoing_loan_msg">I owe %1$s %2$s since %3$s. And I should return it by %4$s.</string>
+    <string name="outgoing_loan_msg_no_date">I owe %1$s %2$s since %3$s.</string>
 
 
     <!-- in fragment -->
@@ -171,5 +169,6 @@
     <string name="currency_aud" translatable="false">AUD</string>
     <string name="currency_cad" translatable="false">CAD</string>
     <string name="currency_inr" translatable="false">INR</string>
+    <string name="info_activity_loan_date_start_label">Added on</string>
 
 </resources>

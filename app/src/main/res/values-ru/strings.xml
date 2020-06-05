@@ -27,8 +27,8 @@
 
     <!--  list item -->
     <string name="list_item_currency_label">RUB</string>
-    <string name="list_item_start_date_label">Начальная дата:</string>
-    <string name="list_item_end_date_label">Конечная дата:</string>
+    <string name="list_item_start_date_label">Добавлено:</string>
+    <string name="list_item_end_date_label">Дата возврата:</string>
     <string name="list_item_rate_label">Ставка:</string>
 
     <!-- new loan activity -->
@@ -36,9 +36,8 @@
     <string name="new_loan_name_hint">Имя</string>
     <string name="new_loan_phone_number_hint">Телефон</string>
     <string name="new_loan_amount_hint">Сумма</string>
-    <string name="new_loan_date_btn_label">Конечная дата</string>
-    <string name="new_loan_without_end_date_checkbox">Без конечной даты</string>
-    <string name="new_loan_enable_interest_label">С процентной ставкой</string>
+    <string name="new_loan_without_end_date_checkbox">Бессрочно</string>
+    <string name="new_loan_enable_interest_label">С процентами</string>
     <string name="new_loan_note_hint">Заметка</string>
 
     <string name="new_loan_percentage">Процентая ставка</string>
@@ -55,11 +54,9 @@
     <string name="new_loan_menu_cancel">Отмена</string>
 
     <string name="name_cannot_be_empty_error_msg">Нужно указать имя</string>
-    <string name="amount_cannot_be_zero_error_msg">Сумма должна быть больше 0</string>
     <string name="amount_should_be_specified_error_msg">Нужно указать сумму</string>
 
     <string name="date_error_dialog_title">Неверная дата</string>
-    <string name="date_error_dialog_msg">Конечная дата должна быть в будущем</string>
 
     <string name="interest_rate_zero_title">Некорректная ставка</string>
     <string name="interest_rate_zero_msg">Ставка не может быть равна нулю</string>
@@ -83,8 +80,7 @@
     <string name="info_activity_loan_type_label">Тип долга</string>
     <string name="info_activity_loan_name_label">Имя</string>
     <string name="info_activity_loan_phone_label">Телефон</string>
-    <string name="info_activity_loan_date_start_label">Начальная дата</string>
-    <string name="info_activity_loan_date_end_label">Конечная дата</string>
+    <string name="info_activity_loan_date_end_label">Дата возврата</string>
     <string name="info_activity_loan_next_date_label">След. начисление %</string>
     <string name="info_activity_loan_start_amount_label">Начальная сумма</string>
     <string name="info_activity_loan_end_amount_label">Текущая сумма</string>
@@ -95,10 +91,10 @@
 
     <!-- string for share text composition -->
     <string name="share_using">Поделиться с помощью</string>
-    <string name="incoming_loan_msg">%1$s должен(а) мне %2$s рублей начиная с %3$s. Этот долг должен быть возвращён до %4$s.</string>
-    <string name="incoming_loan_msg_no_date">%1$s должен(-а) мне %2$s рублей начиная с %3$s.</string>
-    <string name="outgoing_loan_msg">Я должен(-а) человеку по имени %1$s %2$s рублей, начиная с %3$s. И %4$s.</string>
-    <string name="outgoing_loan_msg_no_date">Я должен человеку по имено %1$s %2$s рублей, начиная с %3$s.</string>
+    <string name="incoming_loan_msg">%1$s должен(а) мне %2$s начиная с %3$s. Этот долг должен быть возвращён до %4$s.</string>
+    <string name="incoming_loan_msg_no_date">%1$s должен(-а) мне %2$s начиная с %3$s.</string>
+    <string name="outgoing_loan_msg">Я должен(-а) человеку по имени %1$s %2$s, начиная с %3$s. И %4$s.</string>
+    <string name="outgoing_loan_msg_no_date">Я должен человеку по имено %1$s %2$s, начиная с %3$s.</string>
 
 
     <!-- in fragment -->
@@ -134,8 +130,8 @@
     <string name="unarchive_dialog_negative">Отмена</string>
     <string name="fragment_mnu_archive_all_label">Архивировать все</string>
     <string name="nav_loans_history">Архив</string>
-    <string name="list_item_arch_end_date_label">До:</string>
-    <string name="list_item_arch_start_date_label">С:</string>
+    <string name="list_item_arch_end_date_label">Оплачено:</string>
+    <string name="list_item_arch_start_date_label">Добавлено:</string>
 
     <!--currency dialog -->
     <string name="currency_dialog_title">Выберите валюту</string>
@@ -143,5 +139,8 @@
     <string name="currency_dialog_positive">ОК</string>
     <string name="fragment_mnu_choose_currency_label">Выбрать валюту</string>
     <string name="in_dialog_delete_title">Вы уверены?</string>
+    <string name="new_loan_date_btn_label">Дата оплаты</string>
+    <string name="amount_cannot_be_zero_error_msg">Сумма не может быть 0</string>
+    <string name="info_activity_loan_date_start_label">Добавлено</string>
 
 </resources>
