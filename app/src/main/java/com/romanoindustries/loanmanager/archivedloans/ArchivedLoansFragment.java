@@ -71,6 +71,12 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterSharedPreferencesListener();
+    }
+
     private void initViews(View view) {
         inLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_in_tv);
         outLoansTotalTv = view.findViewById(R.id.arch_loans_total_amount_out_tv);
@@ -331,6 +337,18 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         sharedPreferences = requireContext()
                 .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    private void unregisterSharedPreferencesListener() {
+        SharedPreferences sharedPreferences = requireContext()
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
 

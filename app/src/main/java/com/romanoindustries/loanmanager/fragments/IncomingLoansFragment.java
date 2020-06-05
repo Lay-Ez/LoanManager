@@ -76,6 +76,12 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterSharedPreferencesListener();
+    }
+
     private void initViews(View view) {
         toolbar = view.findViewById(R.id.in_loans_toolbar);
         toolbar.inflateMenu(R.menu.fragment_menu_in_out);
@@ -336,6 +342,18 @@ public class IncomingLoansFragment extends Fragment implements LoansAdapter.OnLo
         sharedPreferences = requireContext()
                 .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    private void unregisterSharedPreferencesListener() {
+        SharedPreferences sharedPreferences = requireContext()
+                .getSharedPreferences(SortModeHelper.SORT_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(NotificationPreferencesHelper.NOTIFICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        sharedPreferences = requireContext()
+                .getSharedPreferences(CurrencyHelper.CURRENCY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
     private void displayCurrentCurrency() {
