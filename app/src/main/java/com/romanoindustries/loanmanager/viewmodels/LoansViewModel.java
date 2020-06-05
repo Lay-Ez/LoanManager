@@ -1,7 +1,6 @@
 package com.romanoindustries.loanmanager.viewmodels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -21,7 +20,6 @@ public class LoansViewModel extends AndroidViewModel {
 
     public LoansViewModel(@NonNull Application application) {
         super(application);
-        Log.d("LoansViewModel", "LoansViewModel: create");
         loanRepo = new LoanRepo(application);
         inLoans = loanRepo.getInLoans();
         outLoans = loanRepo.getOutLoans();
@@ -42,6 +40,10 @@ public class LoansViewModel extends AndroidViewModel {
 
     public void deleteAllLoans() {
         loanRepo.deleteAllLoans();
+    }
+
+    public void updateHighlighted(int loanId, boolean highlighted) {
+        loanRepo.setHighlighted(loanId, highlighted);
     }
 
     public LiveData<List<Loan>> getInLoans() {

@@ -243,9 +243,10 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
     @Override
     public void onLoanHighlightClicked(int position) {
-        Loan loanToHighlight = loansAdapter.getLoans().get(position);
-        loanToHighlight.setHighlighted(!loanToHighlight.isHighlighted());
-        loansViewModel.update(loanToHighlight);
+        Loan clickedLoan = loansAdapter.getLoans().get(position);
+        int loanId = clickedLoan.getId();
+        boolean isHighlighted = clickedLoan.isHighlighted();
+        loansViewModel.updateHighlighted(loanId, !isHighlighted);
     }
 
     private void parseLoans(List<Loan> loans) {
@@ -293,31 +294,25 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
                 return true;
             }
             item.setChecked(true);
-            int sortMode = 1;
             switch (item.getItemId()) {
 
                 case R.id.mnu_sort_item_old_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_OLD_FIRST);
-                    sortMode = SortModeHelper.SORT_OLD_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_new_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_NEW_FIRST);
-                    sortMode = SortModeHelper.SORT_NEW_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_big_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_BIG_FIRST);
-                    sortMode = SortModeHelper.SORT_BIG_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_small_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_SMALL_FIRST);
-                    sortMode = SortModeHelper.SORT_SMALL_FIRST;
                     break;
 
             }
-            loansAdapter.sortModeChanged(sortMode);
             return true;
         });
     }
@@ -325,12 +320,12 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private void registerSharedPreferencesListener() {
         sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
-                List<Loan> currentLoans = loansAdapter.getLoans();
+                List<Loan> currentLoans = new ArrayList<>(loansAdapter.getLoans());
                 SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
                 loansAdapter.updateLoans(currentLoans);
             } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {
                 checkNotificationsMenuItem();
-            }  else if (CurrencyHelper.CURRENCY_PREFERENCE_KEY.equals(key)) {
+            } else if (CurrencyHelper.CURRENCY_PREFERENCE_KEY.equals(key)) {
                 displayCurrentCurrency();
             }
         };

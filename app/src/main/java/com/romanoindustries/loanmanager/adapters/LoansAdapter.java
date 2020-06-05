@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -18,9 +19,9 @@ import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
-import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,11 +34,11 @@ import static com.romanoindustries.loanmanager.newloan.NewLoanInterestFragment.L
 
 public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHolder> {
 
-    private List<Loan>loans;
+    private ArrayList<Loan> loans;
     private OnLoanListener onLoanListener;
     private String currencyLabel;
 
-    public LoansAdapter(List<Loan> loans, OnLoanListener onLoanListener) {
+    public LoansAdapter(ArrayList<Loan> loans, OnLoanListener onLoanListener) {
         this.loans = loans;
         this.onLoanListener = onLoanListener;
         mItemManger.setMode(Attributes.Mode.Single);
@@ -52,14 +53,10 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
     }
 
     public void updateLoans(List<Loan> loans) {
-        this.loans = loans;
-        notifyDataSetChanged();
-    }
-
-    public void sortModeChanged(int sortMode) {
-        mItemManger.closeAllItems();
-        SortModeHelper.sortLoansAccordingly(sortMode, loans);
-        notifyDataSetChanged();
+        DiffUtilCallbackLoans callbackLoans = new DiffUtilCallbackLoans(getLoans(), loans);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbackLoans);
+        this.loans = new ArrayList<>(loans);
+        result.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -129,7 +126,9 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 onLoanListener.onLoanCLicked(getAdapterPosition());
                 swipeLayout.close();
             });
-            btnHighlight.setOnClickListener(v -> onLoanListener.onLoanHighlightClicked(getAdapterPosition()));
+            btnHighlight.setOnClickListener(v -> {
+                onLoanListener.onLoanHighlightClicked(getAdapterPosition());
+            });
             btnDelete.setOnClickListener(v -> {
                 onLoanListener.onLoanDeleteClicked(getAdapterPosition());
                 swipeLayout.close();
@@ -214,6 +213,47 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
                 percentTv.setText(context.getString(R.string.list_item_empty_placeholder));
                 periodTv.setText(context.getString(R.string.list_item_empty_placeholder));
             }
+        }
+    }
+
+    public class DiffUtilCallbackLoans extends DiffUtil.Callback {
+
+        private List<Loan> oldList;
+        private List<Loan> newList;
+
+        public DiffUtilCallbackLoans(List<Loan> oldList, List<Loan> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            Loan loan1 = oldList.get(oldItemPosition);
+            Loan loan2 = newList.get(newItemPosition);
+            return loan1.getId() == loan2.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            Loan loan1 = oldList.get(oldItemPosition);
+            Loan loan2 = newList.get(newItemPosition);
+
+            return (loan1.getDebtorName().equals(loan2.getDebtorName())) &&
+                    loan1.getCurrentAmount() == loan2.getCurrentAmount() &&
+                    loan1.getPaymentDateInMs() == loan2.getPaymentDateInMs() &&
+                    loan1.getInterestRate() == loan2.getInterestRate() &&
+                    loan1.getPeriodInDays() == loan2.getPeriodInDays() &&
+                    loan1.isHighlighted() == loan2.isHighlighted();
         }
     }
 

@@ -284,31 +284,27 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
             if (item.isChecked()) {
                 return true;
             }
-            item.setChecked(true);int sortMode = 1;
+            item.setChecked(true);
+
             switch (item.getItemId()) {
 
                 case R.id.mnu_sort_item_old_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_OLD_FIRST);
-                    sortMode = SortModeHelper.SORT_OLD_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_new_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_NEW_FIRST);
-                    sortMode = SortModeHelper.SORT_NEW_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_big_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_BIG_FIRST);
-                    sortMode = SortModeHelper.SORT_BIG_FIRST;
                     break;
 
                 case R.id.mnu_sort_item_small_first:
                     SortModeHelper.setSortMode(requireContext(), SortModeHelper.SORT_SMALL_FIRST);
-                    sortMode = SortModeHelper.SORT_SMALL_FIRST;
                     break;
 
             }
-            loansAdapter.sortModeChanged(sortMode);
             return true;
         });
     }
@@ -316,7 +312,7 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
     private void registerSharedPreferencesListener() {
         sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (SortModeHelper.SORT_MODE_KEY.equals(key)) {
-                List<Loan> currentLoans = loansAdapter.getLoans();
+                List<Loan> currentLoans = new ArrayList<>(loansAdapter.getLoans());
                 SortModeHelper.sortLoansAccordingly(SortModeHelper.getSortMode(requireContext()), currentLoans);
                 loansAdapter.updateLoans(currentLoans);
             } else if (NotificationPreferencesHelper.NOTIFICATION_MODE_KEY.equals(key)) {

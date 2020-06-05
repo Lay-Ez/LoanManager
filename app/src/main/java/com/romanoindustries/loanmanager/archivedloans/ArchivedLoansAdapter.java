@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -19,11 +20,11 @@ import com.romanoindustries.loanmanager.MainActivity;
 import com.romanoindustries.loanmanager.MyApp;
 import com.romanoindustries.loanmanager.R;
 import com.romanoindustries.loanmanager.datamodel.Loan;
-import com.romanoindustries.loanmanager.sorting.SortModeHelper;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -55,15 +56,10 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
     }
 
     void updateLoans(List<Loan> loans) {
-        this.loans = loans;
-        notifyDataSetChanged();
-        mItemManger.closeAllItems();
-    }
-
-    void sortModeChanged(int sortMode) {
-        mItemManger.closeAllItems();
-        SortModeHelper.sortLoansAccordingly(sortMode, loans);
-        notifyDataSetChanged();
+        DiffUtilCallbackLoansArch callbackLoans = new DiffUtilCallbackLoansArch(getLoans(), loans);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbackLoans);
+        this.loans = new ArrayList<>(loans);
+        result.dispatchUpdatesTo(this);
     }
 
     @NotNull
@@ -205,6 +201,48 @@ public class ArchivedLoansAdapter extends RecyclerSwipeAdapter<ArchivedLoansAdap
                 percentTv.setText(periodStr);
                 periodTv.setText(periodStr);
             }
+        }
+    }
+
+    public class DiffUtilCallbackLoansArch extends DiffUtil.Callback {
+
+        private List<Loan> oldList;
+        private List<Loan> newList;
+
+        public DiffUtilCallbackLoansArch(List<Loan> oldList, List<Loan> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            Loan loan1 = oldList.get(oldItemPosition);
+            Loan loan2 = newList.get(newItemPosition);
+            return loan1.getId() == loan2.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            Loan loan1 = oldList.get(oldItemPosition);
+            Loan loan2 = newList.get(newItemPosition);
+
+            return (loan1.getDebtorName().equals(loan2.getDebtorName())) &&
+                    loan1.getCurrentAmount() == loan2.getCurrentAmount() &&
+                    loan1.getPaymentDateInMs() == loan2.getPaymentDateInMs() &&
+                    loan1.getStartDateInMs() == loan2.getStartDateInMs() &&
+                    loan1.getType() == loan2.getType() &&
+                    loan1.getInterestRate() == loan2.getInterestRate() &&
+                    loan1.getPeriodInDays() == loan2.getPeriodInDays();
         }
     }
 

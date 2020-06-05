@@ -1,6 +1,7 @@
 package com.romanoindustries.loanmanager.loanrepo;
 
 import android.app.Application;
+import android.util.Pair;
 
 import androidx.lifecycle.LiveData;
 
@@ -43,6 +44,10 @@ public class LoanRepo {
 
     public void deleteAllLoans() {
         new DbExecutorAsyncTask(TASK_TYPE_DELETE_ALL, loanDao).execute();
+    }
+
+    public void setHighlighted(int loanId, boolean highlighted) {
+        new LoanHighlightAsync(loanDao).execute(new Pair<>(loanId, highlighted));
     }
 
     public LiveData<List<Loan>> getInLoans() {
