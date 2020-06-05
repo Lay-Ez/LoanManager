@@ -197,7 +197,6 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
     private void archiveLoan(int position) {
         Loan loanToArchive = loansAdapter.getLoans().get(position);
         loanToArchive.setType(Loan.TYPE_ARCHIVED_OUT);
-        loanToArchive.setPaymentDateInMs(Calendar.getInstance().getTimeInMillis());
         loanToArchive.setNextChargingDateInMs(0);
         loansViewModel.update(loanToArchive);
     }

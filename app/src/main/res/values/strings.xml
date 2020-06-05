@@ -31,14 +31,14 @@
     <!--  list item -->
     <string name="list_item_currency_label">USD</string>
     <string name="list_item_start_date_label">Added:</string>
-    <string name="list_item_end_date_label">Due date:</string>
+    <string name="list_item_end_date_label">Due:</string>
     <string name="list_item_rate_label">Rate:</string>
     <string name="list_item_empty_placeholder" translatable="false">-</string>
     <string name="list_item_rate_divider" translatable="false">/</string>
 
     <!-- arch list item specific -->
     <string name="list_item_arch_start_date_label">Added:</string>
-    <string name="list_item_arch_end_date_label">Ended:</string>
+    <string name="list_item_arch_end_date_label">Due:</string>
 
     <!-- new loan activity -->
     <string name="new_loan_toolbar_title">New loan</string>
