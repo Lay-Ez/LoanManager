@@ -67,8 +67,13 @@ public class ArchivedLoansFragment extends Fragment implements ArchivedLoansAdap
         initViews(view);
         loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
         loansViewModel.getArchivedLoans().observe(this, this::parseLoans);
-        registerSharedPreferencesListener();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerSharedPreferencesListener();
     }
 
     @Override

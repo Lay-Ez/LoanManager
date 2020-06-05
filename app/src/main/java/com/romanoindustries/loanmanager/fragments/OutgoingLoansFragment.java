@@ -73,8 +73,13 @@ public class OutgoingLoansFragment extends Fragment implements LoansAdapter.OnLo
 
         loansViewModel = ((MainActivity) requireActivity()).loansViewModel;
         loansViewModel.getOutLoans().observe(this, this::parseLoans);
-        registerSharedPreferencesListener();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerSharedPreferencesListener();
     }
 
     @Override
