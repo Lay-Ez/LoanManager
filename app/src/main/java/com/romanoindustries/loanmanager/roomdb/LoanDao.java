@@ -26,9 +26,6 @@ public interface LoanDao {
     @Query("DELETE FROM loan_table")
     void deleteAllLoans();
 
-    @Query("UPDATE loan_table SET highlighted=:highlighted WHERE id=:loanId")
-    void setHighlighted(int loanId, boolean highlighted);
-
     @Query("SELECT * FROM loan_table")
     LiveData<List<Loan>> getAllLoans();
 

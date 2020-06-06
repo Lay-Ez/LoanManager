@@ -1,7 +1,6 @@
 package com.romanoindustries.loanmanager.loanrepo;
 
 import android.app.Application;
-import android.util.Pair;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,7 +10,10 @@ import com.romanoindustries.loanmanager.roomdb.LoanDatabase;
 
 import java.util.List;
 
-import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.*;
+import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.TASK_TYPE_DELETE_ALL;
+import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.TASK_TYPE_DELETE_SINGLE;
+import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.TASK_TYPE_INSERT;
+import static com.romanoindustries.loanmanager.loanrepo.DbExecutorAsyncTask.TASK_TYPE_UPDATE;
 
 public class LoanRepo {
 
@@ -44,10 +46,6 @@ public class LoanRepo {
 
     public void deleteAllLoans() {
         new DbExecutorAsyncTask(TASK_TYPE_DELETE_ALL, loanDao).execute();
-    }
-
-    public void setHighlighted(int loanId, boolean highlighted) {
-        new LoanHighlightAsync(loanDao).execute(new Pair<>(loanId, highlighted));
     }
 
     public LiveData<List<Loan>> getInLoans() {

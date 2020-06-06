@@ -42,10 +42,6 @@ public class LoansViewModel extends AndroidViewModel {
         loanRepo.deleteAllLoans();
     }
 
-    public void updateHighlighted(int loanId, boolean highlighted) {
-        loanRepo.setHighlighted(loanId, highlighted);
-    }
-
     public LiveData<List<Loan>> getInLoans() {
         return inLoans;
     }

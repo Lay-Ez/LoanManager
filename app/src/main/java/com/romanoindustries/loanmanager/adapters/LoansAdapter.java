@@ -57,6 +57,7 @@ public class LoansAdapter extends RecyclerSwipeAdapter<LoansAdapter.LoanViewHold
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbackLoans);
         this.loans = new ArrayList<>(loans);
         result.dispatchUpdatesTo(this);
+        mItemManger.closeAllItems();
     }
 
     @Override
